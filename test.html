@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Testing Project</title>
+    <style>
+        /* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+/* Body Styling */
+body {
+    background: linear-gradient(135deg, #00214d, #00bcd4);
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    text-align: center;
+    padding: 20px;
+}
+
+/* Header Styling */
+header {
+    margin-bottom: 40px;
+    animation: fadeIn 1s ease-in-out;
+}
+
+header h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    background: linear-gradient(90deg, #e91e63, #3f51b5);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Main Layout */
+main {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
+    width: 100%;
+    max-width: 1200px;
+}
+
+/* Project Links as Cards */
+.auto {
+    position: relative;
+    display: block;
+    width: 300px;
+    height: 150px;
+    background: #fff;
+    color: #00214d;
+    text-decoration: none;
+    font-size: 1.5rem;
+    font-weight: 600;
+    border-radius: 15px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    transition: transform 0.4s ease, box-shadow 0.4s ease, background 0.4s ease;
+}
+
+/* Hover Effect */
+.auto:hover {
+    transform: scale(1.1) rotate(2deg);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.4);
+    background: linear-gradient(145deg, #e91e63, #3f51b5);
+    color: #fff;
+}
+
+.auto::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(0, 188, 212, 0.2), rgba(255, 255, 255, 0));
+    transform: rotate(45deg);
+    transition: transform 0.4s ease-in-out, opacity 0.4s ease;
+    opacity: 0;
+    z-index: 0;
+}
+
+.auto:hover::before {
+    transform: rotate(0deg);
+    opacity: 1;
+}
+
+.auto span {
+    position: relative;
+    z-index: 1;
+}
+
+/* Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .auto {
+        width: 90%;
+        height: 100px;
+        font-size: 1.2rem;
+    }
+}
+
+    </style>
+</head>
+<body>
+    <header>
+        <h2>Explore My Testing Project</h2>
+    </header>
+    <main>
+        <a href="code.html" class="auto">Vision Script</a>
+        <a href="hrm.html" class="auto">Orange HRM</a>
+    </main>
+</body>
+</html>

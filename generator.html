@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quote Generator</title>
+    <style>
+        body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f4f8;
+    font-family: Arial, sans-serif;
+    margin: 0;
+}
+.quote-box {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 500px;
+}
+.quote {
+    font-size: 1.5em;
+    margin-bottom: 15px;
+}
+.author {
+    font-size: 1em;
+    color: #555;
+}
+button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 1em;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+button:hover {
+    background-color: #0056b3;
+}
+    </style>
+</head>
+<body>
+    <div class="quote-box">
+        <div class="quote" id="quote">"The best way to predict the future is to invent it."</div>
+        <div class="author" id="author">- Alan Kay</div>
+        <button onclick="generateQuote()">New Quote</button>
+    </div>
+    <script>
+        const quotes = [
+    { text: "The best way to predict the future is to invent it.", author: "Alan Kay" },
+    { text: "Life is 10% what happens to us and 90% how we react to it.", author: "Charles R. Swindoll" },
+    { text: "The only limit to our realization of tomorrow is our doubts of today.", author: "Franklin D. Roosevelt" },
+    { text: "Do what you can, with what you have, where you are.", author: "Theodore Roosevelt" },
+    { text: "The secret of getting ahead is getting started.", author: "Mark Twain" }
+    { text: "Sometime one percent chance is far enough for getting succeed.", author: "Virat Kohli"},
+    { }
+];
+
+function generateQuote() {
+    const randomIndex = Math.floor(Math.random() * quotes.length);
+    document.getElementById('quote').textContent = `"${quotes[randomIndex].text}"`;
+    document.getElementById('author').textContent = `- ${quotes[randomIndex].author}`;
+}
+    </script>
+</body>
+</html>

@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Me</title>
+    <style>
+        /* Import Font Awesome for icons */
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css');
+
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Body Styling */
+body {
+    background: linear-gradient(to bottom right, #e3f2fd, #f1f8e9);
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+/* Header Styling */
+header {
+    width: 100%;
+    max-width: 1200px;
+    background: #1e88e5;
+    color: #fff;
+    border-radius: 10px;
+    padding: 15px 20px;
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    animation: slideIn 1s ease-out;
+}
+
+header nav h2 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+/* Main Layout */
+main {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+/* Personal Details Section */
+#content {
+    flex: 1;
+    min-width: 350px;
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
+    padding: 25px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    animation: fadeInUp 1.2s ease-out;
+}
+
+#content:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+#content::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 5px;
+    width: 100%;
+    background: linear-gradient(to right, #1e88e5, #43a047);
+    border-radius: 15px 15px 0 0;
+}
+
+#content .info p {
+    margin-bottom: 12px;
+    font-size: 1.1rem;
+    line-height: 1.5;
+    color: #555;
+}
+
+#summary {
+    margin-top: 20px;
+    font-size: 1.4rem;
+    color: #43a047;
+    font-weight: 600;
+    border-left: 5px solid #43a047;
+    padding-left: 10px;
+}
+
+#about p {
+    margin-top: 10px;
+    line-height: 1.6;
+    text-align: justify;
+}
+
+/* Education Section */
+#content2 {
+    flex: 1;
+    min-width: 350px;
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
+    padding: 25px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    animation: fadeInUp 1.5s ease-out;
+}
+
+#content2:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+#content2::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 5px;
+    width: 100%;
+    background: linear-gradient(to right, #43a047, #1e88e5);
+    border-radius: 15px 15px 0 0;
+}
+
+#content2 h4 {
+    margin-bottom: 15px;
+    color: #1e88e5;
+    font-size: 1.2rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+}
+
+#content2 h4 i {
+    margin-right: 10px;
+    color: #43a047;
+}
+
+#content2 li {
+    margin-bottom: 10px;
+    font-size: 1rem;
+    line-height: 1.4;
+    color: #555;
+}
+
+#content2 ul {
+    margin-left: 20px;
+    color: #444;
+}
+
+/* Animations */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    main {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #content, #content2 {
+        width: 90%;
+    }
+}
+
+    </style>
+</head>
+<body>
+    <header id="tag">
+        <nav id="part1">
+            <h2>Personal Details</h2>
+        </nav>
+        <nav id="part2">
+            <h2>Education</h2>
+        </nav>
+    </header>
+    <main id="head">
+        <div id="content">
+            <span class="info">
+            <p><b>Name:</b> Gyana Prakash Khandual</p>
+            <p><b>Age:</b> 21 Years</p>
+            <p><b>Parents:</b> Satyabrat Khandual & Priti chhanda Khandual</p>
+            <p><b>Adress:</b> Bhubaneswar, Odisha, 755011</p>
+            <p><b>Contact:</b> 7606939833</p>
+            <p><b>Email ID:</b> gyanaprakashkhnadual@gmail.com</p>
+        </span>
+            <h5 id="summary">A Summary of My Life[Last 2 decades]</h5>
+            <span id="about">
+            <p>Hello, I’m Gyana Prakash Khandual, a 21-year-old aspiring QA Tester and Full-Stack Web Developer from Jajpur, Odisha. My journey has been one of resilience and growth, shaped by challenges and the determination to overcome them. During my early years, I struggled with Mathematics, failing in 7th standard, but I made a remarkable comeback in 9th, scoring 88 marks. Though I initially took longer to grasp high-level concepts, a turning point came at age 15 when I began excelling academically and developed a knack for thinking outside the box. My peers often regard me as the most intelligent and dependable person in solvingproblems. Despite setbacks in NIMCET and CUET due to limited resources and inconsistent preparation, I secured an MCA offer from BBAU Lucknow. However, economic conditions, late admission procedures, health issues, and some personal reasons led me to choose Masai School instead. At Masai, I initially struggled with programming and failed to clear Unit 1 due to a long academic break and being new to coding. I then transitioned to the SDET program, where I am also have a passion for quality assurance. As an SDET, I thrive on ensuring the delivery of high-quality products and take pride in being responsible for their success. My skill set includes HTML, CSS, JavaScript, Java, MySQL, Cypress, Selenium, Post Man and Manual testing. I enjoy solving complex problems and aim to combine my QA expertise with full-stack development to create reliable, innovative solutions.I believe that every challenge is an opportunity to grow, and I’m excited to continue this journey of learning and contributing to impactful projects.</p>
+        </span>
+        </div>
+        <div id="content2">
+            <h4>Age 5 - 15</h4>
+            <li>Board of Secondary Education</li>
+            <h4>Age 15 - 17</h4>
+            <li>Higher Secondary Education</li>
+            <li>Stream - Science</li>
+            <h4>Age 17 - 20</h4>
+            <li>Bachelor of Phyics</li>
+            <li>Computer PGDCA</li>
+            <h4>Age 21 - Yet</h4>
+            <li>HTML 5</li>
+            <li>CSS</li>
+            <li>JavaScript</li>
+            <li>Java</li>
+            <li>My SQL</li>
+            <li>Manual Testing <ul>Excel</ul><ul>Word</ul><ul>Jira</ul><ul>Jypher</ul><ul>Miro Mandmap</ul></li>
+            <li>Automation Testing <ul>Cypress</ul> <ul>Cucumber</ul> <ul>Selenium</ul><ul>TestNG</ul></li>
+            <li>API Testing <ul>Post Man</ul><ul>Spring Tool</ul></li>
+            <li>Security Testing <ul>Burp Suite</ul></li>
+        </div>
+    </main>
+</body>
+</html>

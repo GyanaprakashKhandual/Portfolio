@@ -1,0 +1,295 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rock Paper Scissors Game</title>
+    <style>
+      * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  background: linear-gradient(135deg, #081b31, #1c487f);
+  color: #fff;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 1rem;
+}
+
+/* Header */
+h1 {
+  font-size: 3rem;
+  margin-top: 1rem;
+  text-shadow: 2px 2px 8px #000;
+  animation: fadeIn 2s ease-in-out;
+}
+
+/* Game Choices */
+.choices {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.choice {
+  height: 165px;
+  width: 165px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(145deg, #e2e2e2, #b8b8b8);
+  box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.4);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.choice:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+  box-shadow: 6px 6px 12px rgba(0, 0, 0, 0.6);
+  background: linear-gradient(145deg, #d1d1d1, #9f9f9f);
+}
+
+img {
+  height: 140px;
+  width: 140px;
+  object-fit: cover;
+  border-radius: 50%;
+  animation: bounce 1.5s infinite alternate;
+}
+
+/* Score Board */
+.score-board {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  margin-top: 3rem;
+  gap: 5rem;
+}
+
+.score {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#user-score,
+#comp-score {
+  font-size: 3rem;
+  color: #00ff00;
+  text-shadow: 2px 2px 5px #000;
+}
+
+.msg-container {
+  margin-top: 3rem;
+}
+
+#msg {
+  background-color: #081b31;
+  color: #fff;
+  font-size: 1.8rem;
+  padding: 1rem 2rem;
+  border-radius: 1rem;
+  text-shadow: 1px 1px 5px #000;
+  animation: glow 2s infinite alternate;
+}
+
+/* Footer Note Design */
+footer {
+  margin-top: 5rem;
+  background: #fff;
+  color: #000;
+  border-radius: 10px;
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);
+  padding: 1.5rem;
+  width: 90%;
+  max-width: 800px;
+  animation: slideUp 1.5s ease-in-out;
+}
+
+footer h3 {
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  color: #081b31;
+  text-decoration: underline;
+}
+
+footer p {
+  background: #f0f0f0;
+  padding: 0.8rem;
+  border-radius: 8px;
+  font-family: 'Courier New', monospace;
+  overflow-x: auto;
+  text-align: left;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes bounce {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-15px);
+  }
+}
+
+@keyframes glow {
+  from {
+    text-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00, 0 0 30px #00ff00;
+  }
+  to {
+    text-shadow: 0 0 20px #00ff00, 0 0 30px #00ff00, 0 0 40px #00ff00;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2.5rem;
+  }
+
+  .choices {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .choice {
+    height: 140px;
+    width: 140px;
+  }
+
+  img {
+    height: 120px;
+    width: 120px;
+  }
+
+  #msg {
+    font-size: 1.5rem;
+  }
+
+  footer {
+    padding: 1rem;
+  }
+}
+
+    </style>
+  </head>
+  <body>
+    <h1>Rock Paper Scissors</h1>
+    <div class="choices">
+      <div class="choice" id="rock">
+        <img src="./Images/rock.png" />
+      </div>
+      <div class="choice" id="paper">
+        <img src="./Images/paper.png" />
+      </div>
+      <div class="choice" id="scissors">
+        <img src="./Images/scissors.png" />
+      </div>
+    </div>
+    <div class="score-board">
+      <div class="score">
+        <p id="user-score">0</p>
+        <p>You</p>
+      </div>
+      <div class="score">
+        <p id="comp-score">0</p>
+        <p>Comp</p>
+      </div>
+    </div>
+    <div class="msg-container">
+      <p id="msg">Play your move</p>
+    </div>
+    <script>
+      let userScore = 0;
+let compScore = 0;
+const choices = document.querySelectorAll(".choice");
+const msg = document.querySelector("#msg");
+const userScorePara = document.querySelector("#user-score");
+const compScorePara = document.querySelector("#comp-score");
+const genCompChoice = () => {
+  const options = ["rock", "paper", "scissors"];
+  const randIdx = Math.floor(Math.random() * 3);
+  return options[randIdx];
+};
+const drawGame = () => {
+  msg.innerText = "Game was Draw. Play again.";
+  msg.style.backgroundColor = "#081b31";
+};
+const showWinner = (userWin, userChoice, compChoice) => {
+  if (userWin) {
+    userScore++;
+    userScorePara.innerText = userScore;
+    msg.innerText = `You win! Your ${userChoice} beats ${compChoice}`;
+    msg.style.backgroundColor = "green";
+  } else {
+    compScore++;
+    compScorePara.innerText = compScore;
+    msg.innerText = `You lost. ${compChoice} beats your ${userChoice}`;
+    msg.style.backgroundColor = "red";
+  }
+};
+const playGame = (userChoice) => {
+  //Generate computer choice
+  const compChoice = genCompChoice();
+  if (userChoice === compChoice) {
+    //Draw Game
+    drawGame();
+  } else {
+    let userWin = true;
+    if (userChoice === "rock") {
+      //scissors, paper
+      userWin = compChoice === "paper" ? false : true;
+    } else if (userChoice === "paper") {
+      //rock, scissors
+      userWin = compChoice === "scissors" ? false : true;
+    } else {
+      //rock, paper
+      userWin = compChoice === "rock" ? false : true;
+    }
+    showWinner(userWin, userChoice, compChoice);
+  }
+};
+choices.forEach((choice) => {
+  choice.addEventListener("click", () => {
+    const userChoice = choice.getAttribute("id");
+    playGame(userChoice);
+  });
+});
+    </script>
+  </body>
+</html>

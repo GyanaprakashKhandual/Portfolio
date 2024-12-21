@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Help Desk</title>
+    <style>
+        /* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Body Styling */
+body {
+    background: linear-gradient(to bottom right, #938c9b, #5e6b82);
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 10px;
+}
+
+/* Header Styling */
+header {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+header h2 {
+    font-size: 2.5rem;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+}
+
+/* Form Styling */
+main form {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 20px 30px;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    animation: fadeIn 1.5s ease;
+}
+
+main h6 {
+    font-size: 1rem;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+form input[type="name"],
+form input[type="email"],
+form input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    background-color: rgba(255, 255, 255, 0.9);
+    color: #333;
+    outline: none;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+/* Resize Queries Input Box */
+form input[type="text"] {
+    height: 100px;
+    resize: none;
+}
+
+/* Submit Button Styling */
+form input[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    font-size: 1.2rem;
+    color: #fff;
+    background-color: #2575fc;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-weight: bold;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
+}
+
+form input[type="submit"]:hover {
+    background-color: #6a11cb;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* Input Hover Effect */
+form input[type="name"]:hover,
+form input[type="email"]:hover,
+form input[type="text"]:hover {
+    transform: scale(1.02);
+    box-shadow: 0 5px 10px rgba(255, 255, 255, 0.3);
+}
+
+/* Media Queries */
+@media (max-width: 480px) {
+    header h2 {
+        font-size: 1.8rem;
+    }
+
+    main form {
+        padding: 15px 20px;
+    }
+}
+
+/* Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+    </style>
+</head>
+<body>
+    <header>
+        <h2>Send Your Queries to Us</h2>
+    </header>
+    <main>
+        <form action="#">
+            <h6>Full Name</h6>
+            <input type="Name" placeholder="Enter Your Name" >
+            <h6>Email ID</h6>
+            <input type="email" placeholder="Enter Your Email">
+            <h6>Queries</h6>
+            <input type="text" placeholder="Write Your Queries">
+            <input type="submit" value="Submit">
+        </form>
+    </main>
+</body>
+</html>
