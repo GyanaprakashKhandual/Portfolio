@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { User, GraduationCap, Code, Briefcase, X } from 'lucide-react';
 
@@ -14,6 +14,31 @@ import { FaGithub } from 'react-icons/fa6';
 const AboutPage = () => {
     const [activeSection, setActiveSection] = useState('personal');
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+    // Drag constraints must be computed on the client — avoid accessing `window` during SSR.
+    const [dragConstraints, setDragConstraints] = useState({
+        top: -100,
+        left: -20,
+        right: 0,
+        bottom: 0
+    });
+
+    useEffect(() => {
+        if (typeof window === 'undefined') return;
+
+        const updateConstraints = () => {
+            setDragConstraints({
+                top: -100,
+                left: -20,
+                right: window.innerWidth - 260,
+                bottom: window.innerHeight - 320
+            });
+        };
+
+        updateConstraints();
+        window.addEventListener('resize', updateConstraints);
+        return () => window.removeEventListener('resize', updateConstraints);
+    }, []);
 
     const menuItems = [
         { id: 'personal', label: 'About', icon: User, component: About },
@@ -35,12 +60,7 @@ const AboutPage = () => {
                 drag
                 dragMomentum={false}
                 dragElastic={0.1}
-                dragConstraints={{
-                    top: -100,
-                    left: -20,
-                    right: window.innerWidth - 260,
-                    bottom: window.innerHeight - 320
-                }}
+                dragConstraints={dragConstraints}
                 initial={{ x: -20, y: 100 }}
                 className="fixed z-50 w-25"
             >
