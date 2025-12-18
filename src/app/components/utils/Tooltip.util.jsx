@@ -71,7 +71,7 @@ const Tooltip = () => {
 
     // Calculate position after render
     requestAnimationFrame(calculatePosition);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tooltip.visible, tooltip.targetRect, tooltip.placement]);
 
   return (
@@ -83,7 +83,9 @@ const Tooltip = () => {
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.85 }}
           transition={{ duration: 0.1, ease: "easeOut" }}
-          className={`fixed z-99999 pointer-events-none ${tooltip.customClass || ""}`}
+          className={`fixed z-99999 pointer-events-none ${
+            tooltip.customClass || ""
+          }`}
           style={{
             top: `${position.top}px`,
             left: `${position.left}px`,

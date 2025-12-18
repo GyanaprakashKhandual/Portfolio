@@ -1,12 +1,16 @@
-import ContactPage from '@/app/pages/Contact.page'
-import React from 'react'
+import ContactPage from "@/app/pages/Contact.page";
+
+export const metadata = {
+  title: "Gyan | Contact",
+  description: "Contact me through this page",
+};
 
 function page() {
   return (
     <div>
-        <ContactPage/>
+      <ContactPage />
     </div>
-  )
+  );
 }
 
-export default page
+export default page;

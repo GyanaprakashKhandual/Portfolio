@@ -1,12 +1,16 @@
-import SkillsShowcase from '@/app/components/modules/Frontend'
-import React from 'react'
+import SkillPage from "@/app/pages/Skill.page";
+
+export const metadata = {
+  title: "Gyan | Skills",
+  description: "This page is all about my skill showing",
+};
 
 function page() {
   return (
-    <div className='max-h-15'>
-        <SkillsShowcase/>
+    <div className="mt-15">
+      <SkillPage />
     </div>
-  )
+  );
 }
 
-export default page
+export default page;
