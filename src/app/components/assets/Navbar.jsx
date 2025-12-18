@@ -14,12 +14,12 @@ export default function Navbar() {
     const [scrolled, setScrolled] = useState(false);
 
     const navLinks = [
-        { name: 'About', path: '/about' },
+        { name: 'Skill', path: '/skills' },
+        { name: 'Education', path: '/education' },
         { name: 'Projects', path: '/projects' },
         { name: 'Experience', path: '/experience' },
         { name: 'Blogs', path: '/blogs' },
-        { name: 'Contact', path: '/contact' },
-        { name: 'Help', path: '/help' }
+        { name: 'Contact', path: '/contact' }
     ];
 
     useEffect(() => {
@@ -46,10 +46,7 @@ export default function Navbar() {
                 initial={{ y: -100 }}
                 animate={{ y: 0 }}
                 transition={{ duration: 0.5, ease: 'easeOut' }}
-                className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled
-                    ? 'bg-white/80 dark:bg-black/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-800'
-                    : 'bg-white/60 dark:bg-black/60 backdrop-blur-sm'
-                    }`}
+                className={`fixed top-0 left-0 right-0 z-50 transition-all border-b border-gray-200 duration-300 bg-white dark:bg-black/80`}
             >
                 <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
                     <div className="flex items-center justify-between h-16 sm:h-20">
