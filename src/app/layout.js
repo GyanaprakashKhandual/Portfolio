@@ -1,7 +1,9 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Navbar from "./components/Navbar";
+import Navbar from "./components/assets/Navbar";
 import { ThemeProvider } from "./scripts/Theme.context";
+import { TooltipProvider } from "./scripts/Tooltip.context";
+import Tooltip from "./components/utils/Tooltip.util";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -24,10 +26,13 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white dark:bg-black text-black dark:text-white transition-colors duration-300`}
       >
-        <ThemeProvider>
-          <Navbar />
-          {children}
-        </ThemeProvider>
+        <TooltipProvider>
+          <ThemeProvider>
+            <Navbar />
+            {children}
+            <Tooltip />
+          </ThemeProvider>
+        </TooltipProvider>
       </body>
     </html>
   );

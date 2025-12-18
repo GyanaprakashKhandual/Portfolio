@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { Coffee, Moon, Sun, Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaCoffee } from 'react-icons/fa';
-import { useTheme } from '../scripts/Theme.context';
+import { useTheme } from '../../scripts/Theme.context';
 
 export default function Navbar() {
     const router = useRouter();
@@ -51,7 +51,7 @@ export default function Navbar() {
                     : 'bg-white/60 dark:bg-black/60 backdrop-blur-sm'
                     }`}
             >
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
                     <div className="flex items-center justify-between h-16 sm:h-20">
                         <motion.div
                             whileHover={{ scale: 1.05 }}
@@ -59,13 +59,13 @@ export default function Navbar() {
                             className="flex items-center gap-2 cursor-pointer"
                             onClick={() => handleNavigation('/')}
                         >
-                            <FaCoffee className="w-6 h-6 sm:w-7 sm:h-7 text-black dark:text-white" />
-                            <span className="text-xl sm:text-2xl font-bold text-black dark:text-white ml-2">
+                            <FaCoffee className="w-6 h-6 text-black sm:w-7 sm:h-7 dark:text-white" />
+                            <span className="ml-2 text-xl font-bold text-black sm:text-2xl dark:text-white">
                                 Gyan&#39;s
                             </span>
                         </motion.div>
 
-                        <div className="hidden lg:flex items-center gap-1 xl:gap-2">
+                        <div className="items-center hidden gap-1 lg:flex xl:gap-2">
                             {navLinks.map((link, index) => (
                                 <motion.button
                                     key={link.name}
@@ -75,7 +75,7 @@ export default function Navbar() {
                                     whileHover={{ scale: 1.05 }}
                                     whileTap={{ scale: 0.95 }}
                                     onClick={() => handleNavigation(link.path)}
-                                    className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors rounded-md hover:bg-gray-100 dark:hover:bg-gray-900"
+                                    className="px-4 py-2 text-sm font-medium text-gray-700 transition-colors rounded-md dark:text-gray-300 hover:text-black dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-900"
                                 >
                                     {link.name}
                                 </motion.button>
@@ -87,7 +87,7 @@ export default function Navbar() {
                                 whileHover={{ scale: 1.1 }}
                                 whileTap={{ scale: 0.9 }}
                                 onClick={toggleTheme}
-                                className="p-2 rounded-md bg-gray-100 dark:bg-gray-900 hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors"
+                                className="p-2 transition-colors bg-gray-100 rounded-md dark:bg-gray-900 hover:bg-gray-200 dark:hover:bg-gray-800"
                                 aria-label="Toggle theme"
                             >
                                 <AnimatePresence mode="wait">
@@ -99,7 +99,7 @@ export default function Navbar() {
                                             exit={{ rotate: 90, opacity: 0 }}
                                             transition={{ duration: 0.2 }}
                                         >
-                                            <Sun className="w-5 h-5 text-black dark:text-white" />
+                                            <Sun className="w-5 h-5 text-black dark:text-white" tooltip-data="Switch To White" />
                                         </motion.div>
                                     ) : (
                                         <motion.div
@@ -109,7 +109,7 @@ export default function Navbar() {
                                             exit={{ rotate: -90, opacity: 0 }}
                                             transition={{ duration: 0.2 }}
                                         >
-                                            <Moon className="w-5 h-5 text-black dark:text-white" />
+                                            <Moon className="w-5 h-5 text-black dark:text-white" tooltip-data="Switch To Dark" />
                                         </motion.div>
                                     )}
                                 </AnimatePresence>
@@ -119,7 +119,7 @@ export default function Navbar() {
                                 whileHover={{ scale: 1.1 }}
                                 whileTap={{ scale: 0.9 }}
                                 onClick={toggleMobileMenu}
-                                className="lg:hidden p-2 rounded-md bg-gray-100 dark:bg-gray-900 hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors"
+                                className="p-2 transition-colors bg-gray-100 rounded-md lg:hidden dark:bg-gray-900 hover:bg-gray-200 dark:hover:bg-gray-800"
                                 aria-label="Toggle menu"
                             >
                                 {isMobileMenuOpen ? (
@@ -141,7 +141,7 @@ export default function Navbar() {
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
                             transition={{ duration: 0.2 }}
-                            className="fixed inset-0 bg-black/50 dark:bg-white/10 backdrop-blur-sm z-40 lg:hidden"
+                            className="fixed inset-0 z-40 bg-black/50 dark:bg-white/10 backdrop-blur-sm lg:hidden"
                             onClick={toggleMobileMenu}
                         />
 
@@ -150,26 +150,26 @@ export default function Navbar() {
                             animate={{ x: 0 }}
                             exit={{ x: '100%' }}
                             transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-                            className="fixed top-0 right-0 bottom-0 w-full sm:w-80 bg-white dark:bg-black border-l border-gray-200 dark:border-gray-800 z-50 lg:hidden"
+                            className="fixed top-0 bottom-0 right-0 z-50 w-full bg-white border-l border-gray-200 sm:w-80 dark:bg-black dark:border-gray-800 lg:hidden"
                         >
-                            <div className="flex items-center justify-between p-4 sm:p-6 border-b border-gray-200 dark:border-gray-800">
+                            <div className="flex items-center justify-between p-4 border-b border-gray-200 sm:p-6 dark:border-gray-800">
                                 <div className="flex items-center gap-2">
                                     <Coffee className="w-6 h-6 text-black dark:text-white" />
                                     <span className="text-xl font-bold text-black dark:text-white">
-                                        GVV
+                                        Gyan&apos;s
                                     </span>
                                 </div>
                                 <motion.button
                                     whileHover={{ scale: 1.1 }}
                                     whileTap={{ scale: 0.9 }}
                                     onClick={toggleMobileMenu}
-                                    className="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-900 transition-colors"
+                                    className="p-2 transition-colors rounded-md hover:bg-gray-100 dark:hover:bg-gray-900"
                                 >
                                     <X className="w-5 h-5 text-black dark:text-white" />
                                 </motion.button>
                             </div>
 
-                            <div className="p-4 sm:p-6 space-y-2">
+                            <div className="p-4 space-y-2 sm:p-6">
                                 {navLinks.map((link, index) => (
                                     <motion.button
                                         key={link.name}
@@ -178,14 +178,14 @@ export default function Navbar() {
                                         transition={{ delay: index * 0.1 }}
                                         whileHover={{ x: 5 }}
                                         onClick={() => handleNavigation(link.path)}
-                                        className="w-full text-left px-4 py-3 text-base font-medium text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-900 rounded-md transition-colors"
+                                        className="w-full px-4 py-3 text-base font-medium text-left text-gray-700 transition-colors rounded-md dark:text-gray-300 hover:text-black dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-900"
                                     >
                                         {link.name}
                                     </motion.button>
                                 ))}
                             </div>
 
-                            <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 border-t border-gray-200 dark:border-gray-800">
+                            <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-200 sm:p-6 dark:border-gray-800">
                                 <div className="flex items-center justify-between">
                                     <span className="text-sm text-gray-600 dark:text-gray-400">
                                         Theme
@@ -194,16 +194,16 @@ export default function Navbar() {
                                         whileHover={{ scale: 1.05 }}
                                         whileTap={{ scale: 0.95 }}
                                         onClick={toggleTheme}
-                                        className="flex items-center gap-2 px-4 py-2 bg-gray-100 dark:bg-gray-900 rounded-md hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors"
+                                        className="flex items-center gap-2 px-4 py-2 transition-colors bg-gray-100 rounded-md dark:bg-gray-900 hover:bg-gray-200 dark:hover:bg-gray-800"
                                     >
                                         {theme === 'dark' ? (
                                             <>
                                                 <Sun className="w-4 h-4" />
-                                                <span className="text-sm font-medium">Light</span>
+                                                <span className="text-sm font-medium" tooltip-data="Light">Light</span>
                                             </>
                                         ) : (
                                             <>
-                                                <Moon className="w-4 h-4" />
+                                                <Moon className="w-4 h-4" tooltip-data="Dark" />
                                                 <span className="text-sm font-medium">Dark</span>
                                             </>
                                         )}
