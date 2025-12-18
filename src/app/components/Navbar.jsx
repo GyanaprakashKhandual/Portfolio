@@ -5,16 +5,17 @@ import { useRouter } from 'next/navigation';
 import { Coffee, Moon, Sun, Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaCoffee } from 'react-icons/fa';
+import { useTheme } from '../scripts/Theme.context';
 
 export default function Navbar() {
     const router = useRouter();
-    const [isDark, setIsDark] = useState(false);
+    const { theme, toggleTheme } = useTheme();
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
 
     const navLinks = [
         { name: 'About', path: '/about' },
-        { name: 'Work', path: '/work' },
+        { name: 'Projects', path: '/projects' },
         { name: 'Experience', path: '/experience' },
         { name: 'Blogs', path: '/blogs' },
         { name: 'Contact', path: '/contact' },
@@ -30,21 +31,9 @@ export default function Navbar() {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
-    useEffect(() => {
-        if (isDark) {
-            document.documentElement.classList.add('dark');
-        } else {
-            document.documentElement.classList.remove('dark');
-        }
-    }, [isDark]);
-
     const handleNavigation = (path) => {
         router.push(path);
         setIsMobileMenuOpen(false);
-    };
-
-    const toggleTheme = () => {
-        setIsDark(!isDark);
     };
 
     const toggleMobileMenu = () => {
@@ -58,13 +47,12 @@ export default function Navbar() {
                 animate={{ y: 0 }}
                 transition={{ duration: 0.5, ease: 'easeOut' }}
                 className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled
-                        ? 'bg-white/80 dark:bg-black/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-800'
-                        : 'bg-transparent'
+                    ? 'bg-white/80 dark:bg-black/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-800'
+                    : 'bg-white/60 dark:bg-black/60 backdrop-blur-sm'
                     }`}
             >
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex items-center justify-between h-16 sm:h-20">
-                        {/* Logo Section */}
                         <motion.div
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
@@ -77,7 +65,6 @@ export default function Navbar() {
                             </span>
                         </motion.div>
 
-                        {/* Desktop Navigation Links */}
                         <div className="hidden lg:flex items-center gap-1 xl:gap-2">
                             {navLinks.map((link, index) => (
                                 <motion.button
@@ -95,9 +82,7 @@ export default function Navbar() {
                             ))}
                         </div>
 
-                        {/* Right Section - Theme Toggle & Mobile Menu */}
                         <div className="flex items-center gap-3 sm:gap-4">
-                            {/* Theme Toggle Button */}
                             <motion.button
                                 whileHover={{ scale: 1.1 }}
                                 whileTap={{ scale: 0.9 }}
@@ -106,7 +91,7 @@ export default function Navbar() {
                                 aria-label="Toggle theme"
                             >
                                 <AnimatePresence mode="wait">
-                                    {isDark ? (
+                                    {theme === 'dark' ? (
                                         <motion.div
                                             key="sun"
                                             initial={{ rotate: -90, opacity: 0 }}
@@ -130,7 +115,6 @@ export default function Navbar() {
                                 </AnimatePresence>
                             </motion.button>
 
-                            {/* Mobile Menu Button */}
                             <motion.button
                                 whileHover={{ scale: 1.1 }}
                                 whileTap={{ scale: 0.9 }}
@@ -149,11 +133,9 @@ export default function Navbar() {
                 </div>
             </motion.nav>
 
-            {/* Mobile Menu Overlay */}
             <AnimatePresence>
                 {isMobileMenuOpen && (
                     <>
-                        {/* Backdrop */}
                         <motion.div
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
@@ -163,7 +145,6 @@ export default function Navbar() {
                             onClick={toggleMobileMenu}
                         />
 
-                        {/* Mobile Menu */}
                         <motion.div
                             initial={{ x: '100%' }}
                             animate={{ x: 0 }}
@@ -171,7 +152,6 @@ export default function Navbar() {
                             transition={{ type: 'spring', damping: 25, stiffness: 200 }}
                             className="fixed top-0 right-0 bottom-0 w-full sm:w-80 bg-white dark:bg-black border-l border-gray-200 dark:border-gray-800 z-50 lg:hidden"
                         >
-                            {/* Mobile Menu Header */}
                             <div className="flex items-center justify-between p-4 sm:p-6 border-b border-gray-200 dark:border-gray-800">
                                 <div className="flex items-center gap-2">
                                     <Coffee className="w-6 h-6 text-black dark:text-white" />
@@ -189,7 +169,6 @@ export default function Navbar() {
                                 </motion.button>
                             </div>
 
-                            {/* Mobile Menu Links */}
                             <div className="p-4 sm:p-6 space-y-2">
                                 {navLinks.map((link, index) => (
                                     <motion.button
@@ -206,7 +185,6 @@ export default function Navbar() {
                                 ))}
                             </div>
 
-                            {/* Mobile Menu Footer */}
                             <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 border-t border-gray-200 dark:border-gray-800">
                                 <div className="flex items-center justify-between">
                                     <span className="text-sm text-gray-600 dark:text-gray-400">
@@ -218,7 +196,7 @@ export default function Navbar() {
                                         onClick={toggleTheme}
                                         className="flex items-center gap-2 px-4 py-2 bg-gray-100 dark:bg-gray-900 rounded-md hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors"
                                     >
-                                        {isDark ? (
+                                        {theme === 'dark' ? (
                                             <>
                                                 <Sun className="w-4 h-4" />
                                                 <span className="text-sm font-medium">Light</span>
