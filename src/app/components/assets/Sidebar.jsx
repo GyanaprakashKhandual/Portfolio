@@ -24,7 +24,7 @@ export default function BlogSidebar({ posts }) {
   return (
     <div className="flex sidebar-scrollbar">
       <div
-        className={`fixed lg:sticky left-0 top-0 h-screen bg-white dark:bg-slate-950 border-r border-gray-200 dark:border-slate-800 transition-all duration-300 ease-in-out z-40 ${
+        className={`fixed lg:sticky left-0 top-0 h-screen bg-white dark:bg-slate-950 border-r border-gray-200 dark:border-gray-900 dark:border-slate-800 transition-all duration-300 ease-in-out z-40 ${
           isOpen ? "w-72" : "w-0"
         } overflow-hidden`}
       >

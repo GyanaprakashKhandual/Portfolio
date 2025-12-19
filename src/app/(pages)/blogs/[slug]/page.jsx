@@ -49,7 +49,7 @@ export default async function PostPage({ params }) {
           </p>
           <a
             href="/blogs"
-            className="inline-block mt-4 text-blue-600 hover:underline"
+            className="inline-block mt-4 text-gray-900 cursor-pointer"
           >
             ← Back to all posts
           </a>
