@@ -4,7 +4,7 @@ export const postMeta = {
   excerpt:
     "Learn the basics of Next.js and how to build amazing web applications.",
   date: "2024-01-15",
-  author: "John Doe",
+  author: "Gyana prakash Khandual",
 };
 
 export default function FirstPost() {

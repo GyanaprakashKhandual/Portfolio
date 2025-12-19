@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/error-boundaries */
 // app/(pages)/blogs/[slug]/page.jsx
 import { getPostBySlug, getAllPostSlugs } from "../../../lib/Get.Blog.post.lib";
 import BlogPost from "../../../components/assets/Blog.card";
@@ -11,10 +12,10 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }) {
   try {
-    const { slug } = await params; // AWAIT params here
+    const { slug } = await params;
     const post = getPostBySlug(slug);
 
-    if (!post) {
+    if (!post || !post.meta) {
       return {
         title: "Post Not Found",
         description: "This post does not exist",
@@ -36,11 +37,10 @@ export async function generateMetadata({ params }) {
 
 export default async function PostPage({ params }) {
   try {
-    const { slug } = await params; // AWAIT params here
-
+    const { slug } = await params;
     const post = getPostBySlug(slug);
 
-    if (!post) {
+    if (!post || !post.meta) {
       return (
         <div className="py-20 text-center">
           <h1 className="text-2xl font-bold text-red-600">Post not found</h1>

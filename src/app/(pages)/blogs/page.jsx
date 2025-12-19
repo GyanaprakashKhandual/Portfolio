@@ -6,8 +6,7 @@ export default function BlogPage() {
   const sortedPosts = posts.sort((a, b) => new Date(b.date) - new Date(a.date));
 
   return (
-    <div>
-      <h1 className="mb-8 text-4xl font-bold">Blog Posts</h1>
+    <div className="min-h-[calc(100vh - 80px)] min-h-[calc(100vh - 80px)] p-1 bg-white">
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
         {sortedPosts.map((post) => (
           <BlogCard key={post.slug} post={post} />
