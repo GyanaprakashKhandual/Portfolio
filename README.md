@@ -51,50 +51,6 @@ npm run build
 npm start
 ```
 
-## 📁 Project Structure
-
-```
-Portfolio/
-├── .next/
-├── node_modules/
-├── public/
-│   └── favicon.ico
-├── src/
-│   ├── app/
-│   │   ├── layout.js
-│   │   ├── page.js
-│   │   ├── globals.css
-│   │   ├── (pages)/
-│   │   │   ├── about/
-│   │   │   ├── projects/
-│   │   │   ├── experience/
-│   │   │   ├── blogs/
-│   │   │   ├── contact/
-│   │   │   └── help/
-│   │   └── components/
-│   │       ├── Navbar.jsx
-│   │       ├── Footer.jsx
-│   │       └── [other components]
-│   ├── scripts/
-│   │   └── ThemeContext.jsx
-│   └── data/
-│       ├── projects.json
-│       ├── experience.json
-│       ├── blogs.json
-│       └── portfolio.json
-├── .gitignore
-├── .hintrc
-├── eslint.config.mjs
-├── jsconfig.json
-├── next.config.mjs
-├── package-lock.json
-├── package.json
-├── postcss.config.mjs
-├── tailwind.config.js
-├── LICENSE
-└── README.md
-```
-
 ## 🌐 Live App
 
 [Portfolio Link](https://gyanprakash.vercel.app)

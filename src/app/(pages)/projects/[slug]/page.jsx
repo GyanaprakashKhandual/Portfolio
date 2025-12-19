@@ -1,5 +1,10 @@
+/* eslint-disable react-hooks/error-boundaries */
+/* eslint-disable react/no-unescaped-entities */
 // app/(pages)/projects/[slug]/page.jsx
-import { getProjectBySlug, getAllProjectSlugs } from '../../../lib/Get.Project.post.lib';
+import {
+  getProjectBySlug,
+  getAllProjectSlugs,
+} from "../../../lib/Get.Project.post.lib";
 
 export async function generateStaticParams() {
   const slugs = getAllProjectSlugs();
@@ -15,20 +20,20 @@ export async function generateMetadata({ params }) {
 
     if (!project || !project.meta) {
       return {
-        title: 'Project Not Found',
-        description: 'This project does not exist',
+        title: "Project Not Found",
+        description: "This project does not exist",
       };
     }
 
     return {
-      title: project.meta.title || 'Project',
-      description: project.meta.shortDesc || '',
+      title: project.meta.title || "Project",
+      description: project.meta.shortDesc || "",
     };
   } catch (error) {
-    console.error('Error generating metadata:', error);
+    console.error("Error generating metadata:", error);
     return {
-      title: 'Project',
-      description: '',
+      title: "Project",
+      description: "",
     };
   }
 }
@@ -65,15 +70,17 @@ export default async function ProjectPage({ params }) {
         >
           ← Back to all projects
         </a>
-        
+
         <ProjectComponent />
       </div>
     );
   } catch (error) {
-    console.error('Error rendering project:', error);
+    console.error("Error rendering project:", error);
     return (
       <div className="py-20 text-center">
-        <h1 className="text-2xl font-bold text-red-600">Error loading project</h1>
+        <h1 className="text-2xl font-bold text-red-600">
+          Error loading project
+        </h1>
         <p className="mt-2 text-gray-600 dark:text-slate-400">
           An error occurred while loading the project.
         </p>

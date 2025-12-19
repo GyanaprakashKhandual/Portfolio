@@ -1,6 +1,12 @@
 "use client";
 
-import { createContext, useContext, useState, useEffect, useCallback } from "react";
+import {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  useCallback,
+} from "react";
 
 const TooltipContext = createContext();
 
@@ -24,16 +30,19 @@ export const TooltipProvider = ({ children }) => {
 
   const [hoverTimeout, setHoverTimeout] = useState(null);
 
-  const showTooltip = useCallback((content, targetRect, placement = "bottom", customClass = "") => {
-    setTooltip({
-      visible: true,
-      content,
-      position: { x: 0, y: 0 },
-      targetRect,
-      placement,
-      customClass,
-    });
-  }, []);
+  const showTooltip = useCallback(
+    (content, targetRect, placement = "bottom", customClass = "") => {
+      setTooltip({
+        visible: true,
+        content,
+        position: { x: 0, y: 0 },
+        targetRect,
+        placement,
+        customClass,
+      });
+    },
+    []
+  );
 
   const hideTooltip = useCallback(() => {
     setTooltip((prev) => ({ ...prev, visible: false }));

@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-html-link-for-pages */
 /* eslint-disable react-hooks/error-boundaries */
 // app/(pages)/blogs/[slug]/page.jsx
 import { getPostBySlug, getAllPostSlugs } from "../../../lib/Get.Blog.post.lib";
@@ -45,7 +46,7 @@ export default async function PostPage({ params }) {
         <div className="py-20 text-center">
           <h1 className="text-2xl font-bold text-red-600">Post not found</h1>
           <p className="mt-2 text-gray-600">
-            The post you're looking for doesn't exist.
+            The post you&lsquo;re looking for doesn&lsquo;t exist.
           </p>
           <a
             href="/blogs"

@@ -1,14 +1,16 @@
-import dynamic from 'next/dynamic';
+import dynamic from "next/dynamic";
 
 // Dynamically import projects
-const CaffetestProject = dynamic(() => import('../components/projects/Caffetest.project').then(mod => mod.default));
+const CaffetestProject = dynamic(() =>
+  import("../components/projects/Caffetest.project").then((mod) => mod.default)
+);
 
 // Import metadata
-import { projectMeta as caffetestMeta } from '../components/projects/Caffetest.project';
+import { projectMeta as caffetestMeta } from "../components/projects/Caffetest.project";
 
 // Map of all projects
 const projectsMap = {
-  'caffetest': { meta: caffetestMeta, component: CaffetestProject },
+  caffetest: { meta: caffetestMeta, component: CaffetestProject },
 };
 
 export function getProjects() {

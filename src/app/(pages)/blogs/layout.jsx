@@ -1,4 +1,4 @@
-import BlogSidebar from "../../components/assets/Sidebar";
+import BlogSidebar from "../../components/assets/Blog.sidebar";
 import { getAllPostSlugs, getPostBySlug } from "../../lib/Get.Blog.post.lib";
 
 export default function BlogLayout({ children }) {
