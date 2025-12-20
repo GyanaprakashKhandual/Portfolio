@@ -14,9 +14,9 @@ export default function ProjectCard({ project }) {
       <p className="mb-4 text-gray-700 dark:text-slate-300">{project.shortDesc}</p>
       
       <div className="flex flex-wrap gap-2 mb-4">
-        {project.techStack.slice(0, 3).map((tech, i) => (
+        {project.techStack.slice(0, 3).map((tech) => (
           <span
-            key={i}
+            key={tech}
             className="px-2 py-1 text-xs font-medium text-gray-700 bg-gray-100 rounded dark:bg-slate-900 dark:text-slate-300"
           >
             {tech}

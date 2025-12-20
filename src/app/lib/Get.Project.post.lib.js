@@ -5,12 +5,36 @@ const CaffetestProject = dynamic(() =>
   import("../components/projects/Caffetest.project").then((mod) => mod.default)
 );
 
+const PISLProject = dynamic(() =>
+  import("../components/projects/test/PISL.project").then((mod) => mod.default)
+);
+
+const ResolProject = dynamic(() =>
+  import("../components/projects/test/Resol.project").then((mod) => mod.default)
+);
+
+const MjProject = dynamic(() =>
+  import("../components/projects/test/Mj.project").then((mod) => mod.default)
+);
+
+const RrProject = dynamic(() =>
+  import("../components/projects/test/Rr.project").then((mod) => mod.default)
+);
+
 // Import metadata
 import { projectMeta as caffetestMeta } from "../components/projects/Caffetest.project";
+import { projectMeta as pislMeta } from "../components/projects/test/PISL.project";
+import { projectMeta as resolMeta } from "../components/projects/test/Resol.project";
+import { projectMeta as mjMeta } from "../components/projects/test/Mj.project";
+import { projectMeta as rrMeta } from "../components/projects/test/Rr.project";
 
 // Map of all projects
 const projectsMap = {
   caffetest: { meta: caffetestMeta, component: CaffetestProject },
+  pisl: { meta: pislMeta, component: PISLProject },
+  resol: { meta: resolMeta, component: ResolProject },
+  megajwelers: { meta: mjMeta, component: MjProject },
+  rrcrop: { meta: rrMeta, component: RrProject }
 };
 
 export function getProjects() {

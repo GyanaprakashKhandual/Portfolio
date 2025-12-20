@@ -4,8 +4,7 @@ import { useState, useMemo } from 'react';
 import { ChevronRight, ChevronLeft, Search, Filter } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 
-const categories = ['All', 'Development', 'Testing', 'Hacking'];
-
+const categories = ['All', 'Development', 'Performance Testing', 'Testing', 'Hacking'];
 export default function ProjectSidebar({ projects }) {
   const [isOpen, setIsOpen] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
@@ -13,25 +12,34 @@ export default function ProjectSidebar({ projects }) {
   const [showCategoryDropdown, setShowCategoryDropdown] = useState(false);
   const pathname = usePathname();
 
-  const filteredProjects = useMemo(() => {
-    return projects.filter((project) => {
-      const matchesSearch =
-        project.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        project.shortDesc.toLowerCase().includes(searchTerm.toLowerCase());
+ const filteredProjects = useMemo(() => {
+  return projects.filter((project) => {
+    // Safety check: ensure project has required properties
+    if (!project || typeof project !== 'object') {
+      return false;
+    }
 
-      const matchesCategory =
-        selectedCategory === 'All' || project.category === selectedCategory;
+    const title = project.title || '';
+    const shortDesc = project.shortDesc || '';
+    const category = project.category || '';
 
-      return matchesSearch && matchesCategory;
-    });
-  }, [searchTerm, selectedCategory, projects]);
+    const matchesSearch =
+      title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      shortDesc.toLowerCase().includes(searchTerm.toLowerCase());
+
+    const matchesCategory =
+      selectedCategory === 'All' || category === selectedCategory;
+
+    return matchesSearch && matchesCategory;
+  });
+}, [searchTerm, selectedCategory, projects]);
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
   };
 
   return (
-    <div className="flex sidebar-scrollbar">
+    <div className="flex sidebar-scrollbar max-h-[calc(100vh - 80px)]">
       <div
         className={`fixed lg:sticky left-0 top-0 h-screen bg-white dark:bg-slate-950 border-r border-gray-200 dark:border-slate-800 transition-all duration-300 ease-in-out z-40 ${
           isOpen ? 'w-72' : 'w-0'
@@ -102,6 +110,7 @@ export default function ProjectSidebar({ projects }) {
             </div>
           </div>
 
+          {/* Projects List */}
           {/* Projects List */}
           <div className="flex-1 overflow-y-auto">
             <div className="p-4 space-y-3">

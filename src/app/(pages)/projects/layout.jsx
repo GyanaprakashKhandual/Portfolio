@@ -20,7 +20,7 @@ export default function ProjectsLayout({ children }) {
   return (
     <div className="flex min-h-screen mt-20 bg-white border-t border-gray-200 dark:bg-slate-950">
       <ProjectSidebar projects={projects} />
-      <main className="flex-1 w-full min-h-[calc(100vh-80px)]">{children}</main>
+      <main className="flex-1 w-full">{children}</main>
     </div>
   );
 }
