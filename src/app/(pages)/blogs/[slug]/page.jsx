@@ -1,8 +1,5 @@
-/* eslint-disable @next/next/no-html-link-for-pages */
-/* eslint-disable react-hooks/error-boundaries */
 // app/(pages)/blogs/[slug]/page.jsx
 import { getPostBySlug, getAllPostSlugs } from "../../../lib/Get.Blog.post.lib";
-import BlogPost from "../../../components/assets/Blog.card";
 
 export async function generateStaticParams() {
   const slugs = getAllPostSlugs();
@@ -12,70 +9,43 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }) {
-  try {
-    const { slug } = await params;
-    const post = getPostBySlug(slug);
+  const { slug } = await params;
+  const post = getPostBySlug(slug);
 
-    if (!post || !post.meta) {
-      return {
-        title: "Post Not Found",
-        description: "This post does not exist",
-      };
-    }
-
+  if (!post || !post.meta) {
     return {
-      title: post.meta.title || "Post",
-      description: post.meta.excerpt || "",
-    };
-  } catch (error) {
-    console.error("Error generating metadata:", error);
-    return {
-      title: "Blog Post",
-      description: "",
+      title: "Post Not Found",
+      description: "This post does not exist",
     };
   }
+
+  return {
+    title: post.meta.title || "Post",
+    description: post.meta.excerpt || "",
+  };
 }
 
 export default async function PostPage({ params }) {
-  try {
-    const { slug } = await params;
-    const post = getPostBySlug(slug);
+  const { slug } = await params;
+  const post = getPostBySlug(slug);
 
-    if (!post || !post.meta) {
-      return (
-        <div className="py-20 text-center">
-          <h1 className="text-2xl font-bold text-red-600">Post not found</h1>
-          <p className="mt-2 text-gray-600">
-            The post you&lsquo;re looking for doesn&lsquo;t exist.
-          </p>
-          <a
-            href="/blogs"
-            className="inline-block mt-4 text-gray-900 cursor-pointer"
-          >
-            ← Back to all posts
-          </a>
-        </div>
-      );
-    }
-
-    const PostComponent = post.component;
-
-    return <BlogPost post={post.meta} PostContent={PostComponent} />;
-  } catch (error) {
-    console.error("Error rendering post:", error);
+  if (!post || !post.meta) {
     return (
       <div className="py-20 text-center">
-        <h1 className="text-2xl font-bold text-red-600">Error loading post</h1>
+        <h1 className="text-2xl font-bold text-red-600">Post not found</h1>
         <p className="mt-2 text-gray-600">
-          An error occurred while loading the post.
+          The post you&rsquo;re looking for doesn&rsquo;t exist.
         </p>
-        <a
-          href="/blogs"
-          className="inline-block mt-4 text-blue-600 hover:underline"
-        >
+        <a href="/blogs" className="inline-block mt-4 text-gray-900 cursor-pointer">
           ← Back to all posts
         </a>
       </div>
     );
   }
+
+  // Get the actual blog post component (the full article)
+  const PostComponent = post.component;
+
+  // Render ONLY the PostComponent - this is your K6 blog post with all the content
+  return <PostComponent />;
 }

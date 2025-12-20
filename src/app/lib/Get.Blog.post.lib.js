@@ -1,23 +1,17 @@
 import dynamic from "next/dynamic";
+import { postMeta as k6LoadTestingMeta } from "../components/blogs/Gk.learn";
+import { postMeta as restAssuredTestingMeta } from "../components/blogs/Ra.learn";
 
-const FirstPost = dynamic(() =>
-  import("../components/blogs/first-port").then((mod) => mod.default)
-);
-const SecondPost = dynamic(() =>
-  import("../components/blogs/second-post").then((mod) => mod.default)
-);
-const ThirdPost = dynamic(() =>
-  import("../components/blogs/third-post").then((mod) => mod.default)
-);
-
-import { postMeta as firstMeta } from "../components/blogs/first-port";
-import { postMeta as secondMeta } from "../components/blogs/second-post";
-import { postMeta as thirdMeta } from "../components/blogs/third-post";
+// Dynamic import with proper typing
+const K6LoadTestingPost = dynamic(() => import("../components/blogs/Gk.learn"));
+const RestAssuredTestingPost = dynamic(() => import("../components/blogs/Ra.learn"));
 
 const postsMap = {
-  "first-post": { meta: firstMeta, component: FirstPost },
-  "second-post": { meta: secondMeta, component: SecondPost },
-  "third-post": { meta: thirdMeta, component: ThirdPost },
+  "k6-load-testing-guide": { 
+    meta: k6LoadTestingMeta, 
+    component: K6LoadTestingPost 
+  },
+  ""
 };
 
 export function getBlogPosts() {
