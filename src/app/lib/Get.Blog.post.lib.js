@@ -10,8 +10,7 @@ const postsMap = {
   "k6-load-testing-guide": { 
     meta: k6LoadTestingMeta, 
     component: K6LoadTestingPost 
-  },
-  ""
+  }
 };
 
 export function getBlogPosts() {

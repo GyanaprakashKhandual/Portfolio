@@ -7,9 +7,9 @@ import {
   Phone,
   MapPin,
   Send,
-  Loader,
   CheckCircle,
   AlertCircle,
+  Info,
 } from "lucide-react";
 import { Github, Linkedin, Instagram } from "lucide-react";
 
@@ -31,14 +31,60 @@ const socialLinks = [
     icon: Github,
     url: "https://github.com/GyanaprakashKhandual",
     handle: "@gyan",
-  },
-  {
-    name: "Instagram",
-    icon: Instagram,
-    url: "https://github.com/GyanaprakashKhandual",
-    handle: "@gyan",
-  },
+  }
 ];
+
+function AlertBox({ type, message, icon: Icon }) {
+  const styles = {
+    success: {
+      bg: "bg-green-50 dark:bg-green-900/20",
+      border: "border-green-300 dark:border-green-700",
+      icon: "text-green-600 dark:text-green-400",
+      text: "text-green-700 dark:text-green-300"
+    },
+    error: {
+      bg: "bg-red-50 dark:bg-red-900/20",
+      border: "border-red-300 dark:border-red-700",
+      icon: "text-red-600 dark:text-red-400",
+      text: "text-red-700 dark:text-red-300"
+    },
+    warning: {
+      bg: "bg-yellow-50 dark:bg-yellow-900/20",
+      border: "border-yellow-300 dark:border-yellow-700",
+      icon: "text-yellow-600 dark:text-yellow-400",
+      text: "text-yellow-700 dark:text-yellow-300"
+    },
+    info: {
+      bg: "bg-blue-50 dark:bg-blue-900/20",
+      border: "border-blue-300 dark:border-blue-700",
+      icon: "text-blue-600 dark:text-blue-400",
+      text: "text-blue-700 dark:text-blue-300"
+    }
+  };
+
+  const style = styles[type];
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: -10 }}
+      animate={{ opacity: 1, y: 0 }}
+      className={`flex items-center gap-3 p-4 border rounded-lg ${style.bg} ${style.border}`}
+    >
+      <Icon className={`w-5 h-5 shrink-0 ${style.icon}`} />
+      <p className={`text-sm font-medium ${style.text}`}>
+        {message}
+      </p>
+    </motion.div>
+  );
+}
+
+function LoadingSpinner() {
+  return (
+    <div className="flex items-center justify-center">
+      <div className="w-5 h-5 border-2 border-white rounded-full dark:border-black border-t-transparent dark:border-t-transparent animate-spin"></div>
+    </div>
+  );
+}
 
 function ContactPage() {
   const [formData, setFormData] = useState({
@@ -62,10 +108,22 @@ function ContactPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    if (!formData.name || !formData.email || !formData.subject || !formData.message) {
+      setStatus("warning");
+      setStatusMessage("Please fill in all required fields.");
+      return;
+    }
+
     setLoading(true);
-    setStatus(null);
+    setStatus("info");
+    setStatusMessage("Validating your information...");
 
     try {
+      setTimeout(() => {
+        setStatusMessage("Sending your message...");
+      }, 1000);
+
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: {
@@ -78,17 +136,21 @@ function ContactPage() {
 
       if (response.ok) {
         setStatus("success");
-        setStatusMessage(data.message || "Email sent successfully!");
+        setStatusMessage("Your message has been sent successfully! I'll get back to you soon.");
         setFormData({ name: "", email: "", subject: "", message: "" });
+        
+        setTimeout(() => {
+          setStatus(null);
+        }, 5000);
       } else {
         setStatus("error");
         setStatusMessage(
-          data.message || "Failed to send email. Please try again."
+          data.message || "Failed to send email. Please try again later."
         );
       }
     } catch (error) {
       setStatus("error");
-      setStatusMessage("An error occurred. Please try again.");
+      setStatusMessage("An error occurred while sending your message. Please try again.");
       console.error("Error:", error);
     } finally {
       setLoading(false);
@@ -117,7 +179,6 @@ function ContactPage() {
 
   return (
     <div className="min-h-screen pt-24 pb-16 transition-colors duration-300 bg-white dark:bg-black">
-      {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -135,7 +196,6 @@ function ContactPage() {
         </div>
       </motion.div>
 
-      {/* Main Content */}
       <motion.div
         variants={containerVariants}
         initial="hidden"
@@ -143,9 +203,7 @@ function ContactPage() {
         className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8"
       >
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
-          {/* Left Side - Contact Info */}
           <motion.div variants={itemVariants} className="lg:col-span-1">
-            {/* Profile Card */}
             <motion.div
               whileHover={{ y: -4 }}
               className="p-8 mb-8 transition-all bg-white border border-gray-300 rounded-lg shadow-sm dark:border-gray-700 dark:bg-gray-900 hover:shadow-md"
@@ -162,7 +220,6 @@ function ContactPage() {
                 </p>
               </div>
 
-              {/* Contact Details */}
               <div className="pb-8 mb-8 space-y-4 border-b border-gray-300 dark:border-gray-700">
                 <motion.div
                   whileHover={{ x: 4 }}
@@ -189,7 +246,7 @@ function ContactPage() {
                       Phone
                     </p>
                     <a
-                      href="tel:7606939882"
+                      href="tel:7606939833"
                       className="text-gray-800 transition-colors dark:text-gray-200 hover:text-black dark:hover:text-white"
                     >
                       +91 7606939833
@@ -207,7 +264,7 @@ function ContactPage() {
                       Email
                     </p>
                     <a
-                      href="mailto:gyanaprakashk@gmail.com"
+                      href="mailto:gyanaprakashkhnadual@gmail.com"
                       className="text-sm text-gray-800 break-all transition-colors dark:text-gray-200 hover:text-black dark:hover:text-white"
                     >
                       gyanaprakashkhnadual@gmail.com
@@ -216,7 +273,6 @@ function ContactPage() {
                 </motion.div>
               </div>
 
-              {/* Social Links */}
               <div>
                 <p className="mb-4 text-xs font-semibold tracking-wider text-gray-600 uppercase dark:text-gray-400">
                   Connect With Me
@@ -251,14 +307,12 @@ function ContactPage() {
             </motion.div>
           </motion.div>
 
-          {/* Right Side - Contact Form */}
           <motion.div variants={itemVariants} className="lg:col-span-2">
             <motion.form
               onSubmit={handleSubmit}
               className="p-8 bg-white border border-gray-300 rounded-lg shadow-sm dark:border-gray-700 dark:bg-gray-900"
             >
               <div className="space-y-6">
-                {/* Name Field */}
                 <motion.div variants={itemVariants}>
                   <label
                     htmlFor="name"
@@ -278,7 +332,6 @@ function ContactPage() {
                   />
                 </motion.div>
 
-                {/* Email Field */}
                 <motion.div variants={itemVariants}>
                   <label
                     htmlFor="email"
@@ -298,7 +351,6 @@ function ContactPage() {
                   />
                 </motion.div>
 
-                {/* Subject Field */}
                 <motion.div variants={itemVariants}>
                   <label
                     htmlFor="subject"
@@ -318,7 +370,6 @@ function ContactPage() {
                   />
                 </motion.div>
 
-                {/* Message Field */}
                 <motion.div variants={itemVariants}>
                   <label
                     htmlFor="message"
@@ -338,34 +389,22 @@ function ContactPage() {
                   />
                 </motion.div>
 
-                {/* Status Messages */}
                 {status === "success" && (
-                  <motion.div
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="flex items-center gap-3 p-4 border border-green-300 rounded-lg bg-green-50 dark:bg-green-900/20 dark:border-green-700"
-                  >
-                    <CheckCircle className="w-5 h-5 text-green-600 shrink-0 dark:text-green-400" />
-                    <p className="text-sm font-medium text-green-700 dark:text-green-300">
-                      {statusMessage}
-                    </p>
-                  </motion.div>
+                  <AlertBox type="success" message={statusMessage} icon={CheckCircle} />
                 )}
 
                 {status === "error" && (
-                  <motion.div
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="flex items-center gap-3 p-4 border border-red-300 rounded-lg bg-red-50 dark:bg-red-900/20 dark:border-red-700"
-                  >
-                    <AlertCircle className="w-5 h-5 text-red-600 shrink-0 dark:text-red-400" />
-                    <p className="text-sm font-medium text-red-700 dark:text-red-300">
-                      {statusMessage}
-                    </p>
-                  </motion.div>
+                  <AlertBox type="error" message={statusMessage} icon={AlertCircle} />
                 )}
 
-                {/* Submit Button */}
+                {status === "warning" && (
+                  <AlertBox type="warning" message={statusMessage} icon={AlertCircle} />
+                )}
+
+                {status === "info" && (
+                  <AlertBox type="info" message={statusMessage} icon={Info} />
+                )}
+
                 <motion.button
                   type="submit"
                   disabled={loading}
@@ -375,7 +414,7 @@ function ContactPage() {
                 >
                   {loading ? (
                     <>
-                      <Loader className="w-5 h-5 animate-spin" />
+                      <LoadingSpinner />
                       Sending...
                     </>
                   ) : (
