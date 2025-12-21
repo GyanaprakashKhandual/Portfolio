@@ -3,7 +3,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Briefcase, Calendar, MapPin, ArrowRight } from "lucide-react";
-import ExperienceSidebar from "@/app/components/assets/Experience.sidebar";
+
 
 export default function QAEngineerPage() {
   const experience = {
@@ -59,8 +59,6 @@ export default function QAEngineerPage() {
 
   return (
     <div className="flex min-h-screen bg-white dark:bg-black">
-      <ExperienceSidebar />
-
       <div className="flex-1">
         <div className="min-h-screen pt-24 pb-16 transition-colors duration-300">
           <motion.div
