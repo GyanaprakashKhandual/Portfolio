@@ -1,26 +1,30 @@
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
-import Navbar from "./components/assets/Navbar";
-import { ThemeProvider } from "./scripts/Theme.context";
-import { TooltipProvider } from "./scripts/Tooltip.context";
-import Tooltip from "./components/utils/Tooltip.util";
+// app/layout.js     ← stays .js
+'use client';
+
+import { usePathname } from 'next/navigation';
+import { Geist, Geist_Mono } from 'next/font/google';
+import Navbar from './components/assets/Navbar';
+import Tooltip from './components/utils/Tooltip.util';
+import { TooltipProvider } from './scripts/Tooltip.context';
+import { ThemeProvider } from './scripts/Theme.context';
+import './globals.css'
 
 const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+  subsets: ['latin'],
+  variable: '--font-geist-sans',
 });
 
 const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  subsets: ['latin'],
+  variable: '--font-geist-mono',
 });
 
-export const metadata = {
-  title: "Gyan | Full Stack AI Engineer | Home",
-  description: "This is the Portfolio Main Layout",
-};
-
 export default function RootLayout({ children }) {
+  const pathname = usePathname();
+
+  const hideNavbarPaths = ["/privacy-policy", "/terms-and-conditions"];
+  const showNavbar = !hideNavbarPaths.includes(pathname);
+
   return (
     <html lang="en" suppressHydrationWarning>
       <body
@@ -28,7 +32,7 @@ export default function RootLayout({ children }) {
       >
         <TooltipProvider>
           <ThemeProvider>
-            <Navbar />
+            {showNavbar && <Navbar />}
             {children}
             <Tooltip />
           </ThemeProvider>

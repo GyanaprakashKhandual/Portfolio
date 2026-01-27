@@ -640,13 +640,13 @@ export default function HomePage() {
             </p>
             <div className="flex gap-6 text-sm text-gray-600 dark:text-gray-400">
               <a
-                href="https://gyanprakash.vercel.app/privacy-policy"
+                href="/privacy-policy"
                 className="transition-colors hover:text-black dark:hover:text-white"
               >
                 Privacy Policy
               </a>
               <a
-                href="https://gyanprakash.vercel.app/terms-and-conditions"
+                href="/terms-and-conditions"
                 className="transition-colors hover:text-black dark:hover:text-white"
               >
                 Terms of Service

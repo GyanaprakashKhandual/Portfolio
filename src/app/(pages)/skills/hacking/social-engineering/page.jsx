@@ -274,70 +274,43 @@ const SkillIcon = ({ icon }) => {
       </svg>
     )
   };
-  return <div className="w-8 h-8">{icons[icon] || icons.linux}</div>;
+  return <div className="w-6 h-6">{icons[icon] || icons.linux}</div>;
 };
 
-// Skill Card Component
-const SkillCard = ({ skill, index }) => {
-  return (
-    <div
-      className="relative p-6 transition-all duration-300 bg-white border border-gray-200 shadow-sm group rounded-xl dark:bg-slate-900 dark:border-slate-800 hover:border-red-300 dark:hover:border-red-700 hover:shadow-lg"
-      style={{ animationDelay: `${index * 0.05}s` }}
-    >
-      {/* Icon */}
-      <div className="flex items-center justify-center w-12 h-12 mb-4 text-gray-700 transition-colors rounded-lg bg-gradient-to-br from-gray-100 to-gray-50 dark:from-slate-800 dark:to-slate-900 dark:text-red-400 group-hover:text-red-600 dark:group-hover:text-red-300">
-        <SkillIcon icon={skill.icon} />
-      </div>
+export default function HackingSkillsTable() {
+  const [sortField, setSortField] = useState('name');
+  const [sortDirection, setSortDirection] = useState('asc');
 
-      {/* Skill Name */}
-      <h3 className="mb-2 text-lg font-semibold text-gray-900 dark:text-white">
-        {skill.name}
-      </h3>
+  const handleSort = (field) => {
+    if (sortField === field) {
+      setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
+    } else {
+      setSortField(field);
+      setSortDirection('asc');
+    }
+  };
 
-      {/* Category */}
-      <p className="mb-3 text-sm text-gray-600 dark:text-slate-400">
-        {skill.category}
-      </p>
+  const sortedSkills = [...hackingSkills].sort((a, b) => {
+    let aVal = a[sortField];
+    let bVal = b[sortField];
+    
+    if (typeof aVal === 'string') {
+      aVal = aVal.toLowerCase();
+      bVal = bVal.toLowerCase();
+    }
+    
+    if (sortDirection === 'asc') {
+      return aVal > bVal ? 1 : -1;
+    } else {
+      return aVal < bVal ? 1 : -1;
+    }
+  });
 
-      {/* Experience */}
-      <div className="mb-4">
-        <div className="flex items-center justify-between mb-2">
-          <span className="text-sm text-gray-600 dark:text-slate-400">Experience</span>
-          <span className="text-sm font-bold text-gray-900 dark:text-white">
-            {skill.exp} yrs
-          </span>
-        </div>
-        <div className="h-2 overflow-hidden bg-gray-200 rounded-full dark:bg-slate-800">
-          <div
-            style={{ width: `${(skill.exp / 5) * 100}%` }}
-            className="h-full transition-all bg-gradient-to-r from-red-500 to-red-600 dark:from-red-400 dark:to-red-500 duration-600"
-          />
-        </div>
-      </div>
-
-      {/* Projects */}
-      <div className="flex items-center justify-between pt-3 border-t border-gray-200 dark:border-slate-800">
-        <span className="text-sm text-gray-600 dark:text-slate-400">Projects</span>
-        <div className="flex items-center gap-1">
-          <span className="text-lg font-bold text-gray-900 dark:text-white">
-            {skill.projects}
-          </span>
-          <span className="text-sm text-gray-600 dark:text-slate-400">+</span>
-        </div>
-      </div>
-
-      {/* Hover Glow Effect */}
-      <div className="absolute inset-0 transition-all duration-300 pointer-events-none rounded-xl bg-gradient-to-br from-red-500/0 to-red-600/0 group-hover:from-red-500/5 group-hover:to-red-600/5" />
-    </div>
-  );
-};
-
-export default function HackingSkillsPage() {
   return (
     <div className="min-h-screen p-8 bg-white dark:bg-slate-950">
       <div className="mx-auto max-w-7xl">
         {/* Header */}
-        <div className="mb-12">
+        <div className="mb-8">
           <h1 className="mb-3 text-4xl font-bold text-gray-900 md:text-5xl dark:text-white">
             Hacking & Security Skills
           </h1>
@@ -346,11 +319,138 @@ export default function HackingSkillsPage() {
           </p>
         </div>
 
-        {/* Skills Grid */}
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {hackingSkills.map((skill, index) => (
-            <SkillCard key={skill.name} skill={skill} index={index} />
-          ))}
+        {/* Table */}
+        <div className="overflow-hidden bg-white border border-gray-200 shadow-sm dark:bg-slate-900 dark:border-slate-800 rounded-xl">
+          <div className="overflow-x-auto">
+            <table className="w-full">
+              <thead className="bg-gray-50 dark:bg-slate-800/50">
+                <tr>
+                  <th 
+                    onClick={() => handleSort('name')}
+                    className="px-6 py-4 text-xs font-semibold tracking-wider text-left text-gray-700 uppercase cursor-pointer dark:text-slate-300 hover:bg-gray-100 dark:hover:bg-slate-800"
+                  >
+                    <div className="flex items-center gap-2">
+                      <span>Skill</span>
+                      {sortField === 'name' && (
+                        <span className="text-red-600 dark:text-red-400">
+                          {sortDirection === 'asc' ? '↑' : '↓'}
+                        </span>
+                      )}
+                    </div>
+                  </th>
+                  <th 
+                    onClick={() => handleSort('category')}
+                    className="px-6 py-4 text-xs font-semibold tracking-wider text-left text-gray-700 uppercase cursor-pointer dark:text-slate-300 hover:bg-gray-100 dark:hover:bg-slate-800"
+                  >
+                    <div className="flex items-center gap-2">
+                      <span>Category</span>
+                      {sortField === 'category' && (
+                        <span className="text-red-600 dark:text-red-400">
+                          {sortDirection === 'asc' ? '↑' : '↓'}
+                        </span>
+                      )}
+                    </div>
+                  </th>
+                  <th 
+                    onClick={() => handleSort('exp')}
+                    className="px-6 py-4 text-xs font-semibold tracking-wider text-left text-gray-700 uppercase cursor-pointer dark:text-slate-300 hover:bg-gray-100 dark:hover:bg-slate-800"
+                  >
+                    <div className="flex items-center gap-2">
+                      <span>Experience</span>
+                      {sortField === 'exp' && (
+                        <span className="text-red-600 dark:text-red-400">
+                          {sortDirection === 'asc' ? '↑' : '↓'}
+                        </span>
+                      )}
+                    </div>
+                  </th>
+                  <th 
+                    onClick={() => handleSort('projects')}
+                    className="px-6 py-4 text-xs font-semibold tracking-wider text-left text-gray-700 uppercase cursor-pointer dark:text-slate-300 hover:bg-gray-100 dark:hover:bg-slate-800"
+                  >
+                    <div className="flex items-center gap-2">
+                      <span>Projects</span>
+                      {sortField === 'projects' && (
+                        <span className="text-red-600 dark:text-red-400">
+                          {sortDirection === 'asc' ? '↑' : '↓'}
+                        </span>
+                      )}
+                    </div>
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-200 dark:divide-slate-800">
+                {sortedSkills.map((skill, index) => (
+                  <tr 
+                    key={skill.name}
+                    className="transition-colors hover:bg-gray-50 dark:hover:bg-slate-800/50"
+                    style={{ animationDelay: `${index * 0.02}s` }}
+                  >
+                    <td className="px-6 py-4">
+                      <div className="flex items-center gap-3">
+                        <div className="flex items-center justify-center text-gray-700 transition-colors dark:text-red-400 group-hover:text-red-600 dark:group-hover:text-red-300">
+                          <SkillIcon icon={skill.icon} />
+                        </div>
+                        <span className="font-semibold text-gray-900 dark:text-white">
+                          {skill.name}
+                        </span>
+                      </div>
+                    </td>
+                    <td className="px-6 py-4">
+                      <span className="inline-flex px-3 py-1 text-sm text-gray-700 bg-gray-100 rounded-full dark:bg-slate-800 dark:text-slate-300">
+                        {skill.category}
+                      </span>
+                    </td>
+                    <td className="px-6 py-4">
+                      <div className="flex items-center gap-3">
+                        <div className="flex-1">
+                          <div className="h-2 overflow-hidden bg-gray-200 rounded-full dark:bg-slate-800">
+                            <div
+                              style={{ width: `${(skill.exp / 5) * 100}%` }}
+                              className="h-full transition-all bg-gradient-to-r from-red-500 to-red-600 dark:from-red-400 dark:to-red-500 duration-600"
+                            />
+                          </div>
+                        </div>
+                        <span className="text-sm font-bold text-gray-900 dark:text-white whitespace-nowrap">
+                          {skill.exp} yrs
+                        </span>
+                      </div>
+                    </td>
+                    <td className="px-6 py-4">
+                      <div className="flex items-center gap-1">
+                        <span className="text-lg font-bold text-gray-900 dark:text-white">
+                          {skill.projects}
+                        </span>
+                        <span className="text-sm text-gray-600 dark:text-slate-400">+</span>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        {/* Stats Summary */}
+        <div className="grid grid-cols-1 gap-6 mt-8 md:grid-cols-3">
+          <div className="p-6 bg-white border border-gray-200 shadow-sm dark:bg-slate-900 dark:border-slate-800 rounded-xl">
+            <div className="text-sm text-gray-600 dark:text-slate-400">Total Skills</div>
+            <div className="mt-2 text-3xl font-bold text-gray-900 dark:text-white">
+              {hackingSkills.length}
+            </div>
+          </div>
+          <div className="p-6 bg-white border border-gray-200 shadow-sm dark:bg-slate-900 dark:border-slate-800 rounded-xl">
+            <div className="text-sm text-gray-600 dark:text-slate-400">Total Projects</div>
+            <div className="mt-2 text-3xl font-bold text-gray-900 dark:text-white">
+              {hackingSkills.reduce((sum, skill) => sum + skill.projects, 0)}+
+            </div>
+          </div>
+          <div className="p-6 bg-white border border-gray-200 shadow-sm dark:bg-slate-900 dark:border-slate-800 rounded-xl">
+            <div className="text-sm text-gray-600 dark:text-slate-400">Avg Experience</div>
+            <div className="mt-2 text-3xl font-bold text-gray-900 dark:text-white">
+              {(hackingSkills.reduce((sum, skill) => sum + skill.exp, 0) / hackingSkills.length).toFixed(1)} yrs
+            </div>
+          </div>
         </div>
       </div>
     </div>
