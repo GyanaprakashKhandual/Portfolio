@@ -4,7 +4,7 @@ A modern, interactive portfolio showcasing my work experience, projects, and tec
 
 ## 🛠️ Tech Stack
 
-- **Framework**: Next.js (with JSON Data Version)
+- **Framework**: Next.js
 - **UI Components**: Material-UI (MUI)
 - **Styling**: Tailwind CSS
 - **Animations**: Framer Motion
@@ -44,7 +44,7 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-### Build & Deploy
+### Build, Run & Deploy
 
 ```bash
 npm run build
