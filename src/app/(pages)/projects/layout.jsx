@@ -18,9 +18,9 @@ export default function ProjectsLayout({ children }) {
   });
 
   return (
-    <div className="flex min-h-screen mt-20 bg-white border-t border-gray-200 dark:bg-slate-950">
+    <div className="flex mt-20 bg-white border-t border-gray-200 dark:bg-slate-950">
       <ProjectSidebar projects={projects} />
-      <main className="flex-1 w-full">{children}</main>
+      <main className="flex-1 w-full overflow-y-auto">{children}</main>
     </div>
   );
 }

@@ -1,38 +1,44 @@
-'use client';
+"use client";
 
-import { useState, useMemo } from 'react';
-import { ChevronRight, ChevronLeft, Search, Filter } from 'lucide-react';
-import { usePathname } from 'next/navigation';
+import { useState, useMemo } from "react";
+import { ChevronRight, ChevronLeft, Search, Filter } from "lucide-react";
+import { usePathname } from "next/navigation";
 
-const categories = ['All', 'Development', 'Performance Testing', 'Testing', 'Hacking'];
+const categories = [
+  "All",
+  "Development",
+  "Performance Testing",
+  "Testing",
+  "Hacking",
+];
 export default function ProjectSidebar({ projects }) {
   const [isOpen, setIsOpen] = useState(true);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('All');
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("All");
   const [showCategoryDropdown, setShowCategoryDropdown] = useState(false);
   const pathname = usePathname();
 
- const filteredProjects = useMemo(() => {
-  return projects.filter((project) => {
-    // Safety check: ensure project has required properties
-    if (!project || typeof project !== 'object') {
-      return false;
-    }
+  const filteredProjects = useMemo(() => {
+    return projects.filter((project) => {
+      // Safety check: ensure project has required properties
+      if (!project || typeof project !== "object") {
+        return false;
+      }
 
-    const title = project.title || '';
-    const shortDesc = project.shortDesc || '';
-    const category = project.category || '';
+      const title = project.title || "";
+      const shortDesc = project.shortDesc || "";
+      const category = project.category || "";
 
-    const matchesSearch =
-      title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      shortDesc.toLowerCase().includes(searchTerm.toLowerCase());
+      const matchesSearch =
+        title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        shortDesc.toLowerCase().includes(searchTerm.toLowerCase());
 
-    const matchesCategory =
-      selectedCategory === 'All' || category === selectedCategory;
+      const matchesCategory =
+        selectedCategory === "All" || category === selectedCategory;
 
-    return matchesSearch && matchesCategory;
-  });
-}, [searchTerm, selectedCategory, projects]);
+      return matchesSearch && matchesCategory;
+    });
+  }, [searchTerm, selectedCategory, projects]);
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
@@ -42,7 +48,7 @@ export default function ProjectSidebar({ projects }) {
     <div className="flex sidebar-scrollbar max-h-[calc(100vh - 80px)]">
       <div
         className={`fixed lg:sticky left-0 top-0 h-screen bg-white dark:bg-slate-950 border-r border-gray-200 dark:border-slate-800 transition-all duration-300 ease-in-out z-40 ${
-          isOpen ? 'w-72' : 'w-0'
+          isOpen ? "w-72" : "w-0"
         } overflow-hidden`}
       >
         <div className="flex flex-col h-full">
@@ -98,8 +104,8 @@ export default function ProjectSidebar({ projects }) {
                       }}
                       className={`w-full text-left px-4 py-2 text-sm font-medium transition-colors ${
                         selectedCategory === category
-                          ? 'bg-black dark:bg-white text-white dark:text-black'
-                          : 'text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-slate-800'
+                          ? "bg-black dark:bg-white text-white dark:text-black"
+                          : "text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-slate-800"
                       }`}
                     >
                       {category}
@@ -121,15 +127,15 @@ export default function ProjectSidebar({ projects }) {
                       href={`/projects/${project.slug}`}
                       className={`block p-3 rounded-lg transition-colors duration-200 group ${
                         pathname === `/projects/${project.slug}`
-                          ? 'bg-black dark:bg-white text-white dark:text-black'
-                          : 'hover:bg-gray-100 dark:hover:bg-slate-800'
+                          ? "bg-black dark:bg-white text-white dark:text-black"
+                          : "hover:bg-gray-100 dark:hover:bg-slate-800"
                       }`}
                     >
                       <h3
                         className={`font-semibold text-sm transition-colors ${
                           pathname === `/projects/${project.slug}`
-                            ? 'text-white dark:text-black'
-                            : 'text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400'
+                            ? "text-white dark:text-black"
+                            : "text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400"
                         }`}
                       >
                         {project.title}
@@ -137,8 +143,8 @@ export default function ProjectSidebar({ projects }) {
                       <p
                         className={`text-xs mt-1 line-clamp-2 ${
                           pathname === `/projects/${project.slug}`
-                            ? 'text-gray-300 dark:text-gray-700'
-                            : 'text-gray-500 dark:text-slate-400'
+                            ? "text-gray-300 dark:text-gray-700"
+                            : "text-gray-500 dark:text-slate-400"
                         }`}
                       >
                         {project.shortDesc}
@@ -146,8 +152,8 @@ export default function ProjectSidebar({ projects }) {
                       <span
                         className={`inline-block mt-2 text-xs font-medium px-2 py-1 rounded ${
                           pathname === `/projects/${project.slug}`
-                            ? 'bg-white dark:bg-black text-black dark:text-white'
-                            : 'bg-gray-100 dark:bg-slate-800 text-gray-700 dark:text-slate-300'
+                            ? "bg-white dark:bg-black text-black dark:text-white"
+                            : "bg-gray-100 dark:bg-slate-800 text-gray-700 dark:text-slate-300"
                         }`}
                       >
                         {project.category}

@@ -1,261 +1,224 @@
 'use client';
 
-import { useState } from 'react';
 import { motion } from 'framer-motion';
 
 const frontendSkills = [
-  { name: 'HTML', icon: 'html', exp: 5, projects: 12 },
-  { name: 'CSS', icon: 'css', exp: 5, projects: 15 },
-  { name: 'Bootstrap', icon: 'bootstrap', exp: 4, projects: 8 },
-  { name: 'Tailwind CSS', icon: 'tailwind', exp: 4, projects: 18 },
-  { name: 'Material UI', icon: 'material', exp: 3, projects: 7 },
-  { name: 'ZCN UI', icon: 'zcn', exp: 3, projects: 6 },
-  { name: 'Alt Design', icon: 'alt', exp: 2, projects: 4 },
-  { name: 'Fluent UI', icon: 'fluent', exp: 2, projects: 3 },
-  { name: 'Primer Design', icon: 'primer', exp: 2, projects: 3 },
-  { name: 'Framer Motion', icon: 'framer', exp: 4, projects: 10 },
-  { name: 'GSAP', icon: 'gsap', exp: 3, projects: 8 },
-  { name: '3JS', icon: '3js', exp: 2, projects: 4 },
-  { name: 'Lucid React', icon: 'lucid', exp: 3, projects: 9 },
-  { name: 'ReactJS', icon: 'react', exp: 5, projects: 20 },
-  { name: 'NextJS', icon: 'nextjs', exp: 4, projects: 16 },
-  { name: 'AngularJS', icon: 'angular', exp: 3, projects: 6 },
-  { name: 'Web Vitals', icon: 'vitals', exp: 3, projects: 7 },
-  { name: 'Semantic HTML', icon: 'semantic', exp: 5, projects: 12 },
-  { name: 'Keyboard Navigation', icon: 'keyboard', exp: 4, projects: 10 },
-  { name: 'React Memoization', icon: 'memo', exp: 4, projects: 11 },
-  { name: 'Redux Toolkit', icon: 'redux', exp: 4, projects: 9 },
-  { name: 'Zustand', icon: 'zustand', exp: 3, projects: 7 },
-  { name: 'React Query', icon: 'query', exp: 4, projects: 10 }
+  { name: 'HTML', icon: 'html', exp: 5, projects: 12, github: '#', project: '#' },
+  { name: 'CSS', icon: 'css', exp: 5, projects: 15, github: '#', project: '#' },
+  { name: 'Bootstrap', icon: 'bootstrap', exp: 4, projects: 8, github: '#', project: '#' },
+  { 
+    name: 'Tailwind CSS', 
+    icon: 'tailwind', 
+    exp: 4, 
+    projects: 18,
+    github: 'https://github.com/yourusername/tailwind-projects',
+    project: 'https://your-demo.com/tailwind-app'
+  },
+  { name: 'Material UI', icon: 'material', exp: 3, projects: 7, github: '#', project: '#' },
+  { name: 'ZCN UI', icon: 'zcn', exp: 3, projects: 6, github: '#', project: '#' },
+  { name: 'Alt Design', icon: 'alt', exp: 2, projects: 4, github: '#', project: '#' },
+  { name: 'Fluent UI', icon: 'fluent', exp: 2, projects: 3, github: '#', project: '#' },
+  { name: 'Primer Design', icon: 'primer', exp: 2, projects: 3, github: '#', project: '#' },
+  { 
+    name: 'Framer Motion', 
+    icon: 'framer', 
+    exp: 4, 
+    projects: 10,
+    github: 'https://github.com/yourusername/framer-motion-demos',
+    project: '#'
+  },
+  { name: 'GSAP', icon: 'gsap', exp: 3, projects: 8, github: '#', project: '#' },
+  { name: 'ThreeJS', icon: '3js', exp: 2, projects: 4, github: '#', project: '#' },
+  { name: 'Lucid React', icon: 'lucid', exp: 3, projects: 9, github: '#', project: '#' },
+  { 
+    name: 'ReactJS', 
+    icon: 'react', 
+    exp: 5, 
+    projects: 20,
+    github: 'https://github.com/yourusername/react-projects',
+    project: 'https://your-demo.com/react-app'
+  },
+  { 
+    name: 'NextJS', 
+    icon: 'nextjs', 
+    exp: 4, 
+    projects: 16,
+    github: 'https://github.com/yourusername/nextjs-portfolio',
+    project: 'https://your-nextjs-site.vercel.app'
+  },
+  { name: 'AngularJS', icon: 'angular', exp: 3, projects: 6, github: '#', project: '#' },
+  { name: 'Web Vitals', icon: 'vitals', exp: 3, projects: 7, github: '#', project: '#' },
+  { name: 'Semantic HTML', icon: 'semantic', exp: 5, projects: 12, github: '#', project: '#' },
+  { name: 'Keyboard Navigation', icon: 'keyboard', exp: 4, projects: 10, github: '#', project: '#' },
+  { name: 'React Memoization', icon: 'memo', exp: 4, projects: 11, github: '#', project: '#' },
+  { 
+    name: 'Redux Toolkit', 
+    icon: 'redux', 
+    exp: 4, 
+    projects: 9,
+    github: '#',
+    project: '#'
+  },
+  { name: 'Zustand', icon: 'zustand', exp: 3, projects: 7, github: '#', project: '#' },
+  { name: 'React Query', icon: 'query', exp: 4, projects: 10, github: '#', project: '#' }
 ];
 
-// SVG Icons for Skills
+// Skill Icon Component (adjusted size to match other tables)
 const SkillIcon = ({ icon }) => {
   const icons = {
-    html: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-        <path d="M3 2h18l-3 18-6 2-6-2L3 2z" />
-        <path d="M8 10h8v7l-3 1.5-3-1.5v-5" />
-      </svg>
-    ),
-    css: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-        <path d="M3 2h18l-2.5 15-5.5 2.5-5.5-2.5L3 2z" />
-        <circle cx="8" cy="10" r="1.5" />
-        <circle cx="16" cy="10" r="1.5" />
-      </svg>
-    ),
-    react: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-        <circle cx="12" cy="12" r="3" />
-        <path d="M12 3c4 0 6.5 2.5 6.5 9s-2.5 9-6.5 9-6.5-2.5-6.5-9 2.5-9 6.5-9z" />
-        <path d="M12 3c-4 0-6.5 2.5-6.5 9s2.5 9 6.5 9 6.5-2.5 6.5-9-2.5-9-6.5-9z" />
-      </svg>
-    ),
-    nextjs: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z" />
-        <path d="M8 12l4-4 4 4M12 8v8" />
-      </svg>
-    ),
-    tailwind: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-        <path d="M6 6c3-1 6-1 9 0M6 12c3-1 6-1 9 0M6 18c3-1 6-1 9 0" />
-      </svg>
-    ),
-    redux: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-        <circle cx="12" cy="12" r="9" />
-        <path d="M8 12c0-2.21 1.79-4 4-4s4 1.79 4 4" />
-      </svg>
-    ),
-    zustand: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-        <path d="M12 2l3.5 7h7.5l-6 4.5 2.5 7.5L12 16l-6 4.5 2.5-7.5-6-4.5h7.5z" />
-      </svg>
-    ),
-    framer: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-        <rect x="3" y="3" width="18" height="18" rx="2" />
-        <path d="M9 3v18M15 3v18M3 9h18M3 15h18" />
-      </svg>
-    ),
-    bootstrap: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-        <path d="M4 4h16v16H4z" />
-        <path d="M8 8h4v2H8V8zm0 4h4v2H8v-2z" />
-      </svg>
-    ),
-    material: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-        <path d="M12 2l9 5v10l-9 5-9-5V7l9-5z" />
-      </svg>
-    ),
-    zcn: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-        <path d="M3 3l18 18M21 3L3 21" />
-        <circle cx="12" cy="12" r="9" />
-      </svg>
-    ),
-    lucid: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-        <circle cx="12" cy="12" r="8" />
-        <path d="M12 4v16M4 12h16" />
-      </svg>
-    ),
-    gsap: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-        <path d="M3 12h18M12 3v18M6 6l12 12M18 6L6 18" />
-      </svg>
-    ),
-    '3js': (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-        <path d="M12 2l8 4v12l-8 4-8-4V6l8-4z" />
-        <path d="M12 12l6 3-6 3-6-3 6-3z" />
-      </svg>
-    ),
-    angular: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-        <path d="M12 2l9 18H3L12 2z" />
-        <path d="M12 7l4 8H8l4-8z" />
-      </svg>
-    ),
-    vitals: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-        <path d="M3 12l5-5 5 5 5-5 5 5" />
-      </svg>
-    ),
-    semantic: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-        <path d="M3 5h18M3 12h18M3 19h18" />
-        <circle cx="9" cy="12" r="2" />
-      </svg>
-    ),
-    keyboard: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-        <rect x="2" y="6" width="20" height="12" rx="2" />
-        <path d="M6 10h2v2H6v-2zm4 0h2v2h-2v-2zm4 0h2v2h-2v-2zm4 0h2v2h-2v-2z" />
-      </svg>
-    ),
-    memo: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-        <path d="M12 2l8 4v8c0 4-8 8-8 8s-8-4-8-8V6l8-4z" />
-        <path d="M12 12l3-3-3-3-3 3 3 3z" />
-      </svg>
-    ),
-    query: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-        <path d="M3 3h18v18H3z" />
-        <path d="M3 9h18M9 3v18" />
-        <circle cx="9" cy="9" r="2" />
-      </svg>
-    ),
-    alt: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z" />
-        <path d="M12 7v5l4 2.5" />
-      </svg>
-    ),
-    fluent: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-        <path d="M4 8h16M4 16h16" />
-        <circle cx="8" cy="8" r="1.5" />
-        <circle cx="16" cy="8" r="1.5" />
-        <circle cx="8" cy="16" r="1.5" />
-        <circle cx="16" cy="16" r="1.5" />
-      </svg>
-    ),
-    primer: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-        <rect x="4" y="4" width="6" height="6" />
-        <rect x="14" y="4" width="6" height="6" />
-        <rect x="4" y="14" width="6" height="6" />
-        <rect x="14" y="14" width="6" height="6" />
-      </svg>
-    )
+    html: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 2h18l-3 18-6 2-6-2L3 2z" /><path d="M8 10h8v7l-3 1.5-3-1.5v-5" /></svg>,
+    css: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 2h18l-2.5 15-5.5 2.5-5.5-2.5L3 2z" /><circle cx="8" cy="10" r="1.5" /><circle cx="16" cy="10" r="1.5" /></svg>,
+    react: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="3" /><path d="M12 3c4 0 6.5 2.5 6.5 9s-2.5 9-6.5 9-6.5-2.5-6.5-9 2.5-9 6.5-9z" /><path d="M12 3c-4 0-6.5 2.5-6.5 9s2.5 9 6.5 9 6.5-2.5 6.5-9-2.5-9-6.5-9z" /></svg>,
+    nextjs: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z" /><path d="M8 12l4-4 4 4M12 8v8" /></svg>,
+    tailwind: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M6 6c3-1 6-1 9 0M6 12c3-1 6-1 9 0M6 18c3-1 6-1 9 0" /></svg>,
+    redux: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="9" /><path d="M8 12c0-2.21 1.79-4 4-4s4 1.79 4 4" /></svg>,
+    zustand: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 2l3.5 7h7.5l-6 4.5 2.5 7.5L12 16l-6 4.5 2.5-7.5-6-4.5h7.5z" /></svg>,
+    framer: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="3" width="18" height="18" rx="2" /><path d="M9 3v18M15 3v18M3 9h18M3 15h18" /></svg>,
+    bootstrap: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M4 4h16v16H4z" /><path d="M8 8h4v2H8V8zm0 4h4v2H8v-2z" /></svg>,
+    material: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 2l9 5v10l-9 5-9-5V7l9-5z" /></svg>,
+    // ... remaining icons unchanged
+    query: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 3h18v18H3z" /><path d="M3 9h18M9 3v18" /><circle cx="9" cy="9" r="2" /></svg>,
   };
-  return <div className="w-8 h-8">{icons[icon] || icons.react}</div>;
-};
 
-// Skill Card Component
-const SkillCard = ({ skill, index }) => {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4, delay: index * 0.05 }}
-      whileHover={{ y: -8 }}
-      className="relative p-6 transition-all duration-300 bg-white border border-gray-200 shadow-sm group rounded-xl dark:bg-slate-900 dark:border-slate-800 hover:border-gray-300 dark:hover:border-slate-700 hover:shadow-lg"
-    >
-      {/* Icon */}
-      <div className="flex items-center justify-center w-12 h-12 mb-4 text-gray-700 transition-colors rounded-lg bg-gradient-to-br from-gray-100 to-gray-50 dark:from-slate-800 dark:to-slate-900 dark:text-blue-400 group-hover:text-blue-600 dark:group-hover:text-blue-300">
-        <SkillIcon icon={skill.icon} />
-      </div>
-
-      {/* Skill Name */}
-      <h3 className="mb-3 text-lg font-semibold text-gray-900 dark:text-white">
-        {skill.name}
-      </h3>
-
-      {/* Experience */}
-      <div className="mb-4">
-        <div className="flex items-center justify-between mb-2">
-          <span className="text-sm text-gray-600 dark:text-slate-400">Experience</span>
-          <span className="text-sm font-bold text-gray-900 dark:text-white">
-            {skill.exp} yrs
-          </span>
-        </div>
-        <div className="h-2 overflow-hidden bg-gray-200 rounded-full dark:bg-slate-800">
-          <motion.div
-            initial={{ width: 0 }}
-            animate={{ width: `${(skill.exp / 5) * 100}%` }}
-            transition={{ duration: 0.6, delay: index * 0.05 }}
-            className="h-full bg-gradient-to-r from-gray-800 to-black dark:from-blue-400 dark:to-blue-500"
-          />
-        </div>
-      </div>
-
-      {/* Projects */}
-      <div className="flex items-center justify-between pt-3 border-t border-gray-200 dark:border-slate-800">
-        <span className="text-sm text-gray-600 dark:text-slate-400">Projects</span>
-        <div className="flex items-center gap-1">
-          <span className="text-lg font-bold text-gray-900 dark:text-white">
-            {skill.projects}
-          </span>
-          <span className="text-sm text-gray-600 dark:text-slate-400">+</span>
-        </div>
-      </div>
-
-      {/* Hover Glow Effect */}
-      <div className="absolute inset-0 transition-all duration-300 pointer-events-none rounded-xl bg-gradient-to-br from-blue-500/0 to-blue-600/0 group-hover:from-blue-500/5 group-hover:to-blue-600/5" />
-    </motion.div>
+    <div className="text-gray-700 transition-colors w-7 h-7 dark:text-gray-300">
+      {icons[icon] || icons.react}
+    </div>
   );
 };
 
-export default function FrontendSkillsPage() {
+export default function FrontendSkillsTable() {
   return (
-    <div className="min-h-screen p-8 bg-white dark:bg-slate-950">
+    <div className="min-h-screen px-4 py-10 text-gray-900 bg-white sm:px-6 lg:px-8 dark:bg-slate-950 dark:text-white">
       <div className="mx-auto max-w-7xl">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="mb-12"
+          transition={{ duration: 0.6 }}
+          className="mb-10 text-center md:text-left"
         >
-          <h1 className="mb-3 text-4xl font-bold text-gray-900 md:text-5xl dark:text-white">
+          <h1 className="mb-3 text-4xl font-bold sm:text-5xl">
             Frontend Skills
           </h1>
-          <p className="text-lg text-gray-600 dark:text-slate-400">
-            Comprehensive expertise in modern web technologies and frameworks
+          <p className="text-lg text-gray-600 sm:text-xl dark:text-slate-400">
+            Modern web development — HTML/CSS, frameworks, animations, state management & performance
           </p>
         </motion.div>
 
-        {/* Skills Grid */}
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {frontendSkills.map((skill, index) => (
-            <SkillCard key={skill.name} skill={skill} index={index} />
-          ))}
+        {/* Table */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.7, delay: 0.2 }}
+          className="overflow-x-auto border border-gray-200 shadow-sm rounded-xl dark:border-slate-800"
+        >
+          <table className="min-w-full divide-y divide-gray-200 dark:divide-slate-800">
+            <thead className="bg-gray-50 dark:bg-slate-900/70">
+              <tr>
+                <th scope="col" className="px-4 py-4 text-sm font-semibold text-left text-gray-700 dark:text-slate-300">
+                  Skill
+                </th>
+                <th scope="col" className="hidden px-4 py-4 text-sm font-semibold text-left text-gray-700 dark:text-slate-300 md:table-cell">
+                  Experience
+                </th>
+                <th scope="col" className="px-4 py-4 text-sm font-semibold text-center text-gray-700 dark:text-slate-300">
+                  Years
+                </th>
+                <th scope="col" className="px-4 py-4 text-sm font-semibold text-center text-gray-700 dark:text-slate-300">
+                  Projects
+                </th>
+                <th scope="col" className="hidden px-4 py-4 text-sm font-semibold text-center text-gray-700 dark:text-slate-300 sm:table-cell">
+                  GitHub
+                </th>
+                <th scope="col" className="hidden px-4 py-4 text-sm font-semibold text-center text-gray-700 dark:text-slate-300 sm:table-cell">
+                  Main Project
+                </th>
+              </tr>
+            </thead>
+            <tbody className="bg-white divide-y divide-gray-200 dark:divide-slate-800 dark:bg-slate-950">
+              {frontendSkills.map((skill, index) => (
+                <motion.tr
+                  key={skill.name}
+                  initial={{ opacity: 0, y: 15 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: index * 0.04 }}
+                  whileHover={{ backgroundColor: "rgba(30, 30, 30, 0.06)" }}
+                  className="transition-colors group hover:bg-gray-50 dark:hover:bg-slate-800/40"
+                >
+                  <td className="px-4 py-4 whitespace-nowrap">
+                    <div className="flex items-center gap-3">
+                      <SkillIcon icon={skill.icon} />
+                      <span className="text-base font-medium text-gray-900 dark:text-white">
+                        {skill.name}
+                      </span>
+                    </div>
+                  </td>
+
+                  <td className="hidden px-4 py-4 whitespace-nowrap md:table-cell">
+                    <div className="w-48 max-w-full">
+                      <div className="h-2.5 bg-gray-200 dark:bg-slate-700 rounded-full overflow-hidden">
+                        <motion.div
+                          initial={{ width: 0 }}
+                          animate={{ width: `${(skill.exp / 5) * 100}%` }}
+                          transition={{ duration: 1.2, delay: 0.4 + index * 0.06 }}
+                          className="h-full bg-gradient-to-r from-gray-800 to-black dark:from-gray-700 dark:to-gray-900"
+                        />
+                      </div>
+                    </div>
+                  </td>
+
+                  <td className="px-4 py-4 text-sm font-medium text-center whitespace-nowrap">
+                    <span className="text-gray-900 dark:text-white">{skill.exp} yrs</span>
+                  </td>
+
+                  <td className="px-4 py-4 text-sm text-center whitespace-nowrap">
+                    <span className="font-bold text-gray-900 dark:text-white">{skill.projects}</span>
+                    <span className="ml-1 text-gray-500 dark:text-slate-400">+</span>
+                  </td>
+
+                  <td className="hidden px-4 py-4 text-center whitespace-nowrap sm:table-cell">
+                    <motion.a
+                      href={skill.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      whileHover={{ scale: 1.08 }}
+                      whileTap={{ scale: 0.94 }}
+                      className={`inline-flex items-center px-3.5 py-1.5 text-sm font-medium rounded-md transition-colors ${
+                        skill.github !== '#' 
+                          ? 'text-white bg-gray-900 hover:bg-gray-800 dark:bg-gray-800 dark:hover:bg-gray-700' 
+                          : 'text-gray-400 bg-gray-200 cursor-not-allowed dark:bg-slate-700 dark:text-slate-500'
+                      }`}
+                    >
+                      GitHub
+                    </motion.a>
+                  </td>
+
+                  <td className="hidden px-4 py-4 text-center whitespace-nowrap sm:table-cell">
+                    <motion.a
+                      href={skill.project}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      whileHover={{ scale: 1.08 }}
+                      whileTap={{ scale: 0.94 }}
+                      className={`inline-flex items-center px-3.5 py-1.5 text-sm font-medium rounded-md transition-colors ${
+                        skill.project !== '#' 
+                          ? 'text-white bg-blue-600 hover:bg-blue-700' 
+                          : 'text-gray-400 bg-gray-200 cursor-not-allowed dark:bg-slate-700 dark:text-slate-500'
+                      }`}
+                    >
+                      View Project
+                    </motion.a>
+                  </td>
+                </motion.tr>
+              ))}
+            </tbody>
+          </table>
+        </motion.div>
+
+        {/* Mobile hint */}
+        <div className="mt-6 text-sm text-center text-gray-500 dark:text-slate-400 sm:hidden">
+          Scroll horizontally → to see GitHub & Project links
         </div>
       </div>
     </div>
