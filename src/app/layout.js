@@ -4,8 +4,7 @@
 import { usePathname } from 'next/navigation';
 import { Geist, Geist_Mono } from 'next/font/google';
 import Navbar from './components/assets/Navbar';
-import Tooltip from './components/utils/Tooltip.util';
-import { TooltipProvider } from './scripts/Tooltip.context';
+import { Tooltip } from './ui/Tooltip.ui';
 import { ThemeProvider } from './scripts/Theme.context';
 import './globals.css'
 
@@ -30,13 +29,13 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white dark:bg-black text-black dark:text-white transition-colors duration-300`}
       >
-        <TooltipProvider>
+        
           <ThemeProvider>
             {showNavbar && <Navbar />}
             {children}
             <Tooltip />
           </ThemeProvider>
-        </TooltipProvider>
+    
       </body>
     </html>
   );

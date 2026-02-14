@@ -1,8 +1,11 @@
+import ComingSoon from '@/app/pages/Commin.soon.page'
 import React from 'react'
 
 function page() {
   return (
-    <div>page</div>
+    <div>
+      <ComingSoon/>
+    </div>
   )
 }
 

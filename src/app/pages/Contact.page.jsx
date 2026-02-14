@@ -24,13 +24,13 @@ const socialLinks = [
     name: "LinkedIn",
     icon: Linkedin,
     url: "https://www.linkedin.com/in/gyana-prakash-khandual-79b205332/",
-    handle: "@gyan",
+    handle: "@Gyan",
   },
   {
     name: "GitHub",
     icon: Github,
     url: "https://github.com/GyanaprakashKhandual",
-    handle: "@gyan",
+    handle: "@GyanaprakashKhandual",
   }
 ];
 
@@ -178,7 +178,7 @@ function ContactPage() {
   };
 
   return (
-    <div className="min-h-screen pt-24 pb-16 transition-colors duration-300 bg-white dark:bg-black">
+    <div className="min-h-screen pt-24 pb-16 transition-colors duration-300 bg-white hide-scrolllbar dark:bg-black">
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}

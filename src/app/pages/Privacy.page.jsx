@@ -1,14 +1,11 @@
-/* eslint-disable @next/next/no-img-element */
-"use client";
+ "use client";
 import React from "react";
 import { motion } from "framer-motion";
 import { Shield, Scale, Clock, Users, FileText, ArrowLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useTheme } from "../scripts/Theme.context"; // assuming same theme context path
 
 export default function PrivacyPolicy() {
   const router = useRouter();
-  const { isDark } = useTheme();
 
   const sections = [
     {
@@ -26,7 +23,8 @@ export default function PrivacyPolicy() {
             <li>Any other information you choose to provide</li>
           </ul>
           <p className="mt-4 text-gray-700 dark:text-gray-300">
-            We also automatically collect certain information when you visit our site, such as:
+            We also automatically collect certain information when you visit our
+            site, such as:
           </p>
           <ul className="ml-6 space-y-2 text-gray-700 list-disc dark:text-gray-300">
             <li>IP address</li>
@@ -59,13 +57,24 @@ export default function PrivacyPolicy() {
       icon: Shield,
       content: (
         <div className="space-y-4 text-gray-700 dark:text-gray-300">
-          <p>We do <strong>not</strong> sell your personal information.</p>
+          <p>
+            We do <strong>not</strong> sell your personal information.
+          </p>
           <p>We may share your information only in these limited cases:</p>
           <ul className="ml-6 space-y-2 list-disc">
-            <li>With service providers who assist us (under strict confidentiality)</li>
+            <li>
+              With service providers who assist us (under strict
+              confidentiality)
+            </li>
             <li>To comply with legal requirements or valid legal process</li>
-            <li>To protect the rights, property, or safety of us, our users, or the public</li>
-            <li>In connection with a merger, acquisition, or sale of assets (with notice)</li>
+            <li>
+              To protect the rights, property, or safety of us, our users, or
+              the public
+            </li>
+            <li>
+              In connection with a merger, acquisition, or sale of assets (with
+              notice)
+            </li>
           </ul>
         </div>
       ),
@@ -76,10 +85,13 @@ export default function PrivacyPolicy() {
       content: (
         <div className="space-y-4 text-gray-700 dark:text-gray-300">
           <p>
-            We implement appropriate technical and organizational measures to protect your personal data against unauthorized access, loss, misuse, or alteration.
+            We implement appropriate technical and organizational measures to
+            protect your personal data against unauthorized access, loss,
+            misuse, or alteration.
           </p>
           <p className="text-sm italic">
-            However, no method of transmission over the Internet or electronic storage is 100% secure.
+            However, no method of transmission over the Internet or electronic
+            storage is 100% secure.
           </p>
         </div>
       ),
@@ -99,7 +111,8 @@ export default function PrivacyPolicy() {
             <li>Withdraw consent (where processing is based on consent)</li>
           </ul>
           <p className="mt-4">
-            To exercise these rights, please contact us at the email listed below.
+            To exercise these rights, please contact us at the email listed
+            below.
           </p>
         </div>
       ),
@@ -110,10 +123,12 @@ export default function PrivacyPolicy() {
       content: (
         <div className="space-y-4 text-gray-700 dark:text-gray-300">
           <p>
-            We use cookies and similar technologies to enhance your experience, analyze usage, and deliver personalized content.
+            We use cookies and similar technologies to enhance your experience,
+            analyze usage, and deliver personalized content.
           </p>
           <p>
-            You can manage cookie preferences through your browser settings. Note that disabling cookies may limit site functionality.
+            You can manage cookie preferences through your browser settings.
+            Note that disabling cookies may limit site functionality.
           </p>
         </div>
       ),
@@ -123,7 +138,9 @@ export default function PrivacyPolicy() {
       content: (
         <div className="space-y-4 text-gray-700 dark:text-gray-300">
           <p>
-            We may update this Privacy Policy from time to time. We will notify you of material changes by posting the new policy on this page and updating the "Last updated" date.
+            We may update this Privacy Policy from time to time. We will notify
+            you of material changes by posting the new policy on this page and
+            updating the &quot;Last updated&quot; date.
           </p>
           <p className="font-medium">Last updated: January 27, 2026</p>
         </div>
@@ -134,10 +151,17 @@ export default function PrivacyPolicy() {
       content: (
         <div className="space-y-4 text-gray-700 dark:text-gray-300">
           <p>
-            If you have any questions about this Privacy Policy or our data practices, please contact us at:
+            If you have any questions about this Privacy Policy or our data
+            practices, please contact us at:
           </p>
           <p className="font-medium">
-            Email: <a href="mailto:your-email@example.com" className="underline hover:text-black dark:hover:text-white">your-email@example.com</a>
+            Email:{" "}
+            <a
+              href="mailto:gyanaprakashkhnadual@gmail.com"
+              className="hover:text-blue-600 dark:hover:text-white"
+            >
+              gyanaprakashkhnadual@gmail.com
+            </a>
           </p>
         </div>
       ),

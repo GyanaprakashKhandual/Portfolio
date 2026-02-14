@@ -1,115 +1,71 @@
-"use client";
-
-import {
-  createContext,
-  useContext,
-  useState,
-  useEffect,
-  useCallback,
-} from "react";
-
-const TooltipContext = createContext();
-
-export const useTooltip = () => {
-  const context = useContext(TooltipContext);
-  if (!context) {
-    throw new Error("useTooltip must be used within TooltipProvider");
-  }
-  return context;
+export const positionClasses = {
+  top: 'bottom-full mb-2 left-1/2 -translate-x-1/2',
+  bottom: 'top-full mt-2 left-1/2 -translate-x-1/2',
+  left: 'right-full mr-2 top-1/2 -translate-y-1/2',
+  right: 'left-full ml-2 top-1/2 -translate-y-1/2',
+  'top-left': 'bottom-full mb-2 right-0',
+  'top-right': 'bottom-full mb-2 left-0',
+  'bottom-left': 'top-full mt-2 right-0',
+  'bottom-right': 'top-full mt-2 left-0',
+  'left-top': 'right-full mr-2 bottom-0',
+  'left-bottom': 'right-full mr-2 top-0',
+  'right-top': 'left-full ml-2 bottom-0',
+  'right-bottom': 'left-full ml-2 top-0',
 };
 
-export const TooltipProvider = ({ children }) => {
-  const [tooltip, setTooltip] = useState({
-    visible: false,
-    content: "",
-    position: null,
-    targetRect: null,
-    placement: "bottom",
-    customClass: "",
-  });
+export const calculatePosition = (
+  triggerRect,
+  tooltipRect,
+  position
+) => {
+  const viewportHeight = window.innerHeight;
+  const viewportWidth = window.innerWidth;
+  const spaceBelow = viewportHeight - triggerRect.bottom;
+  const spaceAbove = triggerRect.top;
+  const spaceRight = viewportWidth - triggerRect.right;
+  const spaceLeft = triggerRect.left;
 
-  const [hoverTimeout, setHoverTimeout] = useState(null);
+  let newPosition = position;
 
-  const showTooltip = useCallback(
-    (content, targetRect, placement = "bottom", customClass = "") => {
-      setTooltip({
-        visible: true,
-        content,
-        position: { x: 0, y: 0 },
-        targetRect,
-        placement,
-        customClass,
-      });
-    },
-    []
-  );
-
-  const hideTooltip = useCallback(() => {
-    setTooltip((prev) => ({ ...prev, visible: false }));
-    if (hoverTimeout) {
-      clearTimeout(hoverTimeout);
-      setHoverTimeout(null);
+  if (position === 'top' || position === 'top-left' || position === 'top-right') {
+    if (spaceAbove < 60 && spaceBelow > spaceAbove) {
+      newPosition =
+        position === 'top'
+          ? 'bottom'
+          : position === 'top-left'
+            ? 'bottom-left'
+            : 'bottom-right';
     }
-  }, [hoverTimeout]);
+  } else if (
+    position === 'bottom' ||
+    position === 'bottom-left' ||
+    position === 'bottom-right'
+  ) {
+    if (spaceBelow < 60 && spaceAbove > spaceBelow) {
+      newPosition =
+        position === 'bottom'
+          ? 'top'
+          : position === 'bottom-left'
+            ? 'top-left'
+            : 'top-right';
+    }
+  }
 
-  useEffect(() => {
-    const handleMouseOver = (e) => {
-      const target = e.target.closest("[tooltip-data]");
-      if (!target) return;
+  if (newPosition.includes('left')) {
+    if (spaceLeft < tooltipRect.width && spaceRight > spaceLeft) {
+      newPosition = newPosition.replace('left', 'right');
+    }
+  } else if (newPosition.includes('right')) {
+    if (spaceRight < tooltipRect.width && spaceLeft > spaceRight) {
+      newPosition = newPosition.replace('right', 'left');
+    }
+  } else {
+    if (spaceRight < tooltipRect.width / 2 && spaceLeft > spaceRight) {
+      newPosition = newPosition + '-left';
+    } else if (spaceLeft < tooltipRect.width / 2 && spaceRight > spaceLeft) {
+      newPosition = newPosition + '-right';
+    }
+  }
 
-      const content = target.getAttribute("tooltip-data");
-      const placement = target.getAttribute("tooltip-placement") || "bottom";
-      const customClass = target.getAttribute("tooltip-class") || "";
-
-      if (!content) return;
-
-      // Clear any existing timeout
-      if (hoverTimeout) {
-        clearTimeout(hoverTimeout);
-      }
-
-      // Delay showing tooltip by 500ms (Google Meet style)
-      const timeout = setTimeout(() => {
-        const rect = target.getBoundingClientRect();
-        showTooltip(content, rect, placement, customClass);
-      }, 500);
-
-      setHoverTimeout(timeout);
-    };
-
-    const handleMouseOut = (e) => {
-      const target = e.target.closest("[tooltip-data]");
-      if (!target) return;
-
-      hideTooltip();
-    };
-
-    // Add click handler to hide tooltip when element is clicked
-    const handleClick = (e) => {
-      const target = e.target.closest("[tooltip-data]");
-      if (!target) return;
-
-      // Immediately hide tooltip on click
-      hideTooltip();
-    };
-
-    document.addEventListener("mouseover", handleMouseOver);
-    document.addEventListener("mouseout", handleMouseOut);
-    document.addEventListener("click", handleClick, true); // Use capture phase to catch clicks early
-
-    return () => {
-      document.removeEventListener("mouseover", handleMouseOver);
-      document.removeEventListener("mouseout", handleMouseOut);
-      document.removeEventListener("click", handleClick, true);
-      if (hoverTimeout) {
-        clearTimeout(hoverTimeout);
-      }
-    };
-  }, [showTooltip, hideTooltip, hoverTimeout]);
-
-  return (
-    <TooltipContext.Provider value={{ tooltip, showTooltip, hideTooltip }}>
-      {children}
-    </TooltipContext.Provider>
-  );
+  return newPosition;
 };

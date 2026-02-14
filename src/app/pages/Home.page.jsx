@@ -4,7 +4,6 @@ import React, { useEffect, useRef, useState } from "react";
 import { motion, useScroll } from "framer-motion";
 import {
   Code2,
-  Database,
   Shield,
   TestTube,
   Gauge,
@@ -13,13 +12,23 @@ import {
   Github,
   Users,
   Download,
-  Zap,
   Rocket,
   Award,
   MessageSquare,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useTheme } from "../scripts/Theme.context";
+import { FaDocker } from "react-icons/fa";
+import {
+  SiExpress,
+  SiGrafana,
+  SiMetasploit,
+  SiMongodb,
+  SiSelenium,
+  SiTypescript,
+} from "react-icons/si";
+import { GrReactjs } from "react-icons/gr";
+import { RiNextjsLine } from "react-icons/ri";
 
 export default function HomePage() {
   const containerRef = useRef(null);
@@ -52,16 +61,16 @@ export default function HomePage() {
   }, []);
 
   const skills = [
-    { name: "TypeScript", icon: Code2, category: "Language" },
-    { name: "React.js", icon: Code2, category: "Frontend" },
-    { name: "Express.js", icon: Code2, category: "Backend" },
-    { name: "MongoDB", icon: Database, category: "Database" },
-    { name: "Next.js", icon: Code2, category: "Full Stack" },
-    { name: "Selenium", icon: TestTube, category: "Testing" },
+    { name: "TypeScript", icon: SiTypescript, category: "Language" },
+    { name: "React.js", icon: GrReactjs, category: "Frontend" },
+    { name: "Express.js", icon: SiExpress, category: "Backend" },
+    { name: "MongoDB", icon: SiMongodb, category: "Database" },
+    { name: "Next.js", icon: RiNextjsLine, category: "Full Stack" },
+    { name: "Selenium", icon: SiSelenium, category: "Testing" },
     { name: "REST Assured", icon: Terminal, category: "API Testing" },
-    { name: "Grafana", icon: Gauge, category: "Monitoring" },
-    { name: "Metasploit", icon: Shield, category: "Security" },
-    { name: "Burp Suite", icon: Shield, category: "Security" },
+    { name: "Grafana", icon: SiGrafana, category: "Monitoring" },
+    { name: "Metasploit", icon: SiMetasploit, category: "Security" },
+    { name: "Docker", icon: FaDocker, category: "Devops" },
   ];
 
   const stats = [
@@ -106,13 +115,13 @@ export default function HomePage() {
       name: "Selenium Cucumber",
       description:
         "Helps generate step definition code from raw Cucumber code. Makes test automation faster and more efficient.",
-      installs: "6000+",
+      installs: "6661+",
     },
     {
       name: "Caffetest Tracker",
       description:
         "Integrated bug tracking and reporting directly in VS Code. Seamless workflow integration.",
-      installs: "15+",
+      installs: "224+",
     },
   ];
 
@@ -130,7 +139,7 @@ export default function HomePage() {
       role: "CEO",
       company: "Avidus Interactive",
       feedback:
-        "Working with Gyanu was a game-changer. The AI-integrated solutions delivered exceeded our expectations.",
+        "Working with Gyan was a game-changer. The AI-integrated solutions delivered exceeded our expectations.",
       avatar: "AA",
     },
     {
@@ -142,7 +151,6 @@ export default function HomePage() {
       avatar: "AM",
     },
   ];
-
   return (
     <div
       ref={containerRef}
@@ -392,15 +400,28 @@ export default function HomePage() {
                   {project.description}
                 </p>
                 <div className="flex flex-wrap gap-3">
-                  <button className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white transition-opacity bg-black rounded-md dark:bg-white dark:text-black hover:opacity-80">
+                  <button
+                    onClick={() => window.open(project.links.app, "_blank")}
+                    className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white transition-opacity bg-black rounded-md dark:bg-white dark:text-black hover:opacity-80"
+                  >
                     <ExternalLink className="w-4 h-4" />
                     View App
                   </button>
-                  <button className="flex items-center gap-2 px-4 py-2 text-sm font-medium transition-colors border border-black rounded-md dark:border-white hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">
+
+                  <button
+                    onClick={() =>
+                      window.open(project.links.frontend, "_blank")
+                    }
+                    className="flex items-center gap-2 px-4 py-2 text-sm font-medium transition-colors border border-black rounded-md dark:border-white hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black"
+                  >
                     <Github className="w-4 h-4" />
                     Frontend
                   </button>
-                  <button className="flex items-center gap-2 px-4 py-2 text-sm font-medium transition-colors border border-black rounded-md dark:border-white hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">
+
+                  <button
+                    onClick={() => window.open(project.links.backend, "_blank")}
+                    className="flex items-center gap-2 px-4 py-2 text-sm font-medium transition-colors border border-black rounded-md dark:border-white hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black"
+                  >
                     <Github className="w-4 h-4" />
                     Backend
                   </button>
@@ -445,7 +466,7 @@ export default function HomePage() {
                 <button
                   onClick={() =>
                     router.push(
-                      "https://marketplace.visualstudio.com/manage/publishers/gyanaprakashkhandual"
+                      "https://marketplace.visualstudio.com/manage/publishers/gyanaprakashkhandual",
                     )
                   }
                   className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white transition-opacity bg-black rounded-md dark:bg-white dark:text-black hover:opacity-80"
@@ -527,7 +548,6 @@ export default function HomePage() {
                 onClick={() => router.push("/contact")}
                 className="flex items-center gap-2 px-8 py-4 font-medium text-black transition-opacity bg-white rounded-md dark:bg-black dark:text-white hover:opacity-80"
               >
-                <Zap className="w-5 h-5" />
                 Get In Touch
               </button>
               <button
@@ -562,7 +582,7 @@ export default function HomePage() {
               <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-400">
                 <li>
                   <a
-                    href="https://gyanprakash.verlce.app/about"
+                    href="https://gyanprakash.vercel.app/about"
                     className="transition-colors hover:text-black dark:hover:text-white"
                   >
                     About
@@ -570,7 +590,7 @@ export default function HomePage() {
                 </li>
                 <li>
                   <a
-                    href="https://gyanprakash.verlce.app/projects"
+                    href="https://gyanprakash.vercel.app/projects"
                     className="transition-colors hover:text-black dark:hover:text-white"
                   >
                     Projects
@@ -578,7 +598,7 @@ export default function HomePage() {
                 </li>
                 <li>
                   <a
-                    href="https://gyanprakash.verlce.app/skills"
+                    href="https://gyanprakash.vercel.app/skills"
                     className="transition-colors hover:text-black dark:hover:text-white"
                   >
                     Skills
@@ -586,7 +606,7 @@ export default function HomePage() {
                 </li>
                 <li>
                   <a
-                    href="https://gyanprakash.verlce.app/contact"
+                    href="https://gyanprakash.vercel.app/contact"
                     className="transition-colors hover:text-black dark:hover:text-white"
                   >
                     Contact
@@ -624,7 +644,7 @@ export default function HomePage() {
                 </li>
                 <li>
                   <a
-                    href="https://gyanprakash.verlce.app/contact"
+                    href="https://gyanprakash.vercel.app/contact"
                     className="text-black transition-colors dark:text-black hover:text-black dark:hover:text-black"
                   >
                     Email

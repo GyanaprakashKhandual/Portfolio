@@ -1,14 +1,11 @@
-/* eslint-disable @next/next/no-img-element */
-"use client";
+ "use client";
 import React from "react";
 import { motion } from "framer-motion";
 import { Scale, FileText, Shield, Clock, Users, AlertTriangle, ArrowLeft, ExternalLink } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useTheme } from "../scripts/Theme.context"; // consistent with your project
 
 export default function TermsAndConditions() {
   const router = useRouter();
-  const { isDark } = useTheme();
 
   const sections = [
     {
@@ -138,7 +135,7 @@ export default function TermsAndConditions() {
             If you have any questions about these Terms, please contact us at:
           </p>
           <p className="font-medium">
-            Email: <a href="mailto:your-email@example.com" className="underline hover:text-black dark:hover:text-white">your-email@example.com</a>
+            Email: <a href="mailto:gyanaprakashkhnadual@gmail.com" className="hover:text-blue-600 dark:hover:text-white">gyanaprakashkhnadual@gmail.com</a>
           </p>
         </div>
       ),
