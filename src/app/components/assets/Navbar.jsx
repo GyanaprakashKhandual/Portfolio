@@ -2,19 +2,20 @@
 
 import React, { useState, useEffect } from "react";
 import { useRouter, usePathname } from "next/navigation";
-import { Coffee, Moon, Sun, Menu, X, Music } from "lucide-react";
+import { Coffee, Moon, Sun, Menu, X, Music, Video, User } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaCoffee } from "react-icons/fa";
 import { useTheme } from "../../scripts/Theme.context";
-import { Tooltip } from "@/app/ui/Tooltip.ui";
 import { GitHub } from "@mui/icons-material";
-
+import { Tooltip } from "@/app/ui/Tooltip.ui";
+import AuthModal from "./Auth.modal";
 export default function Navbar() {
   const router = useRouter();
   const pathname = usePathname();
   const { theme, toggleTheme } = useTheme();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
 
   const navLinks = [
     { name: "Skills", path: "/skills" },
@@ -22,7 +23,6 @@ export default function Navbar() {
     { name: "Education", path: "/education" },
     { name: "Experience", path: "/experience" },
     { name: "Blogs", path: "/blogs" },
-    { name: "Notes", path: "/notes" },
     { name: "Docs", path: "/docs" },
     { name: "Contact", path: "/contact" },
   ];
@@ -92,7 +92,11 @@ export default function Navbar() {
             </div>
 
             <div className="flex items-center gap-3 sm:gap-4">
-              <Tooltip content={theme === "dark" ? "Switch to Light" : "Switch to Dark"}>
+              <Tooltip
+                content={
+                  theme === "dark" ? "Switch to Light" : "Switch to Dark"
+                }
+              >
                 <motion.button
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
@@ -133,21 +137,42 @@ export default function Navbar() {
               </Tooltip>
               <Tooltip content="Music">
                 <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="flex items-center gap-2 px-4 py-2 transition-colors bg-gray-100 rounded-md dark:bg-gray-900 hover:bg-gray-200 dark:hover:bg-gray-800"
-                  >
-                    <Music className="w-5 h-5"/>
-                  </motion.button>
+                onClick={() => router.push('/music')}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="flex items-center gap-2 px-4 py-2 transition-colors bg-gray-100 rounded-md dark:bg-gray-900 hover:bg-gray-200 dark:hover:bg-gray-800"
+                >
+                  <Music className="w-5 h-5" />
+                </motion.button>
+              </Tooltip>
+              <Tooltip content="Vlogs">
+                <motion.button
+                onClick={() => router.push('/vlogs')}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="flex items-center gap-2 px-4 py-2 transition-colors bg-gray-100 rounded-md dark:bg-gray-900 hover:bg-gray-200 dark:hover:bg-gray-800"
+                >
+                  <Video className="w-5 h-5" />
+                </motion.button>
               </Tooltip>
               <Tooltip content="Github">
                 <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="flex items-center gap-2 px-4 py-2 transition-colors bg-gray-100 rounded-md dark:bg-gray-900 hover:bg-gray-200 dark:hover:bg-gray-800"
-                  >
-                    <GitHub className="w-5 h-5"/>
-                  </motion.button>
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="flex items-center gap-2 px-4 py-2 transition-colors bg-gray-100 rounded-md dark:bg-gray-900 hover:bg-gray-200 dark:hover:bg-gray-800"
+                >
+                  <GitHub className="w-5 h-5" />
+                </motion.button>
+              </Tooltip>
+              <Tooltip content="Please Login">
+                <motion.button
+                onClick={() => setIsAuthModalOpen(true)}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="flex items-center gap-2 px-4 py-2 transition-colors bg-gray-100 rounded-md dark:bg-gray-900 hover:bg-gray-200 dark:hover:bg-gray-800"
+                >
+                  <User className="w-5 h-5" />
+                </motion.button>
               </Tooltip>
 
               <motion.button
@@ -250,7 +275,7 @@ export default function Navbar() {
                     ) : (
                       <>
                         <Tooltip content="Switch to Dark">
-                          <Moon className="w-4 h-4 cursor-pointer"/>
+                          <Moon className="w-4 h-4 cursor-pointer" />
                         </Tooltip>
                         <span className="text-sm font-medium">Dark</span>
                       </>
@@ -262,13 +287,17 @@ export default function Navbar() {
                     onClick={toggleTheme}
                     className="flex items-center gap-2 px-4 py-2 transition-colors bg-gray-100 rounded-md dark:bg-gray-900 hover:bg-gray-200 dark:hover:bg-gray-800"
                   >
-                    <Music className="w-4 h-4"/>
+                    <Music className="w-4 h-4" />
                   </motion.button>
                 </div>
               </div>
             </motion.div>
           </>
         )}
+        <AuthModal 
+        isOpen={isAuthModalOpen} 
+        onClose={() => setIsAuthModalOpen(false)} 
+      />
       </AnimatePresence>
     </>
   );

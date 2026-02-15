@@ -17,15 +17,12 @@ const geistMono = Geist_Mono({
   variable: '--font-geist-mono',
 });
 
-export const metadata = {
-  title: 'Gyan | Full Stack Developer',
-  description: 'Welcome to my portfolio! I am a passionate full stack developer with expertise in React, Next.js, Node.js, and more. Explore my projects, skills, and experience.',
-}
+
 
 export default function RootLayout({ children }) {
   const pathname = usePathname();
 
-  const hideNavbarPaths = ["/privacy-policy", "/terms-and-conditions"];
+  const hideNavbarPaths = ["/privacy-policy", "/terms-and-conditions", '/music', '/vlogs'];
   const showNavbar = !hideNavbarPaths.includes(pathname);
 
   return (
