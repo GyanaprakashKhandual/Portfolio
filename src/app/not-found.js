@@ -2,11 +2,11 @@
 
 import React from "react";
 import { useRouter } from "next/navigation";
-import { Home, ArrowLeft, Clock, Wrench } from "lucide-react";
+import { Home, ArrowLeft, Coffee } from "lucide-react";
 import { motion } from "framer-motion";
-import { useTheme } from "../scripts/Theme.context";
+import { useTheme } from "./scripts/Theme.context";
 
-export default function ComingSoon() {
+export default function NotFound() {
   const router = useRouter();
   const { theme } = useTheme();
 
@@ -27,47 +27,40 @@ export default function ComingSoon() {
           transition={{ duration: 0.6 }}
           className="mb-8"
         >
-          <motion.div
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
-            className="relative inline-block mb-6"
-          >
-            <Wrench className="w-16 h-16 text-black sm:w-20 sm:h-20 dark:text-white" />
-          </motion.div>
+          <Coffee className="w-16 h-16 mx-auto mb-6 text-black sm:w-20 sm:h-20 dark:text-white" />
 
           <motion.h1
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.4, duration: 0.5 }}
-            className="mb-4 text-4xl font-bold text-black sm:text-5xl md:text-6xl dark:text-white"
+            transition={{ delay: 0.2, duration: 0.5 }}
+            className="mb-4 text-6xl font-bold text-black sm:text-8xl md:text-9xl dark:text-white"
           >
-            Coming Soon
+            404
           </motion.h1>
 
           <motion.h2
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.6, duration: 0.5 }}
-            className="mb-4 text-xl font-semibold text-gray-800 sm:text-2xl md:text-3xl dark:text-gray-200"
+            transition={{ delay: 0.4, duration: 0.5 }}
+            className="mb-4 text-2xl font-semibold text-gray-800 sm:text-3xl md:text-4xl dark:text-gray-200"
           >
-            We're Working On It
+            Page Not Found
           </motion.h2>
 
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.8, duration: 0.5 }}
+            transition={{ delay: 0.6, duration: 0.5 }}
             className="mb-8 text-base text-gray-600 sm:text-lg dark:text-gray-400"
           >
-            This page is under construction. We're crafting something amazing for you. Check back soon!
+            Oops! The page you&apos;re looking for doesn&apos;t exist. It might have been moved or deleted.
           </motion.p>
         </motion.div>
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1, duration: 0.5 }}
+          transition={{ delay: 0.8, duration: 0.5 }}
           className="flex flex-col gap-4 sm:flex-row sm:justify-center"
         >
           <motion.button
@@ -94,28 +87,11 @@ export default function ComingSoon() {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 1.2, duration: 0.5 }}
+          transition={{ delay: 1, duration: 0.5 }}
           className="mt-12"
         >
-          <div className="flex items-center justify-center gap-2 mb-4">
-            <motion.div
-              animate={{ scale: [1, 1.2, 1] }}
-              transition={{ duration: 1.5, repeat: Infinity }}
-              className="w-2 h-2 bg-black rounded-full dark:bg-white"
-            />
-            <motion.div
-              animate={{ scale: [1, 1.2, 1] }}
-              transition={{ duration: 1.5, repeat: Infinity, delay: 0.2 }}
-              className="w-2 h-2 bg-black rounded-full dark:bg-white"
-            />
-            <motion.div
-              animate={{ scale: [1, 1.2, 1] }}
-              transition={{ duration: 1.5, repeat: Infinity, delay: 0.4 }}
-              className="w-2 h-2 bg-black rounded-full dark:bg-white"
-            />
-          </div>
           <p className="text-sm text-gray-500 dark:text-gray-500">
-            Stay tuned for updates!
+            Lost? Let&apos;s get you back on track.
           </p>
         </motion.div>
       </div>

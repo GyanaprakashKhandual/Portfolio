@@ -1,15 +1,18 @@
-'use client';
-import React, { useState, useRef, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { positionClasses, calculatePosition } from '@/app/scripts/Tooltip.context';
+"use client";
+import React, { useState, useRef, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  positionClasses,
+  calculatePosition,
+} from "@/app/scripts/Tooltip.context";
 
 export const Tooltip = ({
-  content = '',
+  content = "",
   children,
-  position = 'bottom',
+  position = "bottom",
   delay = 0,
   maxWidth = 200,
-  className = ''
+  className = "",
 }) => {
   const [isVisible, setIsVisible] = useState(false);
   const [calculatedPosition, setCalculatedPosition] = useState(position);
@@ -28,7 +31,7 @@ export const Tooltip = ({
   const animationVariants = {
     hidden: { opacity: 0, scale: 0.8 },
     visible: { opacity: 1, scale: 1 },
-    exit: { opacity: 0, scale: 0.8 }
+    exit: { opacity: 0, scale: 0.8 },
   };
 
   return (
@@ -49,8 +52,6 @@ export const Tooltip = ({
             initial="hidden"
             animate="visible"
             exit="exit"
-            variants={animationVariants}
-            transition={{ duration: 0.2 }}
             className={`
               absolute z-9999 bg-[#3c4043] text-white text-[13px] leading-4.5 px-2.5 py-1.5 rounded shadow-[0_2px_8px_rgba(0,0,0,0.26)] whitespace-nowrap font-semi-bold pointer-events-none
               ${positionClasses[calculatedPosition] || positionClasses.top}
@@ -64,4 +65,3 @@ export const Tooltip = ({
     </div>
   );
 };
-

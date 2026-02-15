@@ -28,7 +28,7 @@ export default function NotFound() {
           className="mb-8"
         >
           <Coffee className="w-16 h-16 mx-auto mb-6 text-black sm:w-20 sm:h-20 dark:text-white" />
-          
+
           <motion.h1
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -53,7 +53,8 @@ export default function NotFound() {
             transition={{ delay: 0.6, duration: 0.5 }}
             className="mb-8 text-base text-gray-600 sm:text-lg dark:text-gray-400"
           >
-            Oops! The page you're looking for doesn't exist. It might have been moved or deleted.
+            Oops! The page you&apos;re looking for doesn&apos;t exist. It might
+            have been moved or deleted.
           </motion.p>
         </motion.div>
 
@@ -91,7 +92,7 @@ export default function NotFound() {
           className="mt-12"
         >
           <p className="text-sm text-gray-500 dark:text-gray-500">
-            Lost? Let's get you back on track.
+            Lost? Let&apos;s get you back on track.
           </p>
         </motion.div>
       </div>

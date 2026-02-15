@@ -1,4 +1,3 @@
-// app/layout.js     ← stays .js
 'use client';
 
 import { usePathname } from 'next/navigation';
@@ -18,6 +17,11 @@ const geistMono = Geist_Mono({
   variable: '--font-geist-mono',
 });
 
+export const metadata = {
+  title: 'Gyan | Full Stack Developer',
+  description: 'Welcome to my portfolio! I am a passionate full stack developer with expertise in React, Next.js, Node.js, and more. Explore my projects, skills, and experience.',
+}
+
 export default function RootLayout({ children }) {
   const pathname = usePathname();
 
@@ -29,13 +33,13 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white dark:bg-black text-black dark:text-white transition-colors duration-300`}
       >
-        
-          <ThemeProvider>
-            {showNavbar && <Navbar />}
-            {children}
-            <Tooltip />
-          </ThemeProvider>
-    
+
+        <ThemeProvider>
+          {showNavbar && <Navbar />}
+          {children}
+          <Tooltip />
+        </ThemeProvider>
+
       </body>
     </html>
   );

@@ -7,9 +7,9 @@ const K6LoadTestingPost = dynamic(() => import("../components/blogs/Gk.learn"));
 const RestAssuredTestingPost = dynamic(() => import("../components/blogs/Ra.learn"));
 
 const postsMap = {
-  "k6-load-testing-guide": { 
-    meta: k6LoadTestingMeta, 
-    component: K6LoadTestingPost 
+  "k6-load-testing-guide": {
+    meta: k6LoadTestingMeta,
+    component: K6LoadTestingPost
   }
 };
 

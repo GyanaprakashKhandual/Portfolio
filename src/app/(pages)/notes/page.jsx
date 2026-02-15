@@ -1,4 +1,4 @@
-import ComingSoon from '@/app/pages/Commin.soon.page'
+import ComingSoon from '@/app/pages/Coming.soon.page'
 import React from 'react'
 
 function page() {

@@ -31,7 +31,7 @@ const socialLinks = [
     icon: Github,
     url: "https://github.com/GyanaprakashKhandual",
     handle: "@GyanaprakashKhandual",
-  }
+  },
 ];
 
 function AlertBox({ type, message, icon: Icon }) {
@@ -40,26 +40,26 @@ function AlertBox({ type, message, icon: Icon }) {
       bg: "bg-green-50 dark:bg-green-900/20",
       border: "border-green-300 dark:border-green-700",
       icon: "text-green-600 dark:text-green-400",
-      text: "text-green-700 dark:text-green-300"
+      text: "text-green-700 dark:text-green-300",
     },
     error: {
       bg: "bg-red-50 dark:bg-red-900/20",
       border: "border-red-300 dark:border-red-700",
       icon: "text-red-600 dark:text-red-400",
-      text: "text-red-700 dark:text-red-300"
+      text: "text-red-700 dark:text-red-300",
     },
     warning: {
       bg: "bg-yellow-50 dark:bg-yellow-900/20",
       border: "border-yellow-300 dark:border-yellow-700",
       icon: "text-yellow-600 dark:text-yellow-400",
-      text: "text-yellow-700 dark:text-yellow-300"
+      text: "text-yellow-700 dark:text-yellow-300",
     },
     info: {
       bg: "bg-blue-50 dark:bg-blue-900/20",
       border: "border-blue-300 dark:border-blue-700",
       icon: "text-blue-600 dark:text-blue-400",
-      text: "text-blue-700 dark:text-blue-300"
-    }
+      text: "text-blue-700 dark:text-blue-300",
+    },
   };
 
   const style = styles[type];
@@ -71,9 +71,7 @@ function AlertBox({ type, message, icon: Icon }) {
       className={`flex items-center gap-3 p-4 border rounded-lg ${style.bg} ${style.border}`}
     >
       <Icon className={`w-5 h-5 shrink-0 ${style.icon}`} />
-      <p className={`text-sm font-medium ${style.text}`}>
-        {message}
-      </p>
+      <p className={`text-sm font-medium ${style.text}`}>{message}</p>
     </motion.div>
   );
 }
@@ -108,8 +106,13 @@ function ContactPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    if (!formData.name || !formData.email || !formData.subject || !formData.message) {
+
+    if (
+      !formData.name ||
+      !formData.email ||
+      !formData.subject ||
+      !formData.message
+    ) {
       setStatus("warning");
       setStatusMessage("Please fill in all required fields.");
       return;
@@ -136,21 +139,25 @@ function ContactPage() {
 
       if (response.ok) {
         setStatus("success");
-        setStatusMessage("Your message has been sent successfully! I'll get back to you soon.");
+        setStatusMessage(
+          "Your message has been sent successfully! I'll get back to you soon.",
+        );
         setFormData({ name: "", email: "", subject: "", message: "" });
-        
+
         setTimeout(() => {
           setStatus(null);
         }, 5000);
       } else {
         setStatus("error");
         setStatusMessage(
-          data.message || "Failed to send email. Please try again later."
+          data.message || "Failed to send email. Please try again later.",
         );
       }
     } catch (error) {
       setStatus("error");
-      setStatusMessage("An error occurred while sending your message. Please try again.");
+      setStatusMessage(
+        "An error occurred while sending your message. Please try again.",
+      );
       console.error("Error:", error);
     } finally {
       setLoading(false);
@@ -390,15 +397,27 @@ function ContactPage() {
                 </motion.div>
 
                 {status === "success" && (
-                  <AlertBox type="success" message={statusMessage} icon={CheckCircle} />
+                  <AlertBox
+                    type="success"
+                    message={statusMessage}
+                    icon={CheckCircle}
+                  />
                 )}
 
                 {status === "error" && (
-                  <AlertBox type="error" message={statusMessage} icon={AlertCircle} />
+                  <AlertBox
+                    type="error"
+                    message={statusMessage}
+                    icon={AlertCircle}
+                  />
                 )}
 
                 {status === "warning" && (
-                  <AlertBox type="warning" message={statusMessage} icon={AlertCircle} />
+                  <AlertBox
+                    type="warning"
+                    message={statusMessage}
+                    icon={AlertCircle}
+                  />
                 )}
 
                 {status === "info" && (

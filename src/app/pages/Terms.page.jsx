@@ -1,7 +1,16 @@
- "use client";
+"use client";
 import React from "react";
 import { motion } from "framer-motion";
-import { Scale, FileText, Shield, Clock, Users, AlertTriangle, ArrowLeft, ExternalLink } from "lucide-react";
+import {
+  Scale,
+  FileText,
+  Shield,
+  Clock,
+  Users,
+  AlertTriangle,
+  ArrowLeft,
+  ExternalLink,
+} from "lucide-react";
 import { useRouter } from "next/navigation";
 
 export default function TermsAndConditions() {
@@ -14,10 +23,16 @@ export default function TermsAndConditions() {
       content: (
         <div className="space-y-4 text-gray-700 dark:text-gray-300">
           <p>
-            These Terms and Conditions (&quot;Terms&quot;) constitute a legally binding agreement between you (&quot;you&quot;, &quot;user&quot;) and Gyana Prakash Khandual (&quot;we&quot;, &quot;us&quot;, &quot;our&quot;) regarding your access to and use of https://gyanprakash.vercel.app (the &quot;Site&quot;).
+            These Terms and Conditions (&quot;Terms&quot;) constitute a legally
+            binding agreement between you (&quot;you&quot;, &quot;user&quot;)
+            and Gyana Prakash Khandual (&quot;we&quot;, &quot;us&quot;,
+            &quot;our&quot;) regarding your access to and use of
+            https://gyanprakash.vercel.app (the &quot;Site&quot;).
           </p>
           <p>
-            By accessing, browsing, or using the Site, you acknowledge that you have read, understood, and agree to be bound by these Terms. If you do not agree, you must not use the Site.
+            By accessing, browsing, or using the Site, you acknowledge that you
+            have read, understood, and agree to be bound by these Terms. If you
+            do not agree, you must not use the Site.
           </p>
         </div>
       ),
@@ -27,13 +42,25 @@ export default function TermsAndConditions() {
       icon: FileText,
       content: (
         <div className="space-y-4 text-gray-700 dark:text-gray-300">
-          <p>You agree to use the Site only for lawful purposes and in accordance with these Terms. You must not:</p>
+          <p>
+            You agree to use the Site only for lawful purposes and in accordance
+            with these Terms. You must not:
+          </p>
           <ul className="ml-6 space-y-2 list-disc">
-            <li>Use the Site in any way that violates any applicable law or regulation</li>
+            <li>
+              Use the Site in any way that violates any applicable law or
+              regulation
+            </li>
             <li>Attempt to gain unauthorized access to any part of the Site</li>
             <li>Interfere with or disrupt the Site or servers</li>
-            <li>Copy, reproduce, modify, distribute, or create derivative works from any content without permission</li>
-            <li>Use any robot, spider, scraper, or other automated means to access the Site</li>
+            <li>
+              Copy, reproduce, modify, distribute, or create derivative works
+              from any content without permission
+            </li>
+            <li>
+              Use any robot, spider, scraper, or other automated means to access
+              the Site
+            </li>
           </ul>
         </div>
       ),
@@ -44,10 +71,15 @@ export default function TermsAndConditions() {
       content: (
         <div className="space-y-4 text-gray-700 dark:text-gray-300">
           <p>
-            All content on the Site, including text, graphics, logos, images, code, projects, and documentation (&quot;Content&quot;), is owned by us or our licensors and protected by copyright, trademark, and other intellectual property laws.
+            All content on the Site, including text, graphics, logos, images,
+            code, projects, and documentation (&quot;Content&quot;), is owned by
+            us or our licensors and protected by copyright, trademark, and other
+            intellectual property laws.
           </p>
           <p>
-            You are granted a limited, non-exclusive, non-transferable license to view and access the Content for personal, non-commercial use only. Any other use requires our prior written consent.
+            You are granted a limited, non-exclusive, non-transferable license
+            to view and access the Content for personal, non-commercial use
+            only. Any other use requires our prior written consent.
           </p>
         </div>
       ),
@@ -58,10 +90,15 @@ export default function TermsAndConditions() {
       content: (
         <div className="space-y-4 text-gray-700 dark:text-gray-300">
           <p>
-            If you submit any content (e.g., through contact forms or messages), you grant us a non-exclusive, royalty-free, perpetual, irrevocable license to use, reproduce, modify, and display such content for the purpose of operating and improving the Site.
+            If you submit any content (e.g., through contact forms or messages),
+            you grant us a non-exclusive, royalty-free, perpetual, irrevocable
+            license to use, reproduce, modify, and display such content for the
+            purpose of operating and improving the Site.
           </p>
           <p>
-            You are solely responsible for any content you submit and agree not to post anything that is unlawful, harmful, threatening, abusive, defamatory, or infringes on third-party rights.
+            You are solely responsible for any content you submit and agree not
+            to post anything that is unlawful, harmful, threatening, abusive,
+            defamatory, or infringes on third-party rights.
           </p>
         </div>
       ),
@@ -72,9 +109,15 @@ export default function TermsAndConditions() {
       content: (
         <div className="space-y-4 text-gray-700 dark:text-gray-300">
           <p>
-            The Site may contain links to third-party websites or services (e.g., GitHub, LinkedIn, project demos). We do not endorse or control these third parties and are not responsible for their content, privacy practices, or availability.
+            The Site may contain links to third-party websites or services
+            (e.g., GitHub, LinkedIn, project demos). We do not endorse or
+            control these third parties and are not responsible for their
+            content, privacy practices, or availability.
           </p>
-          <p>Your use of any third-party sites is at your own risk and subject to their terms.</p>
+          <p>
+            Your use of any third-party sites is at your own risk and subject to
+            their terms.
+          </p>
         </div>
       ),
     },
@@ -84,10 +127,14 @@ export default function TermsAndConditions() {
       content: (
         <div className="space-y-4 text-gray-700 dark:text-gray-300">
           <p>
-            The Site and all Content are provided &quot;as is&quot; and &quot;as available&quot; without warranties of any kind, express or implied, including but not limited to warranties of merchantability, fitness for a particular purpose, or non-infringement.
+            The Site and all Content are provided &quot;as is&quot; and &quot;as
+            available&quot; without warranties of any kind, express or implied,
+            including but not limited to warranties of merchantability, fitness
+            for a particular purpose, or non-infringement.
           </p>
           <p>
-            We do not warrant that the Site will be uninterrupted, error-free, secure, or free of viruses or other harmful components.
+            We do not warrant that the Site will be uninterrupted, error-free,
+            secure, or free of viruses or other harmful components.
           </p>
         </div>
       ),
@@ -98,7 +145,10 @@ export default function TermsAndConditions() {
       content: (
         <div className="space-y-4 text-gray-700 dark:text-gray-300">
           <p>
-            To the fullest extent permitted by law, we shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising from your use of or inability to use the Site, even if advised of the possibility of such damages.
+            To the fullest extent permitted by law, we shall not be liable for
+            any indirect, incidental, special, consequential, or punitive
+            damages arising from your use of or inability to use the Site, even
+            if advised of the possibility of such damages.
           </p>
           <p>Our total liability shall not exceed INR 1,000 (or equivalent).</p>
         </div>
@@ -110,7 +160,10 @@ export default function TermsAndConditions() {
       content: (
         <div className="space-y-4 text-gray-700 dark:text-gray-300">
           <p>
-            We may update these Terms at any time. Changes will be posted on this page with an updated &quot;Last updated&quot; date. Your continued use of the Site after changes constitutes acceptance of the new Terms.
+            We may update these Terms at any time. Changes will be posted on
+            this page with an updated &quot;Last updated&quot; date. Your
+            continued use of the Site after changes constitutes acceptance of
+            the new Terms.
           </p>
           <p className="font-medium">Last updated: January 27, 2026</p>
         </div>
@@ -122,7 +175,10 @@ export default function TermsAndConditions() {
       content: (
         <div className="space-y-4 text-gray-700 dark:text-gray-300">
           <p>
-            These Terms shall be governed by the laws of India, without regard to conflict of law principles. Any disputes arising from these Terms or your use of the Site shall be resolved exclusively in the courts located in Delhi, India.
+            These Terms shall be governed by the laws of India, without regard
+            to conflict of law principles. Any disputes arising from these Terms
+            or your use of the Site shall be resolved exclusively in the courts
+            located in Delhi, India.
           </p>
         </div>
       ),
@@ -135,7 +191,13 @@ export default function TermsAndConditions() {
             If you have any questions about these Terms, please contact us at:
           </p>
           <p className="font-medium">
-            Email: <a href="mailto:gyanaprakashkhnadual@gmail.com" className="hover:text-blue-600 dark:hover:text-white">gyanaprakashkhnadual@gmail.com</a>
+            Email:{" "}
+            <a
+              href="mailto:gyanaprakashkhnadual@gmail.com"
+              className="hover:text-blue-600 dark:hover:text-white"
+            >
+              gyanaprakashkhnadual@gmail.com
+            </a>
           </p>
         </div>
       ),

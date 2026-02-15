@@ -1,4 +1,4 @@
- "use client";
+"use client";
 import React from "react";
 import { motion } from "framer-motion";
 import { Shield, Scale, Clock, Users, FileText, ArrowLeft } from "lucide-react";

@@ -2,11 +2,12 @@
 
 import React, { useState, useEffect } from "react";
 import { useRouter, usePathname } from "next/navigation";
-import { Coffee, Moon, Sun, Menu, X } from "lucide-react";
+import { Coffee, Moon, Sun, Menu, X, Music } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaCoffee } from "react-icons/fa";
 import { useTheme } from "../../scripts/Theme.context";
 import { Tooltip } from "@/app/ui/Tooltip.ui";
+import { GitHub } from "@mui/icons-material";
 
 export default function Navbar() {
   const router = useRouter();
@@ -130,6 +131,24 @@ export default function Navbar() {
                   </AnimatePresence>
                 </motion.button>
               </Tooltip>
+              <Tooltip content="Music">
+                <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="flex items-center gap-2 px-4 py-2 transition-colors bg-gray-100 rounded-md dark:bg-gray-900 hover:bg-gray-200 dark:hover:bg-gray-800"
+                  >
+                    <Music className="w-5 h-5"/>
+                  </motion.button>
+              </Tooltip>
+              <Tooltip content="Github">
+                <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="flex items-center gap-2 px-4 py-2 transition-colors bg-gray-100 rounded-md dark:bg-gray-900 hover:bg-gray-200 dark:hover:bg-gray-800"
+                  >
+                    <GitHub className="w-5 h-5"/>
+                  </motion.button>
+              </Tooltip>
 
               <motion.button
                 whileHover={{ scale: 1.1 }}
@@ -236,6 +255,14 @@ export default function Navbar() {
                         <span className="text-sm font-medium">Dark</span>
                       </>
                     )}
+                  </motion.button>
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={toggleTheme}
+                    className="flex items-center gap-2 px-4 py-2 transition-colors bg-gray-100 rounded-md dark:bg-gray-900 hover:bg-gray-200 dark:hover:bg-gray-800"
+                  >
+                    <Music className="w-4 h-4"/>
                   </motion.button>
                 </div>
               </div>
