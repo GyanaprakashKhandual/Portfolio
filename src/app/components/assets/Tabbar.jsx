@@ -108,6 +108,12 @@ const TabBar = ({
   const handleTabClick = async (tab) => {
     setActiveTab(tab.value);
 
+    // Generate slug from tab label and navigate to /docs/{slug}
+    const slug = tab.label.toLowerCase().replace(/\s+/g, '-');
+    if (router) {
+      router.push(`/docs/${slug}`);
+    }
+
     // Update URL query params
     if (useQueryParams && router && pathname) {
       const params = new URLSearchParams(searchParams?.toString());
