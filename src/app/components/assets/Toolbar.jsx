@@ -12,10 +12,11 @@ import {
   Menu,
   PanelRight,
 } from "lucide-react";
+import { Tooltip } from "@/app/ui/Tooltip.ui";
 
 /**
  * Secondary Navigation Bar Component (GitHub-style)
- * 
+ *
  * @param {Array} tabs - Array of tab objects: [{ label: "Preview", value: "preview" }]
  * @param {string} fileInfo - File information text (e.g., "64 lines (43 loc) · 1.39 KB")
  * @param {Array} actions - Array of action button objects
@@ -37,13 +38,13 @@ const SecondaryNavBar = ({
 }) => {
   // Normalize tabs to object format
   const normalizedTabs = tabs.map((tab) =>
-    typeof tab === "string" ? { label: tab, value: tab.toLowerCase() } : tab
+    typeof tab === "string" ? { label: tab, value: tab.toLowerCase() } : tab,
   );
 
   const getInitialTab = () => {
     if (defaultTab) {
       const foundTab = normalizedTabs.find(
-        (tab) => tab.value === defaultTab || tab.label === defaultTab
+        (tab) => tab.value === defaultTab || tab.label === defaultTab,
       );
       if (foundTab) return foundTab.value;
     }
@@ -65,18 +66,19 @@ const SecondaryNavBar = ({
 
   return (
     <div
-      className={`relative w-full bg-gray-50 dark:bg-gray-950 border-b border-gray-200 dark:border-gray-800 ${className}`}
+      className={`relative w-full h-12 bg-gray-50 dark:bg-gray-950 border-b border-gray-200 dark:border-gray-800 ${className}`}
     >
       <div className="flex items-center justify-between h-12 max-w-full px-4 mx-auto sm:px-6 lg:px-8">
         {/* Hamburger Menu - Left Side */}
-        <button
-          onClick={onHamburgerClick}
-          className="flex-shrink-0 p-2 mr-2 text-gray-600 transition-all rounded dark:text-gray-400 hover:text-black dark:hover:text-white hover:bg-gray-200 dark:hover:bg-gray-800"
-          aria-label="Menu"
-          title="Menu"
-        >
-          <Menu className="w-4 h-4" />
-        </button>
+        <Tooltip content="Menu">
+          <button
+            onClick={onHamburgerClick}
+            className="p-2 mr-2 text-gray-600 transition-all rounded shrink-0 dark:text-gray-400 hover:text-black dark:hover:text-white hover:bg-gray-200 dark:hover:bg-gray-800"
+            aria-label="Menu"
+          >
+            <Menu className="w-4 h-4" />
+          </button>
+        </Tooltip>
 
         {/* Left Side - Tabs */}
         <div className="flex items-center gap-1">
@@ -125,37 +127,41 @@ const SecondaryNavBar = ({
         <div className="flex items-center gap-1">
           {actions.map((action, index) => {
             const Icon = action.icon;
-            
+
             return (
-              <motion.button
-                key={action.label || index}
-                onClick={action.onClick}
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: index * 0.05 }}
-                title={action.label}
-                className={`
-                  p-2 text-gray-600 dark:text-gray-400 
-                  hover:text-black dark:hover:text-white 
-                  hover:bg-gray-200 dark:hover:bg-gray-800 
-                  rounded transition-all duration-200
-                  ${action.className || ""}
-                `}
-              >
-                {Icon && <Icon className="w-4 h-4" />}
-              </motion.button>
+              // eslint-disable-next-line react/jsx-key
+              <Tooltip content={action.label}>
+                <motion.button
+                  key={action.label || index}
+                  onClick={action.onClick}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: index * 0.05 }}
+                  className={`
+        p-2 text-gray-600 dark:text-gray-400 
+        hover:text-black dark:hover:text-white 
+        hover:bg-gray-200 dark:hover:bg-gray-800 
+        rounded transition-all duration-200
+        ${action.className || ""}
+      `}
+                >
+                  {Icon && <Icon className="w-4 h-4" />}
+                </motion.button>
+              </Tooltip>
             );
           })}
 
           {/* Sidebar Icon - Right Side */}
-          <button
-            onClick={onSidebarClick}
-            className="flex-shrink-0 p-2 ml-2 text-gray-600 transition-all rounded dark:text-gray-400 hover:text-black dark:hover:text-white hover:bg-gray-200 dark:hover:bg-gray-800"
-            aria-label="Toggle Sidebar"
-            title="Toggle Sidebar"
-          >
-            <PanelRight className="w-4 h-4" />
-          </button>
+          <Tooltip content="Toggle Content">
+            <button
+              onClick={onSidebarClick}
+              className="p-2 ml-2 text-gray-600 transition-all rounded shrink-0 dark:text-gray-400 hover:text-black dark:hover:text-white hover:bg-gray-200 dark:hover:bg-gray-800"
+              aria-label="Toggle Sidebar"
+              title="Toggle Sidebar"
+            >
+              <PanelRight className="w-4 h-4" />
+            </button>
+          </Tooltip>
         </div>
       </div>
     </div>

@@ -11,10 +11,28 @@ import {
   ChevronDown,
   MoreHorizontal,
 } from "lucide-react";
+import Sidebar from "../components/assets/Sidebar";
+import RightSidebar from "../components/assets/Right.sidebar";
 
 export default function DocPage() {
   const [activeTab, setActiveTab] = useState("preview");
   const [content, setContent] = useState("Preview Content");
+   const [open, setOpen] = useState(true);
+  
+  const Sidebaritems = [
+    { id: "intro", text: "Introduction", level: 2 },
+    { id: "features", text: "Features", level: 2 },
+    { id: "feature-1", text: "Feature One", level: 3 },
+    { id: "feature-2", text: "Feature Two", level: 3 },
+    { id: "installation", text: "Installation", level: 2 },
+    { id: "usage", text: "Usage", level: 2 },
+  ];
+  const items = [
+    { id: "1", label: "Item 1", children: [
+      { id: "1.1", label: "Child 1" }
+    ]}
+  ];
+
 
   const tabs = [
     { label: "Preview", value: "preview" },
@@ -26,37 +44,18 @@ export default function DocPage() {
     {
       icon: Copy,
       label: "Copy",
-      onClick: () => alert("Copied!"),
-    },
-    {
-      icon: Settings,
-      label: "Settings",
-      onClick: () => alert("Settings opened"),
     },
     {
       icon: FileText,
       label: "Raw",
-      onClick: () => alert("Raw file view"),
     },
     {
       icon: Download,
       label: "Download",
-      onClick: () => alert("Downloading..."),
     },
     {
       icon: Edit,
       label: "Edit",
-      onClick: () => alert("Edit mode"),
-    },
-    {
-      icon: ChevronDown,
-      label: "More options",
-      onClick: () => alert("More options"),
-    },
-    {
-      icon: MoreHorizontal,
-      label: "Menu",
-      onClick: () => alert("Menu opened"),
     },
   ];
 
@@ -100,25 +99,28 @@ export default function DocPage() {
         ]}
       />
 
-      <div className="mt-0">
-        <SecondaryNavBar
+
+      <div className="flex min-h-screen">
+        <Sidebar
+      isOpen={open} 
+      onClose={() => setOpen(false)}
+      header="React" 
+      items={items} 
+      />
+      <SecondaryNavBar
           tabs={tabs}
-          fileInfo="64 lines (43 loc) · 1.39 KB"
           actions={actions}
           defaultTab="preview"
           onTabChange={handleTabChange}
         />
+<RightSidebar
+        isOpen={open}
+        onClose={() => setOpen(false)}
+        header="Table of Contents"
+        items={Sidebaritems}
+      />
       </div>
 
-      {/* Content Area */}
-      <div className="px-4 py-8 mx-auto max-w-7xl sm:px-6 lg:px-8">
-        <div className="p-8 border border-gray-200 rounded-lg dark:border-gray-800">
-          <h2 className="mb-4 text-2xl font-bold">
-            Active Tab: {activeTab}
-          </h2>
-          <p className="text-gray-600 dark:text-gray-400">{content}</p>
-        </div>
-      </div>
     </div>
   );
 }
