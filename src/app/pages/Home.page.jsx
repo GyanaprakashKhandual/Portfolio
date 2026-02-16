@@ -274,7 +274,7 @@ export default function HomePage() {
                 />
                 <img
                   src="https://res.cloudinary.com/dvytvjplt/image/upload/v1765866608/profile_pricture_oemv94.jpg"
-                  alt="Gyanu Vakaskaram Varg"
+                  alt="Gyana prakash Khandual"
                   className="relative object-cover w-full h-full border-4 rounded-full shadow-2xl border-black/10 dark:border-white/10"
                 />
               </div>

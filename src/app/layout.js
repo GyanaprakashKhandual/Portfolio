@@ -22,7 +22,7 @@ const geistMono = Geist_Mono({
 export default function RootLayout({ children }) {
   const pathname = usePathname();
 
-  const hideNavbarPaths = ["/privacy-policy", "/terms-and-conditions", '/music', '/vlogs'];
+  const hideNavbarPaths = ["/privacy-policy", "/terms-and-conditions", '/music', '/vlogs', '/docs'];
   const showNavbar = !hideNavbarPaths.includes(pathname);
 
   return (
