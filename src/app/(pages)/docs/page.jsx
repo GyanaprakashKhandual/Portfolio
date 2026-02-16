@@ -1,10 +1,10 @@
-import ComingSoon from '@/app/pages/Coming.soon.page'
+import DocPage from '@/app/pages/Doc.page'
 import React from 'react'
 
 function page() {
   return (
-    <div>
-      <ComingSoon/>
+    <div className='min-h-screen bg-white'>
+      <DocPage/>
     </div>
   )
 }

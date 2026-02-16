@@ -17,26 +17,24 @@ const geistMono = Geist_Mono({
   variable: '--font-geist-mono',
 });
 
-
-
 export default function RootLayout({ children }) {
   const pathname = usePathname();
 
-  const hideNavbarPaths = ["/privacy-policy", "/terms-and-conditions", '/music', '/vlogs'];
-  const showNavbar = !hideNavbarPaths.includes(pathname);
+  const hideNavbarPaths = ["/privacy-policy", "/terms-and-conditions", '/music', '/vlogs', '/docs'];
+  const shouldHideNavbar = hideNavbarPaths.some(path => 
+    pathname === path || pathname.startsWith("/docs/")
+  );
 
   return (
     <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white dark:bg-black text-black dark:text-white transition-colors duration-300`}
       >
-
         <ThemeProvider>
-          {showNavbar && <Navbar />}
+          {!shouldHideNavbar && <Navbar />}
           {children}
           <Tooltip />
         </ThemeProvider>
-
       </body>
     </html>
   );
