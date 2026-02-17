@@ -4,9 +4,10 @@
  * MarkdownRenderer.jsx
  *
  * Renders raw markdown string into styled HTML.
- * Uses `react-markdown` + `rehype-highlight` for syntax highlighting.
+ * Every h1/h2/h3 gets an `id` attribute matching the slugified heading text
+ * so OutlineSidebar's IntersectionObserver and hash links work correctly.
  *
- * Install dependencies:
+ * Install:
  *   npm install react-markdown rehype-highlight highlight.js remark-gfm
  */
 
@@ -14,7 +15,25 @@ import React from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeHighlight from "rehype-highlight";
-import "highlight.js/styles/github.css"; // swap to github-dark.css for dark mode
+import "highlight.js/styles/github.css";
+
+// Must match OutlineSidebar's slugify exactly
+function slugify(text) {
+  return String(text)
+    .toLowerCase()
+    .trim()
+    .replace(/[^\w\s-]/g, "")
+    .replace(/\s+/g, "-")
+    .replace(/-+/g, "-");
+}
+
+// Extract plain text from react-markdown children (handles nested elements)
+function extractText(children) {
+  if (typeof children === "string") return children;
+  if (Array.isArray(children)) return children.map(extractText).join("");
+  if (children?.props?.children) return extractText(children.props.children);
+  return "";
+}
 
 export default function MarkdownRenderer({ content }) {
   if (!content) {
@@ -29,36 +48,81 @@ export default function MarkdownRenderer({ content }) {
         remarkPlugins={[remarkGfm]}
         rehypePlugins={[rehypeHighlight]}
         components={{
-          // ── Headings ──────────────────────────────────────────────────────
-          h1: ({ children }) => (
-            <h1 className="pb-2 mt-8 mb-4 text-3xl font-bold text-gray-900 border-b border-gray-200 dark:text-white dark:border-gray-700">
-              {children}
-            </h1>
-          ),
-          h2: ({ children }) => (
-            <h2 className="pb-1 mt-8 mb-3 text-2xl font-semibold text-gray-900 border-b border-gray-100 dark:text-white dark:border-gray-800">
-              {children}
-            </h2>
-          ),
-          h3: ({ children }) => (
-            <h3 className="mt-6 mb-2 text-xl font-semibold text-gray-800 dark:text-gray-100">
-              {children}
-            </h3>
-          ),
-          h4: ({ children }) => (
-            <h4 className="mt-4 mb-2 text-lg font-medium text-gray-800 dark:text-gray-100">
-              {children}
-            </h4>
-          ),
+          // ── Headings — each gets an id for scroll targeting ──────────────────
+          h1: ({ children }) => {
+            const id = slugify(extractText(children));
+            return (
+              <h1
+                id={id}
+                className="flex items-center gap-2 pb-2 mt-8 mb-4 text-3xl font-bold text-gray-900 border-b border-gray-200 group scroll-mt-24 dark:text-white dark:border-gray-700"
+              >
+                {children}
+                <a
+                  href={`#${id}`}
+                  className="text-2xl font-normal text-gray-400 transition-opacity opacity-0 group-hover:opacity-40"
+                  aria-label="Link to section"
+                >
+                  #
+                </a>
+              </h1>
+            );
+          },
+          h2: ({ children }) => {
+            const id = slugify(extractText(children));
+            return (
+              <h2
+                id={id}
+                className="flex items-center gap-2 pb-1 mt-8 mb-3 text-2xl font-semibold text-gray-900 border-b border-gray-100 group scroll-mt-24 dark:text-white dark:border-gray-800"
+              >
+                {children}
+                <a
+                  href={`#${id}`}
+                  className="text-xl font-normal text-gray-400 transition-opacity opacity-0 group-hover:opacity-40"
+                  aria-label="Link to section"
+                >
+                  #
+                </a>
+              </h2>
+            );
+          },
+          h3: ({ children }) => {
+            const id = slugify(extractText(children));
+            return (
+              <h3
+                id={id}
+                className="flex items-center gap-2 mt-6 mb-2 text-xl font-semibold text-gray-800 group scroll-mt-24 dark:text-gray-100"
+              >
+                {children}
+                <a
+                  href={`#${id}`}
+                  className="text-lg font-normal text-gray-400 transition-opacity opacity-0 group-hover:opacity-40"
+                  aria-label="Link to section"
+                >
+                  #
+                </a>
+              </h3>
+            );
+          },
+          h4: ({ children }) => {
+            const id = slugify(extractText(children));
+            return (
+              <h4
+                id={id}
+                className="mt-4 mb-2 text-lg font-medium text-gray-800 scroll-mt-24 dark:text-gray-100"
+              >
+                {children}
+              </h4>
+            );
+          },
 
-          // ── Paragraph ─────────────────────────────────────────────────────
+          // ── Paragraph ────────────────────────────────────────────────────────
           p: ({ children }) => (
             <p className="text-gray-700 dark:text-gray-300 leading-7 mb-4 text-[15px]">
               {children}
             </p>
           ),
 
-          // ── Lists ─────────────────────────────────────────────────────────
+          // ── Lists ────────────────────────────────────────────────────────────
           ul: ({ children }) => (
             <ul className="list-disc list-outside pl-6 mb-4 space-y-1 text-gray-700 dark:text-gray-300 text-[15px]">
               {children}
@@ -73,7 +137,7 @@ export default function MarkdownRenderer({ content }) {
             <li className="leading-7">{children}</li>
           ),
 
-          // ── Inline code ───────────────────────────────────────────────────
+          // ── Inline code ──────────────────────────────────────────────────────
           code: ({ inline, className, children, ...props }) => {
             if (inline) {
               return (
@@ -85,7 +149,6 @@ export default function MarkdownRenderer({ content }) {
                 </code>
               );
             }
-            // Block code — handled by rehype-highlight via <pre>
             return (
               <code className={`${className ?? ""} text-[13px]`} {...props}>
                 {children}
@@ -93,21 +156,21 @@ export default function MarkdownRenderer({ content }) {
             );
           },
 
-          // ── Code block wrapper ────────────────────────────────────────────
+          // ── Code block ───────────────────────────────────────────────────────
           pre: ({ children }) => (
             <pre className="bg-gray-950 dark:bg-gray-900 rounded-xl overflow-x-auto p-4 mb-6 text-[13px] leading-relaxed border border-gray-800">
               {children}
             </pre>
           ),
 
-          // ── Blockquote ────────────────────────────────────────────────────
+          // ── Blockquote ───────────────────────────────────────────────────────
           blockquote: ({ children }) => (
             <blockquote className="border-l-4 border-blue-400 bg-blue-50 dark:bg-blue-950/30 dark:border-blue-500 pl-4 pr-3 py-2 my-4 rounded-r-lg text-gray-700 dark:text-gray-300 italic text-[15px]">
               {children}
             </blockquote>
           ),
 
-          // ── Table ─────────────────────────────────────────────────────────
+          // ── Table ────────────────────────────────────────────────────────────
           table: ({ children }) => (
             <div className="mb-6 overflow-x-auto">
               <table className="min-w-full border border-gray-200 dark:border-gray-700 rounded-lg text-[14px]">
@@ -129,12 +192,12 @@ export default function MarkdownRenderer({ content }) {
             </td>
           ),
 
-          // ── Horizontal rule ───────────────────────────────────────────────
+          // ── Horizontal rule ──────────────────────────────────────────────────
           hr: () => (
             <hr className="my-8 border-gray-200 dark:border-gray-700" />
           ),
 
-          // ── Links ─────────────────────────────────────────────────────────
+          // ── Links ────────────────────────────────────────────────────────────
           a: ({ href, children }) => (
             <a
               href={href}
@@ -146,7 +209,7 @@ export default function MarkdownRenderer({ content }) {
             </a>
           ),
 
-          // ── Images ────────────────────────────────────────────────────────
+          // ── Images ───────────────────────────────────────────────────────────
           img: ({ src, alt }) => (
             <img
               src={src}
@@ -155,7 +218,7 @@ export default function MarkdownRenderer({ content }) {
             />
           ),
 
-          // ── Bold / Italic ─────────────────────────────────────────────────
+          // ── Bold / Italic ─────────────────────────────────────────────────────
           strong: ({ children }) => (
             <strong className="font-semibold text-gray-900 dark:text-white">
               {children}

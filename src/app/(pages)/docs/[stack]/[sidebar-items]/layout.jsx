@@ -1,10 +1,10 @@
 "use client";
 import React, { useState } from "react";
 import { useParams } from "next/navigation";
-import { Copy, FileText, Download, Edit } from "lucide-react";
 import Sidebar from "@/app/components/assets/Left.sidebar";
+import OutlineSidebar from "@/app/components/assets/Outline.sidebar";
 import sidebarItems from "@/app/components/data/sidebarItem";
-import Toolbar from "@/app/components/assets/Toolbar";
+import { MdContentProvider, useMdContent } from "@/app/context/Mdcontext";
 
 const generateSlug = (label) =>
   label
@@ -26,18 +26,16 @@ const findActiveId = (items, slug) => {
   return null;
 };
 
-export default function SidebarLayout({ children }) {
+// Inner layout reads MD content from context to pass to OutlineSidebar
+function InnerLayout({ children }) {
+  const { content } = useMdContent();
   const { stack, "sidebar-items": sidebarItem } = useParams();
-  const [activeTab, setActiveTab] = useState("preview");
-  const [content, setContent] = useState("Preview Content");
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-
 
   const tabSlug = stack?.toLowerCase().trim() ?? "";
   const items = sidebarItems[tabSlug] ?? [];
 
   const [activeItemId, setActiveItemId] = useState(
-    () => findActiveId(items, sidebarItem) ?? null,
+    () => findActiveId(items, sidebarItem) ?? null
   );
 
   const handleItemClick = (item) => {
@@ -45,23 +43,33 @@ export default function SidebarLayout({ children }) {
   };
 
   return (
-  <div className="flex min-h-screen bg-white">  {/* ← add pt-[80px] */}
-    <Sidebar
-      isOpen={sidebarOpen}
-      onClose={() => setSidebarOpen(false)}
-      header={stack}
-      items={items}
-      activeItemId={activeItemId}
-      onItemClick={handleItemClick}
-    />
-
-    <div className="flex flex-col flex-1 min-w-0">
-      <Toolbar
+    <div className="flex min-h-screen bg-white dark:bg-black">
+      {/* ── Left sidebar ── */}
+      <Sidebar
+        isOpen={true}
+        header={stack}
+        items={items}
+        activeItemId={activeItemId}
+        onItemClick={handleItemClick}
       />
-      <main className="flex-1 p-8">
-        {children}
-      </main>
+
+      {/* ── Main content ── */}
+      <div className="flex flex-1 min-w-0">
+        <main className="flex-1 min-w-0 overflow-auto">
+          {children}
+        </main>
+
+        {/* ── Right outline sidebar ── */}
+        <OutlineSidebar content={content} />
+      </div>
     </div>
-  </div>
-);
+  );
+}
+
+export default function SidebarLayout({ children }) {
+  return (
+    <MdContentProvider>
+      <InnerLayout>{children}</InnerLayout>
+    </MdContentProvider>
+  );
 }

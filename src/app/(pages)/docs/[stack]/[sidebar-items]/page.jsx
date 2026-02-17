@@ -5,28 +5,26 @@ import { useSelector, useDispatch } from "react-redux";
 import { selectSidebarActiveSlug, setActiveSidebarItem } from "../../../../lib/feature/sidebar/leftSidebarSlice";
 import fileMap from "@/app/components/data/fileMap";
 import MarkdownRenderer from "@/app/components/assets/Markdown.render";
+import { useMdContent } from "@/app/context/Mdcontext";
 
 export default function SidebarItemPage() {
   const { stack, "sidebar-items": sidebarItemParam } = useParams();
   const dispatch = useDispatch();
 
-  // Get active slug from Redux — falls back to URL param on direct load / refresh
   const reduxSlug = useSelector(selectSidebarActiveSlug);
   const activeSlug = reduxSlug || sidebarItemParam;
 
-  const [content, setContent] = useState("");
+  const { setContent } = useMdContent(); // push content up to layout for OutlineSidebar
+
+  const [localContent, setLocalContent] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
+  // Sync Redux from URL on direct load / page refresh
   useEffect(() => {
-    // On direct URL load (refresh / shared link), Redux is empty — sync it from URL
     if (!reduxSlug && sidebarItemParam) {
       dispatch(
-        setActiveSidebarItem({
-          slug: sidebarItemParam,
-          id: "",
-          label: "",
-        })
+        setActiveSidebarItem({ slug: sidebarItemParam, id: "", label: "" })
       );
     }
   }, [reduxSlug, sidebarItemParam, dispatch]);
@@ -38,7 +36,7 @@ export default function SidebarItemPage() {
     const entry = fileMap[stackSlug]?.[activeSlug];
 
     if (!entry) {
-      setError(`No file mapped for "${stackSlug}/${activeSlug}"`);
+      setError(`No file mapped for "${stackSlug} → ${activeSlug}"`);
       setLoading(false);
       return;
     }
@@ -46,19 +44,19 @@ export default function SidebarItemPage() {
     setLoading(true);
     setError("");
 
-    // Fetch .md file — files must be inside /public so Next.js can serve them
-    // e.g. public/note/test/cypress/basic/Intro.md  →  filePath: "/note/test/cypress/basic/Intro.md"
-    fetch(entry.filePath)
+    fetch(`/api/docs?path=${encodeURIComponent(entry.filePath)}`)
       .then((res) => {
         if (!res.ok) throw new Error(`File not found: ${entry.filePath}`);
         return res.text();
       })
       .then((text) => {
-        setContent(text);
+        setLocalContent(text);
+        setContent(text); // ← share with OutlineSidebar via context
         setLoading(false);
       })
       .catch((err) => {
         setError(err.message);
+        setContent(""); // clear outline on error
         setLoading(false);
       });
   }, [activeSlug, stack]);
@@ -93,7 +91,7 @@ export default function SidebarItemPage() {
   // ── Render markdown ──────────────────────────────────────────────────────────
   return (
     <div className="w-full max-w-4xl p-8">
-      <MarkdownRenderer content={content} />
+      <MarkdownRenderer content={localContent} />
     </div>
   );
 }

@@ -19,10 +19,9 @@ const Sidebar = ({
   items = [],
   onItemClick,
   activeItemId,
-  initialExpandedItems = {}, // ← NEW: lets the wrapper restore expanded state after navigation
   className = "",
 }) => {
-  const [expandedItems, setExpandedItems] = useState(initialExpandedItems); // ← uses prop as seed
+  const [expandedItems, setExpandedItems] = useState({});
   const router = useRouter();
   const { stack } = useParams();
 
@@ -39,7 +38,7 @@ const Sidebar = ({
     } else {
       const sidebarItemSlug = item.slug ?? generateSlug(item.label);
       router.push(`/docs/${stack}/${sidebarItemSlug}`);
-      
+      setExpandedItems({}); // ← collapse all parents on leaf navigation
     }
 
     if (onItemClick) {
@@ -143,11 +142,11 @@ const Sidebar = ({
         )}
       </AnimatePresence>
 
-      {/* ── Desktop: always visible sticky sidebar (hidden below lg) ── */}
+      {/* ── Desktop: always visible sticky sidebar ── */}
       <aside
         className={`
           hidden lg:flex flex-col sidebar-scrollbar
-          sticky
+          sticky top-[80px]
           w-72 shrink-0
           min-h-[calc(100vh-80px)] max-h-[calc(100vh-80px)]
           bg-white dark:bg-black
