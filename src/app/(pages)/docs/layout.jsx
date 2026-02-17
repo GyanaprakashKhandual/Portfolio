@@ -34,6 +34,11 @@ export default function DocLayout({ children }) {
             "CSS",
             "Flutter",
             "Kotlin",
+            "Cypress",
+            "Selenium",
+            "Playwright",
+            "Appium",
+            "Rest Assured"
           ]}
         />
 

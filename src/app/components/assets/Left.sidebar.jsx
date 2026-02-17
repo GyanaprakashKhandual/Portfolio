@@ -1,29 +1,17 @@
 "use client";
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronRight, ChevronDown } from "lucide-react";
+import { ChevronRight } from "lucide-react";
+import { useRouter, useParams } from "next/navigation";
 
-/**
- * Reusable Sidebar Component
- * 
- * @param {boolean} isOpen - Sidebar open/close state (controlled from parent)
- * @param {Function} onClose - Callback to close sidebar (optional)
- * @param {string} header - Header text/component for the sidebar
- * @param {Array} items - Array of sidebar items with nested structure
- *   Example: [
- *     {
- *       id: "1",
- *       label: "Parent Item",
- *       children: [
- *         { id: "1.1", label: "Child Item" },
- *         { id: "1.2", label: "Child Item 2", children: [...] }
- *       ]
- *     }
- *   ]
- * @param {Function} onItemClick - Callback when item is clicked (item) => {}
- * @param {string} activeItemId - Currently active item ID
- * @param {string} className - Additional CSS classes
- */
+const generateSlug = (label) =>
+  label
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9\s-]/g, "")
+    .replace(/\s+/g, "-")
+    .replace(/-+/g, "-");
+
 const Sidebar = ({
   isOpen = false,
   onClose,
@@ -31,9 +19,12 @@ const Sidebar = ({
   items = [],
   onItemClick,
   activeItemId,
+  initialExpandedItems = {}, // ← NEW: lets the wrapper restore expanded state after navigation
   className = "",
 }) => {
-  const [expandedItems, setExpandedItems] = useState({});
+  const [expandedItems, setExpandedItems] = useState(initialExpandedItems); // ← uses prop as seed
+  const router = useRouter();
+  const { stack } = useParams();
 
   const toggleExpand = (itemId) => {
     setExpandedItems((prev) => ({
@@ -45,12 +36,18 @@ const Sidebar = ({
   const handleItemClick = (item) => {
     if (item.children && item.children.length > 0) {
       toggleExpand(item.id);
+    } else {
+      const sidebarItemSlug = item.slug ?? generateSlug(item.label);
+      router.push(`/docs/${stack}/${sidebarItemSlug}`);
+      
     }
+
     if (onItemClick) {
       onItemClick(item);
     }
   };
 
+  // Plain <button> instead of motion.button — stops the sidebar re-animating on every click
   const renderItem = (item, level = 0) => {
     const hasChildren = item.children && item.children.length > 0;
     const isExpanded = expandedItems[item.id];
@@ -58,14 +55,11 @@ const Sidebar = ({
 
     return (
       <div key={item.id}>
-        {/* Item Button */}
-        <motion.button
+        <button
           onClick={() => handleItemClick(item)}
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
           className={`
             w-full flex items-center justify-between px-4 py-2.5 text-sm
-            transition-all duration-200 group
+            transition-colors duration-150 group
             ${
               isActive
                 ? "bg-black text-white dark:bg-white dark:text-black font-medium"
@@ -75,21 +69,24 @@ const Sidebar = ({
           style={{ paddingLeft: `${(level + 1) * 16}px` }}
         >
           <span className="flex items-center flex-1 gap-2 text-left">
-            {hasChildren && (
+            {hasChildren ? (
+              // Only the chevron icon animates — not the whole item
               <motion.div
                 animate={{ rotate: isExpanded ? 90 : 0 }}
                 transition={{ duration: 0.2 }}
+                className="flex-shrink-0"
               >
-                <ChevronRight className="flex-shrink-0 w-4 h-4" />
+                <ChevronRight className="w-4 h-4" />
               </motion.div>
+            ) : (
+              <span className="flex-shrink-0 w-4" />
             )}
-            {!hasChildren && <span className="w-4" />}
             <span className="truncate">{item.label}</span>
           </span>
-        </motion.button>
+        </button>
 
-        {/* Children Items */}
-        <AnimatePresence>
+        {/* initial={false} prevents AnimatePresence from animating on first mount */}
+        <AnimatePresence initial={false}>
           {hasChildren && isExpanded && (
             <motion.div
               initial={{ height: 0, opacity: 0 }}
@@ -108,7 +105,7 @@ const Sidebar = ({
 
   return (
     <>
-      {/* Overlay */}
+      {/* ── Mobile overlay (backdrop) ── */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -122,7 +119,7 @@ const Sidebar = ({
         )}
       </AnimatePresence>
 
-      {/* Sidebar */}
+      {/* ── Mobile: slide-in drawer (hidden on lg+) ── */}
       <AnimatePresence>
         {isOpen && (
           <motion.aside
@@ -131,32 +128,56 @@ const Sidebar = ({
             exit={{ x: -320 }}
             transition={{ type: "spring", damping: 25, stiffness: 200 }}
             className={`
-              fixed top-0 left-0 z-50 min-h-full w-80 
-              bg-white dark:bg-black 
+              lg:hidden sidebar-scrollbar
+              fixed top-[80px] left-0 z-50 w-72
+              bg-white dark:bg-black
               border-r border-gray-200 dark:border-gray-800
               flex flex-col
-              lg:sticky lg:top-0 lg:z-30
+              min-h-[calc(100vh-80px)] max-h-[calc(100vh-80px)]
+              overflow-hidden
               ${className}
             `}
           >
-            {/* Header */}
-            <div className="flex items-center justify-between h-12 px-6 py-4 border-b border-gray-200 shrink-0 dark:border-gray-800">
-              <h2 className="text-lg font-bold text-black dark:text-white">
-                {header}
-              </h2>
-            </div>
-
-            {/* Scrollable Content */}
-            <div className="flex-1 overflow-y-auto">
-              <nav className="py-2">
-                {items.map((item) => renderItem(item))}
-              </nav>
-            </div>
+            <SidebarInner header={header} items={items} renderItem={renderItem} />
           </motion.aside>
         )}
       </AnimatePresence>
+
+      {/* ── Desktop: always visible sticky sidebar (hidden below lg) ── */}
+      <aside
+        className={`
+          hidden lg:flex flex-col sidebar-scrollbar
+          sticky
+          w-72 shrink-0
+          min-h-[calc(100vh-80px)] max-h-[calc(100vh-80px)]
+          bg-white dark:bg-black
+          border-r border-gray-200 dark:border-gray-800
+          overflow-hidden
+          ${className}
+        `}
+      >
+        <SidebarInner header={header} items={items} renderItem={renderItem} />
+      </aside>
     </>
   );
 };
+
+// Shared inner content — avoids duplicating markup between mobile/desktop
+function SidebarInner({ header, items, renderItem }) {
+  return (
+    <>
+      <div className="flex items-center h-12 px-6 py-4 border-b border-gray-200 shrink-0 dark:border-gray-800">
+        <h2 className="text-lg font-bold text-black capitalize dark:text-white">
+          {header}
+        </h2>
+      </div>
+      <div className="flex-1 overflow-y-auto">
+        <nav className="py-2">
+          {items.map((item) => renderItem(item))}
+        </nav>
+      </div>
+    </>
+  );
+}
 
 export default Sidebar;

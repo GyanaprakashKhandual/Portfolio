@@ -5,6 +5,8 @@ import { Geist, Geist_Mono } from 'next/font/google';
 import Navbar from './components/assets/Navbar';
 import { Tooltip } from './ui/Tooltip.ui';
 import { ThemeProvider } from './scripts/Theme.context';
+import { Provider } from 'react-redux';
+import { store } from './lib/store/store';
 import './globals.css'
 
 const geistSans = Geist({
@@ -30,11 +32,13 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white dark:bg-black text-black dark:text-white transition-colors duration-300`}
       >
-        <ThemeProvider>
-          {!shouldHideNavbar && <Navbar />}
-          {children}
-          <Tooltip />
-        </ThemeProvider>
+        <Provider store={store}>
+          <ThemeProvider>
+            {!shouldHideNavbar && <Navbar />}
+            {children}
+            <Tooltip />
+          </ThemeProvider>
+        </Provider>
       </body>
     </html>
   );
