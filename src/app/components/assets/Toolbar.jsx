@@ -1,171 +1,188 @@
 "use client";
-import React, { useState } from "react";
-import { motion } from "framer-motion";
+import React, { useState, useRef, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import {
+  Menu,
   Copy,
-  Settings,
   FileText,
   Download,
-  Edit,
-  ChevronDown,
-  MoreHorizontal,
-  Menu,
+  SquarePen,
   PanelRight,
+  MoreHorizontal,
+  EyeOff,
 } from "lucide-react";
-import { Tooltip } from "@/app/ui/Tooltip.ui";
 
-/**
- * Secondary Navigation Bar Component (GitHub-style)
- *
- * @param {Array} tabs - Array of tab objects: [{ label: "Preview", value: "preview" }]
- * @param {string} fileInfo - File information text (e.g., "64 lines (43 loc) · 1.39 KB")
- * @param {Array} actions - Array of action button objects
- * @param {string} defaultTab - Default active tab
- * @param {Function} onTabChange - Callback when tab changes
- * @param {Function} onHamburgerClick - Callback when hamburger menu is clicked (optional)
- * @param {Function} onSidebarClick - Callback when sidebar icon is clicked (optional)
- * @param {string} className - Additional CSS classes
- */
-const SecondaryNavBar = ({
-  tabs = [],
-  fileInfo = "",
-  actions = [],
-  defaultTab,
+const dropdownItems = [
+  { label: "Hide Navbar" },
+  { label: "Hide Toolbar" },
+  { label: "Hide Left Sidebar" },
+  { label: "Hide Right Sidebar" },
+];
+
+const Toolbar = ({
+  tabs = [
+    { label: "Preview", value: "preview" },
+    { label: "Code", value: "code" },
+    { label: "Blame", value: "blame" },
+  ],
+  actions = [
+    { icon: Copy, label: "Copy" },
+    { icon: FileText, label: "Raw" },
+    { icon: Download, label: "Download" },
+    { icon: SquarePen, label: "Edit" },
+    { icon: PanelRight, label: "Panel" },
+  ],
+  defaultTab = "preview",
   onTabChange,
-  onHamburgerClick,
-  onSidebarClick,
+  onMenuToggle,
   className = "",
 }) => {
-  // Normalize tabs to object format
-  const normalizedTabs = tabs.map((tab) =>
-    typeof tab === "string" ? { label: tab, value: tab.toLowerCase() } : tab,
-  );
-
-  const getInitialTab = () => {
-    if (defaultTab) {
-      const foundTab = normalizedTabs.find(
-        (tab) => tab.value === defaultTab || tab.label === defaultTab,
-      );
-      if (foundTab) return foundTab.value;
-    }
-    return normalizedTabs[0]?.value || "";
-  };
-
-  const [activeTab, setActiveTab] = useState(getInitialTab);
+  const [activeTab, setActiveTab] = useState(defaultTab);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
 
   const handleTabClick = (tab) => {
     setActiveTab(tab.value);
-    if (onTabChange) {
-      onTabChange(tab);
-    }
+    if (onTabChange) onTabChange(tab);
   };
 
-  if (!tabs || tabs.length === 0) {
-    return null;
-  }
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        setDropdownOpen(false);
+      }
+    };
+    if (dropdownOpen) document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [dropdownOpen]);
 
   return (
     <div
-      className={`relative w-full h-12 bg-gray-50 dark:bg-gray-950 border-b border-gray-200 dark:border-gray-800 ${className}`}
+      className={`
+        w-full h-12 flex items-center
+        bg-white dark:bg-black
+        border-b border-gray-200 dark:border-gray-800
+        px-4
+        relative
+        shrink-0
+        ${className}
+      `}
     >
-      <div className="flex items-center justify-between h-12 max-w-full px-4 mx-auto sm:px-6 lg:px-8">
-        {/* Hamburger Menu - Left Side */}
-        <Tooltip content="Menu">
-          <button
-            onClick={onHamburgerClick}
-            className="p-2 mr-2 text-gray-600 transition-all rounded shrink-0 dark:text-gray-400 hover:text-black dark:hover:text-white hover:bg-gray-200 dark:hover:bg-gray-800"
-            aria-label="Menu"
-          >
-            <Menu className="w-4 h-4" />
-          </button>
-        </Tooltip>
+      {/* ── Left: hamburger ── */}
+      <div className="flex items-center w-24 shrink-0">
+        <button
+          onClick={onMenuToggle}
+          aria-label="Toggle sidebar"
+          className="p-1.5 rounded text-gray-500 dark:text-gray-400
+                     hover:text-gray-900 dark:hover:text-gray-100
+                     hover:bg-gray-100 dark:hover:bg-gray-900
+                     transition-colors duration-150"
+        >
+          <Menu className="w-5 h-5" />
+        </button>
+      </div>
 
-        {/* Left Side - Tabs */}
-        <div className="flex items-center gap-1">
-          {normalizedTabs.map((tab, index) => (
-            <motion.button
+      {/* ── Center: tabs (absolutely centered in the bar) ── */}
+      <div className="absolute flex items-center gap-1 -translate-x-1/2 left-1/2">
+        {tabs.map((tab) => {
+          const isActive = activeTab === tab.value;
+          return (
+            <button
               key={tab.value}
               onClick={() => handleTabClick(tab)}
-              initial={{ opacity: 0, y: -5 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.05 }}
               className={`
-                relative px-4 py-2 text-sm font-medium transition-all duration-200
+                relative px-4 py-2.5 text-sm font-medium
+                transition-colors duration-150 rounded-sm
                 ${
-                  activeTab === tab.value
-                    ? "text-black dark:text-white"
-                    : "text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white"
+                  isActive
+                    ? "text-gray-900 dark:text-white"
+                    : "text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300"
                 }
               `}
             >
               {tab.label}
 
-              {/* Active indicator line */}
-              {activeTab === tab.value && (
-                <motion.div
-                  layoutId="secondaryNavIndicator"
-                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-black dark:bg-white"
-                  transition={{
-                    type: "spring",
-                    stiffness: 500,
-                    damping: 30,
-                  }}
+              {/* Animated underline indicator */}
+              {isActive && (
+                <motion.span
+                  layoutId="toolbar-tab-indicator"
+                  className="absolute bottom-0 left-0 right-0 h-[2px] bg-gray-900 dark:bg-white rounded-full"
+                  transition={{ type: "spring", stiffness: 400, damping: 30 }}
                 />
               )}
-            </motion.button>
-          ))}
-
-          {/* File Info */}
-          {fileInfo && (
-            <div className="hidden ml-4 text-xs text-gray-500 sm:block dark:text-gray-500">
-              {fileInfo}
-            </div>
-          )}
-        </div>
-
-        {/* Right Side - Action Buttons */}
-        <div className="flex items-center gap-1">
-          {actions.map((action, index) => {
-            const Icon = action.icon;
-
-            return (
-              // eslint-disable-next-line react/jsx-key
-              <Tooltip content={action.label}>
-                <motion.button
-                  key={action.label || index}
-                  onClick={action.onClick}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: index * 0.05 }}
-                  className={`
-        p-2 text-gray-600 dark:text-gray-400 
-        hover:text-black dark:hover:text-white 
-        hover:bg-gray-200 dark:hover:bg-gray-800 
-        rounded transition-all duration-200
-        ${action.className || ""}
-      `}
-                >
-                  {Icon && <Icon className="w-4 h-4" />}
-                </motion.button>
-              </Tooltip>
-            );
-          })}
-
-          {/* Sidebar Icon - Right Side */}
-          <Tooltip content="Toggle Content">
-            <button
-              onClick={onSidebarClick}
-              className="p-2 ml-2 text-gray-600 transition-all rounded shrink-0 dark:text-gray-400 hover:text-black dark:hover:text-white hover:bg-gray-200 dark:hover:bg-gray-800"
-              aria-label="Toggle Sidebar"
-              title="Toggle Sidebar"
-            >
-              <PanelRight className="w-4 h-4" />
             </button>
-          </Tooltip>
+          );
+        })}
+      </div>
+
+      {/* ── Right: action icon buttons + three-dot menu ── */}
+      <div className="flex items-center gap-0.5 ml-auto shrink-0">
+        {actions.map(({ icon: Icon, label }) => (
+          <button
+            key={label}
+            aria-label={label}
+            title={label}
+            className="p-2 text-gray-500 transition-colors duration-150 rounded dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-900"
+          >
+            <Icon className="w-4 h-4" />
+          </button>
+        ))}
+
+        {/* Divider */}
+        <div className="w-px h-4 mx-1 bg-gray-200 dark:bg-gray-700" />
+
+        {/* Three-dot dropdown */}
+        <div className="relative" ref={dropdownRef}>
+          <button
+            onClick={() => setDropdownOpen((prev) => !prev)}
+            aria-label="More options"
+            title="More options"
+            className={`
+              p-2 rounded transition-colors duration-150
+              ${
+                dropdownOpen
+                  ? "bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-white"
+                  : "text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-900"
+              }
+            `}
+          >
+            <MoreHorizontal className="w-4 h-4" />
+          </button>
+
+          <AnimatePresence>
+            {dropdownOpen && (
+              <motion.div
+                // initial={{ opacity: 0, scale: 0.95, y: -4 }}
+                // animate={{ opacity: 1, scale: 1, y: 0 }}
+                // exit={{ opacity: 0, scale: 0.95, y: -4 }}
+                // transition={{ duration: 0.12, ease: "easeOut" }}
+                className="absolute right-0 z-50 py-1 mt-1 origin-top-right bg-white border border-gray-200 rounded-lg shadow-lg top-full w-52 dark:bg-gray-950 dark:border-gray-800 shadow-black/10 dark:shadow-black/40"
+              >
+                {dropdownItems.map((item) => (
+                  <button
+                    key={item.label}
+                    onClick={() => setDropdownOpen(false)}
+                    className="
+                      w-full flex items-center gap-2.5
+                      px-3 py-2 text-sm text-left
+                      text-gray-700 dark:text-gray-300
+                      hover:bg-gray-50 dark:hover:bg-gray-900
+                      hover:text-gray-900 dark:hover:text-white
+                      transition-colors duration-100
+                    "
+                  >
+                    <EyeOff className="w-3.5 h-3.5 text-gray-400 dark:text-gray-500 shrink-0" />
+                    {item.label}
+                  </button>
+                ))}
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </div>
     </div>
   );
 };
 
-export default SecondaryNavBar;
+export default Toolbar;

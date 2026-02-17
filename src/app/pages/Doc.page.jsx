@@ -11,7 +11,7 @@ import {
   ChevronDown,
   MoreHorizontal,
 } from "lucide-react";
-import Sidebar from "../components/assets/Sidebar";
+import Sidebar from "../components/assets/Left.sidebar";
 import RightSidebar from "../components/assets/Right.sidebar";
 
 export default function DocPage() {
@@ -66,38 +66,6 @@ export default function DocPage() {
 
   return (
     <div className="min-h-screen bg-white dark:bg-black">
-      <TabBar
-        tabs={[
-          "Home",
-          "C",
-          "C++",
-          "C#",
-          "Java",
-          "JavaScript",
-          "TypeScript",
-          "Python",
-          "GO",
-          "PHP",
-          "NodeJS",
-          "ExpressJS",
-          "RestAPI",
-          "GraphQL",
-          "Sprint Boot",
-          "Security",
-          "MongoDB",
-          "MySQL",
-          "PostgreSQL",
-          "Redis",
-          "ReactJS",
-          "NextJS",
-          "VueJS",
-          "AngularJS",
-          "HTML",
-          "CSS",
-          "Flutter",
-          "Kotlin",
-        ]}
-      />
 
 
       <div className="flex min-h-screen">
