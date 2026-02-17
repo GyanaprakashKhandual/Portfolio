@@ -83,7 +83,7 @@ export default function OutlineSidebar({ content }) {
   if (headings.length === 0) return null;
 
   return (
-    <aside className="hidden xl:flex flex-col sticky top-20 w-64 shrink-0 min-h-[calc(100vh-80px)] max-h-[calc(100vh-80px)] overflow-y-auto pl-6 pr-2 py-6 border-l border-gray-200 dark:border-gray-800">
+    <aside className="hidden xl:flex flex-col sticky w-64 shrink-0 min-h-[calc(100vh-80px)] max-h-[calc(100vh-80px)] overflow-y-auto pl-6 pr-2 py-6 border-l border-gray-200 dark:border-gray-800">
       <p className="px-1 mb-3 text-xs font-semibold tracking-widest text-gray-500 uppercase dark:text-gray-400">
         On this page
       </p>

@@ -144,7 +144,7 @@ const Sidebar = ({
       <aside
         className={`
           hidden lg:flex flex-col sidebar-scrollbar
-          sticky top-[80px]
+          sticky
           w-72 shrink-0
           min-h-[calc(100vh-80px)] max-h-[calc(100vh-80px)]
           bg-white dark:bg-black
