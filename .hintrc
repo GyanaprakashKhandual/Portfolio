@@ -4,8 +4,8 @@
     "compat-api/css": [
       "default",
       {
-        "ignore": ["user-select"]
-      }
-    ]
-  }
+        "ignore": ["user-select"],
+      },
+    ],
+  },
 }

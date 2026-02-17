@@ -2,10 +2,10 @@
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { useSelector, useDispatch } from "react-redux";
-import { selectSidebarActiveSlug, setActiveSidebarItem } from "../../../../lib/feature/sidebar/leftSidebarSlice";
-import fileMap from "@/app/components/data/fileMap";
+import { selectSidebarActiveSlug, setActiveSidebarItem } from "../../../../lib/feature/sidebar/left.sidebar.slice";
+import fileMap from "@/app/script/File.map.doc";
 import MarkdownRenderer from "@/app/components/assets/Markdown.render";
-import { useMdContent } from "@/app/context/Mdcontext";
+import { useMdContent } from "@/app/context/Markdown.context";
 
 export default function SidebarItemPage() {
   const { stack, "sidebar-items": sidebarItemParam } = useParams();

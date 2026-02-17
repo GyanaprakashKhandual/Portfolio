@@ -1,8 +1,8 @@
 import dynamic from "next/dynamic";
 
-// Dynamically import projects
+
 const CaffetestProject = dynamic(() =>
-  import("../components/projects/Caffetest.project").then((mod) => mod.default)
+  import("../components/projects/web/Caffetest.project").then((mod) => mod.default)
 );
 
 const PISLProject = dynamic(() =>
@@ -21,8 +21,8 @@ const RrProject = dynamic(() =>
   import("../components/projects/test/Rr.project").then((mod) => mod.default)
 );
 
-// Import metadata
-import { projectMeta as caffetestMeta } from "../components/projects/Caffetest.project";
+
+import { projectMeta as caffetestMeta } from "../components/projects/web/Caffetest.project";
 import { projectMeta as pislMeta } from "../components/projects/test/PISL.project";
 import { projectMeta as resolMeta } from "../components/projects/test/Resol.project";
 import { projectMeta as mjMeta } from "../components/projects/test/Mj.project";

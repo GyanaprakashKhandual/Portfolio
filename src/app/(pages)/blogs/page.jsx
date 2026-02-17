@@ -1,5 +1,5 @@
-import BlogCard from "../../components/assets/Blog.card";
-import { getBlogPosts } from "../../lib/Get.Blog.post.lib";
+import BlogCard from "../../components/modules/Blog.card";
+import { getBlogPosts } from "../../script/Get.Blog.post.lib";
 
 export default function BlogPage() {
   const posts = getBlogPosts();

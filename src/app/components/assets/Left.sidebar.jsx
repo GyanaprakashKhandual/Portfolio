@@ -1,11 +1,15 @@
 "use client";
+
 import React, { useState } from "react";
 import { useParams } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import Sidebar from "@/app/components/assets/Left.sidebar";
 import OutlineSidebar from "@/app/components/assets/Outline.sidebar";
-import sidebarItems from "@/app/components/data/sidebarItem";
-import { MdContentProvider, useMdContent } from "@/app/context/Mdcontext";
+import sidebarItems from "@/app/script/Sidebar.item";
+import {
+  MdContentProvider,
+  useMdContent,
+} from "@/app/context/Markdown.context";
 import Toolbar from "@/app/components/assets/Toolbar";
 
 const generateSlug = (label) =>
@@ -38,7 +42,7 @@ function InnerLayout({ children }) {
   const items = sidebarItems[tabSlug] ?? [];
 
   const [activeItemId, setActiveItemId] = useState(
-    () => findActiveId(items, sidebarItem) ?? null
+    () => findActiveId(items, sidebarItem) ?? null,
   );
 
   const handleItemClick = (item) => {
@@ -48,8 +52,6 @@ function InnerLayout({ children }) {
 
   return (
     <div className="flex min-h-screen bg-white dark:bg-black">
-
-      {/* ① LEFT SIDEBAR */}
       <Sidebar
         isOpen={mobileSidebarOpen}
         onClose={() => setMobileSidebarOpen(false)}
@@ -59,13 +61,9 @@ function InnerLayout({ children }) {
         onItemClick={handleItemClick}
       />
 
-      {/* ② TOOLBAR — sits right next to the left sidebar as a vertical strip */}
       <Toolbar />
 
-      {/* ③ MAIN CONTENT — grows to fill remaining space */}
       <main className="flex-1 min-w-0 overflow-y-auto">
-
-        {/* Mobile-only top bar with hamburger */}
         <div className="flex items-center h-12 gap-3 px-4 bg-white border-b border-gray-200 dark:border-gray-800 lg:hidden shrink-0 dark:bg-black">
           <button
             onClick={() => setMobileSidebarOpen((prev) => !prev)}
@@ -86,9 +84,7 @@ function InnerLayout({ children }) {
         {children}
       </main>
 
-      {/* ④ RIGHT OUTLINE SIDEBAR — last sibling, xl+ only via its own hidden xl:flex */}
       <OutlineSidebar content={content} />
-
     </div>
   );
 }

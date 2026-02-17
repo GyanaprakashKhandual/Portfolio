@@ -53,7 +53,8 @@ const Toolbar = ({
         setDropdownOpen(false);
       }
     };
-    if (dropdownOpen) document.addEventListener("mousedown", handleClickOutside);
+    if (dropdownOpen)
+      document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [dropdownOpen]);
 
@@ -107,7 +108,7 @@ const Toolbar = ({
               {isActive && (
                 <motion.span
                   layoutId="toolbar-tab-indicator"
-                  className="absolute bottom-0 left-0 right-0 h-[2px] bg-gray-900 dark:bg-white rounded-full"
+                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-gray-900 dark:bg-white rounded-full"
                   transition={{ type: "spring", stiffness: 400, damping: 30 }}
                 />
               )}

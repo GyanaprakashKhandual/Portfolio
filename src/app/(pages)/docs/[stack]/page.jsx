@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { useParams } from "next/navigation";
 import Sidebar from "@/app/components/assets/Left.sidebar";
-import sidebarItems from "@/app/components/data/sidebarItem";
+import sidebarItems from "@/app/script/Sidebar.item";
 
 // This is  app/docs/[stack]/page.jsx
 // URL: /docs/cypress  →  stack = "cypress"

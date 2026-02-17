@@ -1,64 +1,55 @@
-# Gyan's Portfolio
+# Gyanaprakash Khandual — Portfolio
 
-A modern, interactive portfolio showcasing my work experience, projects, and technical blogs. Built with cutting-edge technologies for optimal performance and user experience.
+A modern, responsive portfolio built with Next.js, showcasing work experience, projects, and technical blogs.
 
-## 🛠️ Tech Stack
+**Live:** [gyanprakash.vercel.app](https://gyanprakash.vercel.app)
 
-- **Framework**: Next.js
-- **UI Components**: Material-UI (MUI)
-- **Styling**: Tailwind CSS
-- **Animations**: Framer Motion
-- **AI Integration**: Anthropic
-- **Deployment**: Vercel
+---
 
-## 📋 Features
+## Tech Stack
 
-- **Overview**: Personal introduction and professional summary
-- **Experience**: Detailed work history and career progression
-- **Projects**: Showcase of completed projects with descriptions
-- **Blogs**: Technical articles and insights
-- **Dark Mode**: Theme toggle for comfortable viewing
-- **Responsive Design**: Fully optimized for all devices
-- **Smooth Animations**: Enhanced UX with Framer Motion
+- **Framework** — Next.js
+- **Styling** — Tailwind CSS
+- **UI Components** — Material-UI (MUI)
+- **Animations** — Framer Motion
+- **AI Integration** — Anthropic
+- **Deployment** — Vercel
 
-## 🚀 Quick Start
+---
 
-### Prerequisites
+## Features
 
-- Node.js 18+
-- npm or yarn
+- Personal introduction and professional summary
+- Work history and career progression
+- Project showcase with descriptions
+- Technical blog articles
+- Dark mode toggle
+- Fully responsive across all devices
+- Smooth animations via Framer Motion
 
-### Installation
+---
+
+## Getting Started
+
+**Prerequisites:** Node.js 18+
 
 ```bash
-git clone https://github.com/GyanaprakashKhandual/Portoflio.git
+git clone https://github.com/GyanaprakashKhandual/Portfolio.git
 cd Portfolio
 npm install
-```
-
-### Development
-
-```bash
 npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-### Build, Run & Deploy
-
 ```bash
+# Production build
 npm run build
 npm start
 ```
 
-## 🌐 Live App
+---
 
-[Portfolio Link](https://gyanprakash.vercel.app)
+## License
 
-## 📧 Contact
-
-Feel free to reach out for collaborations or inquiries.
-
-## 📄 License
-
-MIT License - feel free to use this as a template for your own portfolio.
+[MIT](./LICENSE) — free to use as a template for your own portfolio.

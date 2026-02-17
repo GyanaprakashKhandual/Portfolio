@@ -1,5 +1,5 @@
 // app/(pages)/blogs/[slug]/page.jsx
-import { getPostBySlug, getAllPostSlugs } from "../../../lib/Get.Blog.post.lib";
+import { getPostBySlug, getAllPostSlugs } from "../../../script/Get.Blog.post.lib";
 
 export async function generateStaticParams() {
   const slugs = getAllPostSlugs();

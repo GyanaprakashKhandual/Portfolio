@@ -1,62 +1,64 @@
-import { ExternalLink, Github, CheckCircle } from 'lucide-react';
+import { ExternalLink, Github, CheckCircle } from "lucide-react";
 
 export const projectMeta = {
-  slug: 'resolution-pro',
-  title: 'Resolution Pro',
-  shortDesc: 'Comprehensive QA testing & automation for document sharing & meeting tracking app',
+  slug: "resolution-pro",
+  title: "Resolution Pro",
+  shortDesc:
+    "Comprehensive QA testing & automation for document sharing & meeting tracking app",
   description:
-    'Multi-layered testing solution for Resolution Pro - a document sharing and meeting tracking application with AI integration, user management, and access control.',
-  category: 'Testing',
-  githubUrl: 'https://github.com/GyanaprakashKhandual/Resolution-Pro-Automation-Test.git',
+    "Multi-layered testing solution for Resolution Pro - a document sharing and meeting tracking application with AI integration, user management, and access control.",
+  category: "Testing",
+  githubUrl:
+    "https://github.com/GyanaprakashKhandual/Resolution-Pro-Automation-Test.git",
   techStack: [
-    'Playwright',
-    'Cucumber',
-    'BDD',
-    'Rest Assured',
-    'Page Object Model',
-    'Google Sheets',
-    'Zoho Sheets',
-    'Custom HTML Report',
-    'JSON',
-    'Cafetest',
-    'Bug Tracker',
-    'Ledge Meter',
+    "Playwright",
+    "Cucumber",
+    "BDD",
+    "Rest Assured",
+    "Page Object Model",
+    "Google Sheets",
+    "Zoho Sheets",
+    "Custom HTML Report",
+    "JSON",
+    "Cafetest",
+    "Bug Tracker",
+    "Ledge Meter",
   ],
 };
 
 export default function ResolutionProProject() {
   const testingTypes = [
-    'Manual Testing',
-    'Automation Functional Testing',
-    'Manual Functional Testing',
-    'Automation API Testing',
-    'Automation Performance Testing',
-    'Regression Testing',
-    'Sanity Testing',
-    'End-to-End Testing',
-    'User Acceptance Testing (UAT)',
+    "Manual Testing",
+    "Automation Functional Testing",
+    "Manual Functional Testing",
+    "Automation API Testing",
+    "Automation Performance Testing",
+    "Regression Testing",
+    "Sanity Testing",
+    "End-to-End Testing",
+    "User Acceptance Testing (UAT)",
   ];
 
   const highlights = [
-    'BDD with Cucumber Framework',
-    'Page Object Model Architecture',
-    'Playwright Automation',
-    'Rest Assured API Testing',
-    'Custom HTML Reports',
-    'User Management & Access Control',
-    'Real-time Collaboration Testing',
-    'AI Integration Testing',
+    "BDD with Cucumber Framework",
+    "Page Object Model Architecture",
+    "Playwright Automation",
+    "Rest Assured API Testing",
+    "Custom HTML Reports",
+    "User Management & Access Control",
+    "Real-time Collaboration Testing",
+    "AI Integration Testing",
   ];
 
   const features = [
-    'Document Sharing & Tracking',
-    'Multi-client Member Integration',
-    'Board & Shareholder Access',
-    'Meeting Tracking & Management',
-    'User Workspace Integration',
-    'AI-Powered Features',
-    'Advanced Reporting Dashboard',
-    'Ledger & Audit Tracking',
+    "Document Sharing & Tracking",
+    "Multi-client Member Integration",
+    "Board & Shareholder Access",
+    "Meeting Tracking & Management",
+    "User Workspace Integration",
+    "AI-Powered Features",
+    "Advanced Reporting Dashboard",
+    "Ledger & Audit Tracking",
   ];
 
   return (
@@ -80,14 +82,17 @@ export default function ResolutionProProject() {
         </h3>
         <div className="space-y-4 leading-7 text-gray-700 dark:text-slate-300">
           <p>
-            Resolution Pro is a comprehensive document sharing and meeting tracking application integrated
-            with AI capabilities, designed for seamless collaboration across organizational hierarchies. I led
-            the complete QA strategy and automation testing framework, performing manual and automated testing
-            across all layers of the application.
+            Resolution Pro is a comprehensive document sharing and meeting
+            tracking application integrated with AI capabilities, designed for
+            seamless collaboration across organizational hierarchies. I led the
+            complete QA strategy and automation testing framework, performing
+            manual and automated testing across all layers of the application.
           </p>
 
           <div>
-            <h4 className="mb-3 font-semibold text-black dark:text-white">Testing Scope:</h4>
+            <h4 className="mb-3 font-semibold text-black dark:text-white">
+              Testing Scope:
+            </h4>
             <ul className="ml-4 space-y-2">
               {testingTypes.map((test, i) => (
                 <li key={i}>• {test}</li>
@@ -96,7 +101,9 @@ export default function ResolutionProProject() {
           </div>
 
           <div>
-            <h4 className="mb-3 font-semibold text-black dark:text-white">Core Features Tested:</h4>
+            <h4 className="mb-3 font-semibold text-black dark:text-white">
+              Core Features Tested:
+            </h4>
             <ul className="ml-4 space-y-2">
               {features.map((feature, i) => (
                 <li key={i}>• {feature}</li>
@@ -105,13 +112,19 @@ export default function ResolutionProProject() {
           </div>
 
           <div>
-            <h4 className="mb-3 font-semibold text-black dark:text-white">Testing Technologies & Frameworks:</h4>
+            <h4 className="mb-3 font-semibold text-black dark:text-white">
+              Testing Technologies & Frameworks:
+            </h4>
             <ul className="ml-4 space-y-2">
               <li>• Playwright - Modern web automation framework</li>
               <li>• Cucumber & BDD - Behavior-driven testing approach</li>
-              <li>• Page Object Model - Maintainable automation architecture</li>
+              <li>
+                • Page Object Model - Maintainable automation architecture
+              </li>
               <li>• Rest Assured - API testing and validation</li>
-              <li>• Custom HTML Reports - Comprehensive test result visualization</li>
+              <li>
+                • Custom HTML Reports - Comprehensive test result visualization
+              </li>
               <li>• Google Sheets & Zoho Sheets - Test data management</li>
               <li>• Zoho Workspace - Test environment integration</li>
               <li>• JSON - Test configuration and data persistence</li>
@@ -121,10 +134,11 @@ export default function ResolutionProProject() {
           </div>
 
           <p className="mt-4 font-semibold text-black dark:text-white">
-            Additionally, I contributed to the product design process, ensuring the frontend user interface
-            is intuitive, accessible, and seamlessly integrates with the complex backend systems. The testing
-            framework is built on industry-standard BDD practices with Page Object Model architecture for
-            maximum maintainability and scalability.
+            Additionally, I contributed to the product design process, ensuring
+            the frontend user interface is intuitive, accessible, and seamlessly
+            integrates with the complex backend systems. The testing framework
+            is built on industry-standard BDD practices with Page Object Model
+            architecture for maximum maintainability and scalability.
           </p>
         </div>
       </section>
@@ -140,7 +154,9 @@ export default function ResolutionProProject() {
           {highlights.map((highlight, i) => (
             <div key={highlight} className="flex items-start gap-3">
               <CheckCircle className="w-5 h-5 text-black dark:text-white shrink-0 mt-0.5" />
-              <span className="text-sm text-gray-700 dark:text-slate-300">{highlight}</span>
+              <span className="text-sm text-gray-700 dark:text-slate-300">
+                {highlight}
+              </span>
             </div>
           ))}
         </div>

@@ -8,12 +8,10 @@ import { Google } from "@mui/icons-material";
 
 export default function AuthModal({ isOpen, onClose }) {
   const handleGoogleLogin = () => {
-    // Add your Google authentication logic here
     console.log("Google login clicked");
   };
 
   const handleGithubLogin = () => {
-    // Add your GitHub authentication logic here
     console.log("GitHub login clicked");
   };
 
@@ -21,7 +19,6 @@ export default function AuthModal({ isOpen, onClose }) {
     <AnimatePresence>
       {isOpen && (
         <>
-          {/* Backdrop */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -31,7 +28,6 @@ export default function AuthModal({ isOpen, onClose }) {
             className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm"
           />
 
-          {/* Modal */}
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
             <motion.div
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
@@ -41,10 +37,7 @@ export default function AuthModal({ isOpen, onClose }) {
               className="relative w-full max-w-md overflow-hidden bg-white shadow-2xl dark:bg-black rounded-2xl"
               onClick={(e) => e.stopPropagation()}
             >
-
-              {/* Content */}
               <div className="p-6 sm:p-8">
-                {/* Header */}
                 <motion.div
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -59,7 +52,6 @@ export default function AuthModal({ isOpen, onClose }) {
                   </p>
                 </motion.div>
 
-                {/* Divider Text */}
                 <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
@@ -73,9 +65,7 @@ export default function AuthModal({ isOpen, onClose }) {
                   <div className="flex-1 h-px bg-gray-200 dark:bg-gray-800" />
                 </motion.div>
 
-                {/* Auth Buttons */}
                 <div className="space-y-3">
-                  {/* Google Button */}
                   <motion.button
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
@@ -85,11 +75,10 @@ export default function AuthModal({ isOpen, onClose }) {
                     onClick={handleGoogleLogin}
                     className="flex items-center justify-center w-full gap-3 px-6 py-3 text-base font-medium text-black transition-colors bg-white border-2 border-gray-200 rounded-lg dark:bg-gray-900 dark:text-white dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800 hover:border-gray-300 dark:hover:border-gray-700"
                   >
-                    <Google/>
+                    <Google />
                     <span>Continue with Google</span>
                   </motion.button>
 
-                  {/* GitHub Button */}
                   <motion.button
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
@@ -104,7 +93,6 @@ export default function AuthModal({ isOpen, onClose }) {
                   </motion.button>
                 </div>
 
-                {/* Footer Text */}
                 <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}

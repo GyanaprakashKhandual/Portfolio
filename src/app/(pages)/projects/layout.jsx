@@ -2,7 +2,7 @@ import ProjectSidebar from "@/app/components/assets/Project.sidebar";
 import {
   getAllProjectSlugs,
   getProjectBySlug,
-} from "../../lib/Get.Project.post.lib";
+} from "../../script/Get.Project.post.lib";
 
 export default function ProjectsLayout({ children }) {
   const slugs = getAllProjectSlugs();

@@ -1,34 +1,26 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { ChevronRight, ChevronLeft } from 'lucide-react';
-import { useRouter, usePathname } from 'next/navigation';
+import { useState } from "react";
+import { ChevronRight, ChevronLeft } from "lucide-react";
+import { useRouter, usePathname } from "next/navigation";
 
 const skillsData = {
-  'Development': [
-    'Frontend',
-    'Backend',
-    'Database',
-    'Deployment',
-    'Monitoring',
-    'Languages',
-    'Tools'
+  Development: [
+    "Frontend",
+    "Backend",
+    "Database",
+    "Deployment",
+    "Monitoring",
+    "Languages",
+    "Tools",
   ],
-  'Testing': [
-    'Functional',
-    'API',
-    'Performance',
-    'Security',
-    'Database'
-  ],
-  'Hacking': [
-    'Social Engineering'
-  ]
+  Testing: ["Functional", "API", "Performance", "Security", "Database"],
+  Hacking: ["Social Engineering"],
 };
 
 export default function TechSkillsSidebar() {
   const [isOpen, setIsOpen] = useState(true);
-  const [expandedCategory, setExpandedCategory] = useState('Development');
+  const [expandedCategory, setExpandedCategory] = useState("Development");
   const router = useRouter();
   const pathname = usePathname();
 
@@ -37,12 +29,12 @@ export default function TechSkillsSidebar() {
   };
 
   const handleTabClick = (category, tab) => {
-    const slug = tab.toLowerCase().replace(/\s+/g, '-');
+    const slug = tab.toLowerCase().replace(/\s+/g, "-");
     router.push(`/skills/${category.toLowerCase()}/${slug}`);
   };
 
   const isTabActive = (category, tab) => {
-    const slug = tab.toLowerCase().replace(/\s+/g, '-');
+    const slug = tab.toLowerCase().replace(/\s+/g, "-");
     return pathname === `/skills/${category.toLowerCase()}/${slug}`;
   };
 
@@ -50,7 +42,7 @@ export default function TechSkillsSidebar() {
     <div className="flex">
       <div
         className={`fixed lg:sticky left-0 top-0 h-screen bg-white dark:bg-slate-950 border-r border-gray-200 dark:border-slate-800 transition-all duration-300 ease-in-out z-40 ${
-          isOpen ? 'w-72' : 'w-0'
+          isOpen ? "w-72" : "w-0"
         } overflow-hidden`}
       >
         <div className="flex flex-col h-full">
@@ -78,7 +70,7 @@ export default function TechSkillsSidebar() {
                   <button
                     onClick={() =>
                       setExpandedCategory(
-                        expandedCategory === category ? null : category
+                        expandedCategory === category ? null : category,
                       )
                     }
                     className="flex items-center justify-between w-full px-3 py-2 mb-3 transition-colors rounded-lg hover:bg-gray-100 dark:hover:bg-slate-800"
@@ -88,7 +80,7 @@ export default function TechSkillsSidebar() {
                     </h2>
                     <ChevronRight
                       className={`w-5 h-5 text-gray-600 dark:text-slate-300 transition-transform ${
-                        expandedCategory === category ? 'rotate-90' : ''
+                        expandedCategory === category ? "rotate-90" : ""
                       }`}
                     />
                   </button>
@@ -102,8 +94,8 @@ export default function TechSkillsSidebar() {
                           onClick={() => handleTabClick(category, tab)}
                           className={`w-full text-left px-4 py-2 rounded-lg transition-colors duration-200 text-sm font-medium ${
                             isTabActive(category, tab)
-                              ? 'bg-black dark:bg-white text-white dark:text-black'
-                              : 'text-gray-700 dark:text-slate-300 hover:bg-gray-100 dark:hover:bg-slate-800'
+                              ? "bg-black dark:bg-white text-white dark:text-black"
+                              : "text-gray-700 dark:text-slate-300 hover:bg-gray-100 dark:hover:bg-slate-800"
                           }`}
                         >
                           {tab}

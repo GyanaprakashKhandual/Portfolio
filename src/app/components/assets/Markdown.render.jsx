@@ -1,23 +1,11 @@
 "use client";
 
-/**
- * MarkdownRenderer.jsx
- *
- * Renders raw markdown string into styled HTML.
- * Every h1/h2/h3 gets an `id` attribute matching the slugified heading text
- * so OutlineSidebar's IntersectionObserver and hash links work correctly.
- *
- * Install:
- *   npm install react-markdown rehype-highlight highlight.js remark-gfm
- */
-
 import React from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeHighlight from "rehype-highlight";
 import "highlight.js/styles/github.css";
 
-// Must match OutlineSidebar's slugify exactly
 function slugify(text) {
   return String(text)
     .toLowerCase()
@@ -27,7 +15,6 @@ function slugify(text) {
     .replace(/-+/g, "-");
 }
 
-// Extract plain text from react-markdown children (handles nested elements)
 function extractText(children) {
   if (typeof children === "string") return children;
   if (Array.isArray(children)) return children.map(extractText).join("");
@@ -48,7 +35,6 @@ export default function MarkdownRenderer({ content }) {
         remarkPlugins={[remarkGfm]}
         rehypePlugins={[rehypeHighlight]}
         components={{
-          // ── Headings — each gets an id for scroll targeting ──────────────────
           h1: ({ children }) => {
             const id = slugify(extractText(children));
             return (
@@ -115,14 +101,12 @@ export default function MarkdownRenderer({ content }) {
             );
           },
 
-          // ── Paragraph ────────────────────────────────────────────────────────
           p: ({ children }) => (
             <p className="text-gray-700 dark:text-gray-300 leading-7 mb-4 text-[15px]">
               {children}
             </p>
           ),
 
-          // ── Lists ────────────────────────────────────────────────────────────
           ul: ({ children }) => (
             <ul className="list-disc list-outside pl-6 mb-4 space-y-1 text-gray-700 dark:text-gray-300 text-[15px]">
               {children}
@@ -133,11 +117,8 @@ export default function MarkdownRenderer({ content }) {
               {children}
             </ol>
           ),
-          li: ({ children }) => (
-            <li className="leading-7">{children}</li>
-          ),
+          li: ({ children }) => <li className="leading-7">{children}</li>,
 
-          // ── Inline code ──────────────────────────────────────────────────────
           code: ({ inline, className, children, ...props }) => {
             if (inline) {
               return (
@@ -156,21 +137,18 @@ export default function MarkdownRenderer({ content }) {
             );
           },
 
-          // ── Code block ───────────────────────────────────────────────────────
           pre: ({ children }) => (
             <pre className="bg-gray-950 dark:bg-gray-900 rounded-xl overflow-x-auto p-4 mb-6 text-[13px] leading-relaxed border border-gray-800">
               {children}
             </pre>
           ),
 
-          // ── Blockquote ───────────────────────────────────────────────────────
           blockquote: ({ children }) => (
             <blockquote className="border-l-4 border-blue-400 bg-blue-50 dark:bg-blue-950/30 dark:border-blue-500 pl-4 pr-3 py-2 my-4 rounded-r-lg text-gray-700 dark:text-gray-300 italic text-[15px]">
               {children}
             </blockquote>
           ),
 
-          // ── Table ────────────────────────────────────────────────────────────
           table: ({ children }) => (
             <div className="mb-6 overflow-x-auto">
               <table className="min-w-full border border-gray-200 dark:border-gray-700 rounded-lg text-[14px]">
@@ -192,12 +170,10 @@ export default function MarkdownRenderer({ content }) {
             </td>
           ),
 
-          // ── Horizontal rule ──────────────────────────────────────────────────
           hr: () => (
             <hr className="my-8 border-gray-200 dark:border-gray-700" />
           ),
 
-          // ── Links ────────────────────────────────────────────────────────────
           a: ({ href, children }) => (
             <a
               href={href}
@@ -209,8 +185,8 @@ export default function MarkdownRenderer({ content }) {
             </a>
           ),
 
-          // ── Images ───────────────────────────────────────────────────────────
           img: ({ src, alt }) => (
+            // eslint-disable-next-line @next/next/no-img-element
             <img
               src={src}
               alt={alt}
@@ -218,7 +194,6 @@ export default function MarkdownRenderer({ content }) {
             />
           ),
 
-          // ── Bold / Italic ─────────────────────────────────────────────────────
           strong: ({ children }) => (
             <strong className="font-semibold text-gray-900 dark:text-white">
               {children}

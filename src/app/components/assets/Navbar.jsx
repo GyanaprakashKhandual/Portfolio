@@ -8,7 +8,7 @@ import { FaCoffee } from "react-icons/fa";
 import { useTheme } from "../../scripts/Theme.context";
 import { GitHub } from "@mui/icons-material";
 import { Tooltip } from "@/app/ui/Tooltip.ui";
-import AuthModal from "./Auth.modal";
+import AuthModal from "../window/Auth.modal";
 export default function Navbar() {
   const router = useRouter();
   const pathname = usePathname();
@@ -137,7 +137,7 @@ export default function Navbar() {
               </Tooltip>
               <Tooltip content="Music">
                 <motion.button
-                onClick={() => router.push('/music')}
+                  onClick={() => router.push("/music")}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   className="flex items-center gap-2 px-4 py-2 transition-colors bg-gray-100 rounded-md dark:bg-gray-900 hover:bg-gray-200 dark:hover:bg-gray-800"
@@ -147,7 +147,7 @@ export default function Navbar() {
               </Tooltip>
               <Tooltip content="Vlogs">
                 <motion.button
-                onClick={() => router.push('/vlogs')}
+                  onClick={() => router.push("/vlogs")}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   className="flex items-center gap-2 px-4 py-2 transition-colors bg-gray-100 rounded-md dark:bg-gray-900 hover:bg-gray-200 dark:hover:bg-gray-800"
@@ -166,7 +166,7 @@ export default function Navbar() {
               </Tooltip>
               <Tooltip content="Please Login">
                 <motion.button
-                onClick={() => setIsAuthModalOpen(true)}
+                  onClick={() => setIsAuthModalOpen(true)}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   className="flex items-center gap-2 px-4 py-2 transition-colors bg-gray-100 rounded-md dark:bg-gray-900 hover:bg-gray-200 dark:hover:bg-gray-800"
@@ -294,10 +294,10 @@ export default function Navbar() {
             </motion.div>
           </>
         )}
-        <AuthModal 
-        isOpen={isAuthModalOpen} 
-        onClose={() => setIsAuthModalOpen(false)} 
-      />
+        <AuthModal
+          isOpen={isAuthModalOpen}
+          onClose={() => setIsAuthModalOpen(false)}
+        />
       </AnimatePresence>
     </>
   );

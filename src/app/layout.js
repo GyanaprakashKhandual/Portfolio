@@ -23,7 +23,7 @@ export default function RootLayout({ children }) {
   const pathname = usePathname();
 
   const hideNavbarPaths = ["/privacy-policy", "/terms-and-conditions", '/music', '/vlogs', '/docs'];
-  const shouldHideNavbar = hideNavbarPaths.some(path => 
+  const shouldHideNavbar = hideNavbarPaths.some(path =>
     pathname === path || pathname.startsWith("/docs/")
   );
 

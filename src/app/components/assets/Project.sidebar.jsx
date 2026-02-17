@@ -11,6 +11,7 @@ const categories = [
   "Testing",
   "Hacking",
 ];
+
 export default function ProjectSidebar({ projects }) {
   const [isOpen, setIsOpen] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
@@ -20,7 +21,6 @@ export default function ProjectSidebar({ projects }) {
 
   const filteredProjects = useMemo(() => {
     return projects.filter((project) => {
-      // Safety check: ensure project has required properties
       if (!project || typeof project !== "object") {
         return false;
       }
@@ -52,7 +52,6 @@ export default function ProjectSidebar({ projects }) {
         } overflow-hidden`}
       >
         <div className="flex flex-col h-full">
-          {/* Search Bar */}
           <div className="p-4 border-b border-gray-200 dark:border-slate-800">
             <div className="flex items-center gap-2 mb-3">
               <div className="relative flex-1">
@@ -77,7 +76,6 @@ export default function ProjectSidebar({ projects }) {
               </button>
             </div>
 
-            {/* Category Dropdown */}
             <div className="relative">
               <button
                 onClick={() => setShowCategoryDropdown(!showCategoryDropdown)}
@@ -92,7 +90,6 @@ export default function ProjectSidebar({ projects }) {
                 <ChevronDown className="w-4 h-4 text-gray-600 dark:text-slate-300" />
               </button>
 
-              {/* Dropdown Menu */}
               {showCategoryDropdown && (
                 <div className="absolute left-0 right-0 z-50 mt-1 overflow-hidden bg-white border border-gray-300 rounded-lg shadow-lg top-full dark:bg-slate-900 dark:border-slate-700">
                   {categories.map((category) => (
@@ -116,8 +113,6 @@ export default function ProjectSidebar({ projects }) {
             </div>
           </div>
 
-          {/* Projects List */}
-          {/* Projects List */}
           <div className="flex-1 overflow-y-auto">
             <div className="p-4 space-y-3">
               {filteredProjects.length > 0 ? (
@@ -174,7 +169,6 @@ export default function ProjectSidebar({ projects }) {
         </div>
       </div>
 
-      {/* Mobile Toggle Button */}
       <button
         onClick={toggleSidebar}
         className="fixed left-0 z-50 p-2 transition-colors bg-white border border-gray-200 rounded-r-lg top-6 dark:bg-slate-950 dark:border-slate-800 hover:bg-gray-50 dark:hover:bg-slate-900"
@@ -186,7 +180,6 @@ export default function ProjectSidebar({ projects }) {
         )}
       </button>
 
-      {/* Mobile Overlay */}
       {isOpen && (
         <div
           className="fixed inset-0 z-30 bg-black bg-opacity-50 dark:bg-opacity-70 lg:hidden"
@@ -197,7 +190,6 @@ export default function ProjectSidebar({ projects }) {
   );
 }
 
-// ChevronDown icon component
 function ChevronDown(props) {
   return (
     <svg

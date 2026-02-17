@@ -4,7 +4,7 @@
 import {
   getProjectBySlug,
   getAllProjectSlugs,
-} from "../../../lib/Get.Project.post.lib";
+} from "../../../script/Get.Project.post.lib";
 
 export async function generateStaticParams() {
   const slugs = getAllProjectSlugs();

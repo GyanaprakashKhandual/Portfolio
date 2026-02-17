@@ -13,7 +13,7 @@ export default function BlogSidebar({ posts }) {
     return posts.filter(
       (post) =>
         post.meta.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        post.meta.excerpt.toLowerCase().includes(searchTerm.toLowerCase())
+        post.meta.excerpt.toLowerCase().includes(searchTerm.toLowerCase()),
     );
   }, [searchTerm, posts]);
 

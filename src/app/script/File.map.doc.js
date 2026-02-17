@@ -1,16 +1,4 @@
-/**
- * fileMap.js
- *
- * Maps  stack → sidebarItemSlug → { fileName, filePath }
- *
- * filePath is relative to src/app/ — used as query param for /api/docs?path=...
- * e.g. "note/test/cypress/basic/Intro.md"
- *      → GET /api/docs?path=note/test/cypress/basic/Intro.md
- *      → reads  src/app/note/test/cypress/basic/Intro.md
- */
-
 const fileMap = {
-  // ─── CYPRESS ────────────────────────────────────────────────────────────────
   cypress: {
     "introduction-to-cypress": {
       fileName: "Intro.md",
@@ -158,7 +146,6 @@ const fileMap = {
     },
   },
 
-  // ─── REST ASSURED ────────────────────────────────────────────────────────────
   "rest-assured": {
     "introduction-to-rest-assured": {
       fileName: "Intro.md",
@@ -277,10 +264,6 @@ const fileMap = {
       filePath: "note/test/rest-assured/auth/DigestAuth.md",
     },
   },
-
-  // ─── Add more stacks below ───────────────────────────────────────────────────
-  // selenium: { ... },
-  // playwright: { ... },
 };
 
 export default fileMap;

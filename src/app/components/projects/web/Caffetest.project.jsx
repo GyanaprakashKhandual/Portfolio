@@ -1,35 +1,35 @@
-import { ExternalLink, Github, CheckCircle } from 'lucide-react';
+import { ExternalLink, Github, CheckCircle } from "lucide-react";
 
 export const projectMeta = {
-  slug: 'caffetest',
-  title: 'Caffetest',
-  shortDesc: 'AI-powered bug tracking & test management platform',
+  slug: "caffetest",
+  title: "Caffetest",
+  shortDesc: "AI-powered bug tracking & test management platform",
   description:
-    'Bug tracking application integrated with Anthropic OpenAI for intelligent test case generation and bug management.',
-  category: 'Development',
-  viewAppUrl: 'https://caffetest.vercel.app',
-  githubUrl: 'https://github.com/GyanaprakashKhandual/Caffetest-web',
-  codeUrl: 'https://github.com/GyanaprakashKhandual/Caffetest-app',
+    "Bug tracking application integrated with Anthropic OpenAI for intelligent test case generation and bug management.",
+  category: "Development",
+  viewAppUrl: "https://caffetest.vercel.app",
+  githubUrl: "https://github.com/GyanaprakashKhandual/Caffetest-web",
+  codeUrl: "https://github.com/GyanaprakashKhandual/Caffetest-app",
   techStack: [
-    'React',
-    'Node.js',
-    'MongoDB',
-    'OpenAI API',
-    'WebSocket',
-    'Selenium',
+    "React",
+    "Node.js",
+    "MongoDB",
+    "OpenAI API",
+    "WebSocket",
+    "Selenium",
   ],
 };
 
 export default function CaffetestProject() {
   const highlights = [
-    'AI Test Case Generation from Selenium Scripts',
-    'Role-Based Access Management',
-    'Multi-view Dashboard (Kanban, Split, Card, List)',
-    'Real-time Auto-save with Keystroke Detection',
-    'Built-in Messaging & Collaboration',
-    'Theme Customization (Dark/Light/System)',
-    'VS Code Extension Integration',
-    'Import/Export & Sharing Features',
+    "AI Test Case Generation from Selenium Scripts",
+    "Role-Based Access Management",
+    "Multi-view Dashboard (Kanban, Split, Card, List)",
+    "Real-time Auto-save with Keystroke Detection",
+    "Built-in Messaging & Collaboration",
+    "Theme Customization (Dark/Light/System)",
+    "VS Code Extension Integration",
+    "Import/Export & Sharing Features",
   ];
 
   return (
@@ -53,35 +53,73 @@ export default function CaffetestProject() {
         </h3>
         <div className="space-y-4 leading-7 text-gray-700 dark:text-slate-300">
           <p>
-            CafeTest is a comprehensive bug tracking application integrated with Anthropic OpenAI APIs. 
-            It provides enterprise-grade features for managing testing workflows and bug tracking.
+            CafeTest is a comprehensive bug tracking application integrated with
+            Anthropic OpenAI APIs. It provides enterprise-grade features for
+            managing testing workflows and bug tracking.
           </p>
-          
+
           <div>
-            <h4 className="mb-3 font-semibold text-black dark:text-white">Key Features:</h4>
+            <h4 className="mb-3 font-semibold text-black dark:text-white">
+              Key Features:
+            </h4>
             <ul className="ml-4 space-y-2">
-              <li>• Access Management - Role-based access control for team members</li>
-              <li>• Project Management - Create and manage multiple projects with ease</li>
-              <li>• Folder Management - Organize test cases in hierarchical folder structures</li>
-              <li>• Sprint & Phase Management - Plan and track development cycles</li>
-              <li>• Multiple View Options - Kanban, Split, Card, and List views for flexible workflow</li>
-              <li>• Auto-save & Keystroke Features - Real-time synchronization of changes</li>
-              <li>• Full CRUD Operations - Complete test case, bug, and test report management</li>
-              <li>• Document & Excel Integration - Built-in Confluence-like documentation features</li>
+              <li>
+                • Access Management - Role-based access control for team members
+              </li>
+              <li>
+                • Project Management - Create and manage multiple projects with
+                ease
+              </li>
+              <li>
+                • Folder Management - Organize test cases in hierarchical folder
+                structures
+              </li>
+              <li>
+                • Sprint & Phase Management - Plan and track development cycles
+              </li>
+              <li>
+                • Multiple View Options - Kanban, Split, Card, and List views
+                for flexible workflow
+              </li>
+              <li>
+                • Auto-save & Keystroke Features - Real-time synchronization of
+                changes
+              </li>
+              <li>
+                • Full CRUD Operations - Complete test case, bug, and test
+                report management
+              </li>
+              <li>
+                • Document & Excel Integration - Built-in Confluence-like
+                documentation features
+              </li>
               <li>• Theme Support - Dark, Light, and System theme options</li>
               <li>• Inbuilt Messaging - Real-time team communication</li>
-              <li>• AI-Powered Test Generation - VS Code extension that auto-generates test cases from Selenium scripts</li>
-              <li>• Smart Bug Detection - Automatically categorizes failed tests as bugs</li>
-              <li>• Dashboard & Reporting - Comprehensive analytics and insights</li>
+              <li>
+                • AI-Powered Test Generation - VS Code extension that
+                auto-generates test cases from Selenium scripts
+              </li>
+              <li>
+                • Smart Bug Detection - Automatically categorizes failed tests
+                as bugs
+              </li>
+              <li>
+                • Dashboard & Reporting - Comprehensive analytics and insights
+              </li>
               <li>• Import/Export - Seamless data migration and backup</li>
-              <li>• Sharing & Ticketing - Collaborative features for team workflows</li>
+              <li>
+                • Sharing & Ticketing - Collaborative features for team
+                workflows
+              </li>
             </ul>
           </div>
 
           <p className="mt-4 font-semibold text-black dark:text-white">
-            The standout feature is the VS Code integration that uses Anthropic APIs to automatically generate 
-            test cases from your Selenium automation scripts and categorize failures as bugs, making it infinitely 
-            more powerful than traditional tools like Jira and Zephyr.
+            The standout feature is the VS Code integration that uses Anthropic
+            APIs to automatically generate test cases from your Selenium
+            automation scripts and categorize failures as bugs, making it
+            infinitely more powerful than traditional tools like Jira and
+            Zephyr.
           </p>
         </div>
       </section>

@@ -1,27 +1,4 @@
-/**
- * Sidebar Items Registry
- *
- * Structure:
- * {
- *   [tabSlug]: [
- *     {
- *       id: string,
- *       label: string,
- *       children?: [...] (optional nested items)
- *     }
- *   ]
- * }
- *
- * Slugs are auto-generated from labels by the Sidebar component.
- * You can override per-item by adding a `slug` field.
- *
- * To add a new tab: just add a new key matching the tab's slug.
- */
-
 const sidebarItems = {
-  // ─────────────────────────────────────────────
-  // CYPRESS
-  // ─────────────────────────────────────────────
   cypress: [
     {
       id: "cy-1",
@@ -121,9 +98,6 @@ const sidebarItems = {
     },
   ],
 
-  // ─────────────────────────────────────────────
-  // REST ASSURED
-  // ─────────────────────────────────────────────
   "rest-assured": [
     {
       id: "ra-1",
@@ -242,14 +216,6 @@ const sidebarItems = {
       ],
     },
   ],
-
-  // ─────────────────────────────────────────────
-  // Add more tabs below following the same pattern
-  // Key must exactly match the tab slug from Redux
-  // ─────────────────────────────────────────────
-  // selenium: [ ... ],
-  // playwright: [ ... ],
-  // appium: [ ... ],
 };
 
 export default sidebarItems;

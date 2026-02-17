@@ -11,7 +11,8 @@ const experienceData = [
     title: "Quality Assurance Engineer",
     company: "Abydos Interactive",
     duration: "January 2025 - September 2025",
-    excerpt: "Led comprehensive QA and testing initiatives across multiple platforms",
+    excerpt:
+      "Led comprehensive QA and testing initiatives across multiple platforms",
     icon: Briefcase,
   },
   {
@@ -35,7 +36,7 @@ export default function ExperienceSidebar() {
       (exp) =>
         exp.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
         exp.company.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        exp.excerpt.toLowerCase().includes(searchTerm.toLowerCase())
+        exp.excerpt.toLowerCase().includes(searchTerm.toLowerCase()),
     );
   }, [searchTerm]);
 

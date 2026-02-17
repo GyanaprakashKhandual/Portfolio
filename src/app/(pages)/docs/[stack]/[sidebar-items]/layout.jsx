@@ -4,8 +4,8 @@ import { useParams } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import Sidebar from "@/app/components/assets/Left.sidebar";
 import OutlineSidebar from "@/app/components/assets/Outline.sidebar";
-import sidebarItems from "@/app/components/data/sidebarItem";
-import { MdContentProvider, useMdContent } from "@/app/context/Mdcontext";
+import sidebarItems from "@/app/script/Sidebar.item";
+import { MdContentProvider, useMdContent } from "@/app/context/Markdown.context";
 import Toolbar from "@/app/components/assets/Toolbar";
 
 const generateSlug = (label) =>

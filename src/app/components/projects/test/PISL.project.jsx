@@ -1,23 +1,24 @@
-'use client'
-import { ExternalLink, Github, CheckCircle, Play } from 'lucide-react';
-import { useState } from 'react';
+"use client";
+import { ExternalLink, Github, CheckCircle, Play } from "lucide-react";
+import { useState } from "react";
 
 export const projectMeta = {
-  slug: 'pisl-performance-testing',
-  title: 'PISL Performance Testing',
-  shortDesc: 'End-to-end performance testing platform with real-time analytics',
+  slug: "pisl-performance-testing",
+  title: "PISL Performance Testing",
+  shortDesc: "End-to-end performance testing platform with real-time analytics",
   description:
-    'Comprehensive performance testing solution for PISL web application using Grafana, K6, and advanced custom reporting with SVG visualization.',
-  category: 'Testing',
-  githubUrl: 'https://github.com/GyanaprakashKhandual/PISL-Infra-Automation-Test.git',
-  reportsUrl: 'https://github.com/PISL-Reports',
+    "Comprehensive performance testing solution for PISL web application using Grafana, K6, and advanced custom reporting with SVG visualization.",
+  category: "Testing",
+  githubUrl:
+    "https://github.com/GyanaprakashKhandual/PISL-Infra-Automation-Test.git",
+  reportsUrl: "https://github.com/PISL-Reports",
   techStack: [
-    'K6',
-    'Grafana',
-    'JSON',
-    'HTML/CSS',
-    'SVG Path Stroke',
-    'Premiere Motion',
+    "K6",
+    "Grafana",
+    "JSON",
+    "HTML/CSS",
+    "SVG Path Stroke",
+    "Premiere Motion",
   ],
 };
 
@@ -25,14 +26,14 @@ export default function PISSLPerformanceTestingProject() {
   const [showVideo, setShowVideo] = useState(false);
 
   const highlights = [
-    'End-to-End Performance Testing',
-    'Real-time Grafana Dashboards',
-    'K6 Load Testing Framework',
-    'Custom SVG Report Generation',
-    'JSON Data Persistence',
-    'Advanced Performance Analytics',
-    'Automated Test Execution',
-    'Performance Metrics Visualization',
+    "End-to-End Performance Testing",
+    "Real-time Grafana Dashboards",
+    "K6 Load Testing Framework",
+    "Custom SVG Report Generation",
+    "JSON Data Persistence",
+    "Advanced Performance Analytics",
+    "Automated Test Execution",
+    "Performance Metrics Visualization",
   ];
 
   return (
@@ -54,7 +55,7 @@ export default function PISSLPerformanceTestingProject() {
         <h3 className="mb-4 text-2xl font-bold text-black dark:text-white">
           Performance Testing Demo
         </h3>
-        <div className="relative overflow-hidden rounded-lg bg-gradient-to-br from-gray-900 to-black">
+        <div className="relative overflow-hidden rounded-lg bg-linear-to-br from-gray-900 to-black">
           {!showVideo ? (
             <div
               onClick={() => setShowVideo(true)}
@@ -79,7 +80,7 @@ export default function PISSLPerformanceTestingProject() {
                   strokeWidth="3"
                   fill="none"
                   className="text-cyan-500 animate-pulse"
-                  style={{ animationDelay: '0.2s' }}
+                  style={{ animationDelay: "0.2s" }}
                 />
                 <path
                   d="M 100 520 Q 300 420, 500 320 T 900 220"
@@ -87,7 +88,7 @@ export default function PISSLPerformanceTestingProject() {
                   strokeWidth="3"
                   fill="none"
                   className="text-purple-500 animate-pulse"
-                  style={{ animationDelay: '0.4s' }}
+                  style={{ animationDelay: "0.4s" }}
                 />
               </svg>
 
@@ -98,7 +99,9 @@ export default function PISSLPerformanceTestingProject() {
                   </div>
                 </div>
                 <p className="text-lg font-semibold text-white">Watch Demo</p>
-                <p className="text-sm text-slate-400">Performance Testing in Action</p>
+                <p className="text-sm text-slate-400">
+                  Performance Testing in Action
+                </p>
               </div>
             </div>
           ) : (
@@ -223,33 +226,66 @@ export default function PISSLPerformanceTestingProject() {
         </h3>
         <div className="space-y-4 leading-7 text-gray-700 dark:text-slate-300">
           <p>
-            This comprehensive performance testing project provides end-to-end testing of the PISL web
-            application backend. It combines industry-leading tools like K6 and Grafana with custom SVG-based
+            This comprehensive performance testing project provides end-to-end
+            testing of the PISL web application backend. It combines
+            industry-leading tools like K6 and Grafana with custom SVG-based
             reporting to deliver actionable performance insights.
           </p>
 
           <div>
-            <h4 className="mb-3 font-semibold text-black dark:text-white">Key Features:</h4>
+            <h4 className="mb-3 font-semibold text-black dark:text-white">
+              Key Features:
+            </h4>
             <ul className="ml-4 space-y-2">
-              <li>• K6 Load Testing Framework - Robust performance and load testing capabilities</li>
               <li>
-                • Real-time Grafana Dashboards - Live visualization of performance metrics
+                • K6 Load Testing Framework - Robust performance and load
+                testing capabilities
               </li>
-              <li>• JSON Data Storage - Structured persistence of test results and configurations</li>
-              <li>• Custom SVG Report Generation - Beautiful, interactive performance reports</li>
-              <li>• Advanced Motion Graphics - Premiere Motion integration for visualization</li>
-              <li>• HTML/CSS Reporting - Professional report formatting and presentation</li>
-              <li>• Complete Documentation - Comprehensive guides for setup and execution</li>
-              <li>• Automated Backend Testing - Full backend infrastructure testing coverage</li>
-              <li>• Performance Analytics - Detailed metrics and insights for optimization</li>
-              <li>• Scalability Testing - Test application behavior under various load conditions</li>
+              <li>
+                • Real-time Grafana Dashboards - Live visualization of
+                performance metrics
+              </li>
+              <li>
+                • JSON Data Storage - Structured persistence of test results and
+                configurations
+              </li>
+              <li>
+                • Custom SVG Report Generation - Beautiful, interactive
+                performance reports
+              </li>
+              <li>
+                • Advanced Motion Graphics - Premiere Motion integration for
+                visualization
+              </li>
+              <li>
+                • HTML/CSS Reporting - Professional report formatting and
+                presentation
+              </li>
+              <li>
+                • Complete Documentation - Comprehensive guides for setup and
+                execution
+              </li>
+              <li>
+                • Automated Backend Testing - Full backend infrastructure
+                testing coverage
+              </li>
+              <li>
+                • Performance Analytics - Detailed metrics and insights for
+                optimization
+              </li>
+              <li>
+                • Scalability Testing - Test application behavior under various
+                load conditions
+              </li>
             </ul>
           </div>
 
           <p className="mt-4 font-semibold text-black dark:text-white">
-            The standout feature is the custom SVG-based report generation that transforms complex
-            performance data into visually stunning, interactive reports. Combined with real-time Grafana
-            dashboards, it provides a complete picture of your application's performance characteristics.
+            The standout feature is the custom SVG-based report generation that
+            transforms complex performance data into visually stunning,
+            interactive reports. Combined with real-time Grafana dashboards, it
+            provides a complete picture of your application&apos;s performance
+            characteristics.
           </p>
         </div>
       </section>
@@ -265,7 +301,9 @@ export default function PISSLPerformanceTestingProject() {
           {highlights.map((highlight, i) => (
             <div key={i} className="flex items-start gap-3">
               <CheckCircle className="w-5 h-5 text-black dark:text-white shrink-0 mt-0.5" />
-              <span className="text-sm text-gray-700 dark:text-slate-300">{highlight}</span>
+              <span className="text-sm text-gray-700 dark:text-slate-300">
+                {highlight}
+              </span>
             </div>
           ))}
         </div>

@@ -1,5 +1,5 @@
-import ProjectCard from "../../components/assets/Project.card";
-import { getProjects } from "../../lib/Get.Project.post.lib";
+import ProjectCard from "../../components/modules/Project.card";
+import { getProjects } from "../../script/Get.Project.post.lib";
 
 export const metadata = {
   title: "Gyan | Projects",

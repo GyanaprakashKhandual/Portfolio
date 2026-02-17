@@ -2,7 +2,6 @@ import dynamic from "next/dynamic";
 import { postMeta as k6LoadTestingMeta } from "../components/blogs/Gk.learn";
 import { postMeta as restAssuredTestingMeta } from "../components/blogs/Ra.learn";
 
-// Dynamic import with proper typing
 const K6LoadTestingPost = dynamic(() => import("../components/blogs/Gk.learn"));
 const RestAssuredTestingPost = dynamic(() => import("../components/blogs/Ra.learn"));
 
