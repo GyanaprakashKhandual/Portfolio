@@ -6,6 +6,7 @@ import { useRouter, usePathname } from "next/navigation";
 export default function OutlineSidebar({ content }) {
   const [headings, setHeadings] = useState([]);
   const [activeId, setActiveId] = useState("");
+  const [search, setSearch] = useState("");
   const pathname = usePathname();
   const observerRef = useRef(null);
 
@@ -80,16 +81,44 @@ export default function OutlineSidebar({ content }) {
     window.scrollTo({ top, behavior: "smooth" });
   };
 
+  const filteredHeadings = headings.filter(({ text }) =>
+    text.toLowerCase().includes(search.toLowerCase()),
+  );
+
   if (headings.length === 0) return null;
 
   return (
-    <aside className="hidden xl:flex flex-col sticky w-64 shrink-0 min-h-[calc(100vh-80px)] max-h-[calc(100vh-80px)] overflow-y-auto pl-6 pr-2 py-6 border-l border-gray-200 dark:border-gray-800">
+    <aside className="sticky top-0 flex-col hidden w-64 max-h-screen min-h-screen py-6 pl-6 pr-2 overflow-y-auto border-l border-gray-200 xl:flex shrink-0 dark:border-gray-800">
       <p className="px-1 mb-3 text-xs font-semibold tracking-widest text-gray-500 uppercase dark:text-gray-400">
         On this page
       </p>
 
+      <div className="relative mb-3">
+        <svg
+          className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-400 dark:text-gray-500 pointer-events-none"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth={2}
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z"
+          />
+        </svg>
+        <input
+          type="text"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          placeholder="Search headings..."
+          className="w-full pl-8 pr-3 py-1.5 text-[12px] rounded-md border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 text-gray-700 dark:text-gray-300 placeholder-gray-400 dark:placeholder-gray-600 focus:outline-none focus:ring-1 focus:ring-gray-300 dark:focus:ring-gray-600 transition-colors duration-150"
+        />
+      </div>
+
       <nav className="flex flex-col gap-0.5">
-        {headings.map(({ id, text, level }) => (
+        {filteredHeadings.map(({ id, text, level }) => (
           <button
             key={id}
             onClick={() => handleClick(id)}
@@ -116,6 +145,11 @@ export default function OutlineSidebar({ content }) {
             </span>
           </button>
         ))}
+        {filteredHeadings.length === 0 && (
+          <p className="px-2 py-1 text-[12px] text-gray-400 dark:text-gray-600">
+            No results found.
+          </p>
+        )}
       </nav>
     </aside>
   );

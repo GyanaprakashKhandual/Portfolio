@@ -11,6 +11,7 @@ import {
   MoreHorizontal,
   EyeOff,
 } from "lucide-react";
+import { Tooltip } from "../ui/Tooltip.ui";
 
 const dropdownItems = [
   { label: "Hide Navbar" },
@@ -72,7 +73,8 @@ const Toolbar = ({
     >
       {/* ── Left: hamburger ── */}
       <div className="flex items-center w-24 shrink-0">
-        <button
+        <Tooltip content="Toggle Sidebar">
+          <button
           onClick={onMenuToggle}
           aria-label="Toggle sidebar"
           className="p-1.5 rounded text-gray-500 dark:text-gray-400
@@ -82,6 +84,7 @@ const Toolbar = ({
         >
           <Menu className="w-5 h-5" />
         </button>
+        </Tooltip>
       </div>
 
       {/* ── Center: tabs (absolutely centered in the bar) ── */}
@@ -120,7 +123,9 @@ const Toolbar = ({
       {/* ── Right: action icon buttons + three-dot menu ── */}
       <div className="flex items-center gap-0.5 ml-auto shrink-0">
         {actions.map(({ icon: Icon, label }) => (
-          <button
+          // eslint-disable-next-line react/jsx-key
+          <Tooltip content={label}>
+            <button
             key={label}
             aria-label={label}
             title={label}
@@ -128,14 +133,13 @@ const Toolbar = ({
           >
             <Icon className="w-4 h-4" />
           </button>
+          </Tooltip>
         ))}
-
-        {/* Divider */}
-        <div className="w-px h-4 mx-1 bg-gray-200 dark:bg-gray-700" />
 
         {/* Three-dot dropdown */}
         <div className="relative" ref={dropdownRef}>
-          <button
+          <Tooltip content="More">
+            <button
             onClick={() => setDropdownOpen((prev) => !prev)}
             aria-label="More options"
             title="More options"
@@ -150,6 +154,7 @@ const Toolbar = ({
           >
             <MoreHorizontal className="w-4 h-4" />
           </button>
+          </Tooltip>
 
           <AnimatePresence>
             {dropdownOpen && (
@@ -164,14 +169,17 @@ const Toolbar = ({
                   <button
                     key={item.label}
                     onClick={() => setDropdownOpen(false)}
-                    className="
-                      w-full flex items-center gap-2.5
-                      px-3 py-2 text-sm text-left
-                      text-gray-700 dark:text-gray-300
-                      hover:bg-gray-50 dark:hover:bg-gray-900
-                      hover:text-gray-900 dark:hover:text-white
-                      transition-colors duration-100
-                    "
+                    className="flex items-center gap-2.5 rounded-md
+      mx-2 px-3 py-2.5 text-sm text-left
+      w-[calc(100%-1rem)]
+      text-gray-700 dark:text-gray-300
+      hover:bg-gray-100 dark:hover:bg-gray-800
+      hover:text-gray-900 dark:hover:text-white
+      active:bg-gray-200 dark:active:bg-gray-700
+      focus-visible:outline-none focus-visible:ring-2
+      focus-visible:ring-blue-500
+      transition-colors duration-100
+      cursor-pointer select-none"
                   >
                     <EyeOff className="w-3.5 h-3.5 text-gray-400 dark:text-gray-500 shrink-0" />
                     {item.label}
