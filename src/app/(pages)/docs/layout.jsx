@@ -1,49 +1,46 @@
 import TabBar from "@/app/components/assets/Tabbar";
 
-export default function DocLayout({ children }) {
-  return (
-    <html lang="en">
-      <body className="antialiased text-black transition-colors duration-300 bg-white dark:bg-black dark:text-white">
-        <TabBar
-          tabs={[
-            "Home",
-            "C",
-            "C++",
-            "C#",
-            "Java",
-            "JavaScript",
-            "TypeScript",
-            "Python",
-            "GO",
-            "PHP",
-            "NodeJS",
-            "ExpressJS",
-            "RestAPI",
-            "GraphQL",
-            "Spring Boot",
-            "Security",
-            "MongoDB",
-            "MySQL",
-            "PostgreSQL",
-            "Redis",
-            "ReactJS",
-            "NextJS",
-            "VueJS",
-            "AngularJS",
-            "HTML",
-            "CSS",
-            "Flutter",
-            "Kotlin",
-            "Cypress",
-            "Selenium",
-            "Playwright",
-            "Appium",
-            "Rest Assured"
-          ]}
-        />
+const tabs = [
+  { label: "Home", value: "home" },
+  { label: "C", value: "c" },
+  { label: "C++", value: "c++" },
+  { label: "C#", value: "c#" },
+  { label: "Java", value: "java" },
+  { label: "JavaScript", value: "javascript" },
+  { label: "TypeScript", value: "typescript" },
+  { label: "Python", value: "python" },
+  { label: "GO", value: "go" },
+  { label: "PHP", value: "php" },
+  { label: "NodeJS", value: "nodejs" },
+  { label: "ExpressJS", value: "expressjs" },
+  { label: "RestAPI", value: "restapi" },
+  { label: "GraphQL", value: "graphql" },
+  { label: "Spring Boot", value: "spring-boot" },
+  { label: "Security", value: "security" },
+  { label: "MongoDB", value: "mongodb" },
+  { label: "MySQL", value: "mysql" },
+  { label: "PostgreSQL", value: "postgresql" },
+  { label: "Redis", value: "redis" },
+  { label: "ReactJS", value: "reactjs" },
+  { label: "NextJS", value: "nextjs" },
+  { label: "VueJS", value: "vuejs" },
+  { label: "AngularJS", value: "angularjs" },
+  { label: "HTML", value: "html" },
+  { label: "CSS", value: "css" },
+  { label: "Flutter", value: "flutter" },
+  { label: "Kotlin", value: "kotlin" },
+  { label: "Cypress", value: "cypress" },
+  { label: "Selenium", value: "selenium" },
+  { label: "Playwright", value: "playwright" },
+  { label: "Appium", value: "appium" },
+  { label: "Rest Assured", value: "rest-assured" },
+];
 
-        {children}
-      </body>
-    </html>
+export default function DocsLayout({ children }) {
+  return (
+    <div className="flex flex-col min-h-screen bg-white dark:bg-black">
+      <TabBar tabs={tabs} useQueryParams={false} />
+      {children}
+    </div>
   );
 }

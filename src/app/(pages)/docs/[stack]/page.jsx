@@ -1,15 +1,13 @@
 "use client";
 import React, { useState } from "react";
 import { useParams } from "next/navigation";
-import Sidebar from "@/app/components/assets/Left.sidebar";
+import SidebarLayout from "@/app/components/assets/Left.sidebar";
 import sidebarItems from "@/app/script/Sidebar.item";
 
-// This is  app/docs/[stack]/page.jsx
-// URL: /docs/cypress  →  stack = "cypress"
 function StackPage() {
   const [activeItemId, setActiveItemId] = useState(null);
 
-  const { stack } = useParams(); // comes from folder name [stack]
+  const { stack } = useParams();
 
   const tabSlug = stack?.toLowerCase().trim() ?? "";
   const items = sidebarItems[tabSlug] ?? [];
@@ -20,7 +18,7 @@ function StackPage() {
 
   return (
     <div className="flex bg-white">
-      <Sidebar
+      <SidebarLayout
         isOpen={true}
         header={stack}
         items={items}

@@ -1,14 +1,9 @@
-import DocPage from '@/app/pages/Doc.page'
-import React, { Suspense } from 'react'
+import DocPage from "@/app/pages/Doc.page";
 
-function page() {
+export default function DocsPage() {
   return (
-    <div className='bg-white'>
-      <Suspense fallback={null}>
-        <DocPage />
-      </Suspense>
+    <div>
+      <DocPage/>
     </div>
-  )
+  );
 }
-
-export default page

@@ -1,44 +1,23 @@
-'use client';
-
-import { usePathname } from 'next/navigation';
+// app/layout.jsx — NO 'use client'
 import { Geist, Geist_Mono } from 'next/font/google';
-import Navbar from './components/assets/Navbar';
-import { Tooltip } from './components/ui/Tooltip.ui';
-import { ThemeProvider } from './context/Theme.context';
-import { Provider } from 'react-redux';
-import { store } from './lib/store/store';
-import './globals.css'
+import Providers from './components/assets/Provider';
+import './globals.css';
 
-const geistSans = Geist({
-  subsets: ['latin'],
-  variable: '--font-geist-sans',
-});
+const geistSans = Geist({ subsets: ['latin'], variable: '--font-geist-sans' });
+const geistMono = Geist_Mono({ subsets: ['latin'], variable: '--font-geist-mono' });
 
-const geistMono = Geist_Mono({
-  subsets: ['latin'],
-  variable: '--font-geist-mono',
-});
+export const metadata = {
+  title: 'Your App',
+  description: 'Your description',
+};
 
 export default function RootLayout({ children }) {
-  const pathname = usePathname();
-
-  const hideNavbarPaths = ["/privacy-policy", "/terms-and-conditions", '/music', '/vlogs', '/docs'];
-  const shouldHideNavbar = hideNavbarPaths.some(path =>
-    pathname === path || pathname.startsWith("/docs/")
-  );
-
   return (
     <html lang="en" suppressHydrationWarning>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white dark:bg-black text-black dark:text-white transition-colors duration-300`}
-      >
-        <Provider store={store}>
-          <ThemeProvider>
-            {!shouldHideNavbar && <Navbar />}
-            {children}
-            <Tooltip />
-          </ThemeProvider>
-        </Provider>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white dark:bg-black text-black dark:text-white transition-colors duration-300`}>
+        <Providers>
+          {children}
+        </Providers>
       </body>
     </html>
   );

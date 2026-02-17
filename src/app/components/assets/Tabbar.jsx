@@ -91,34 +91,35 @@ const TabBar = ({
   };
 
   const handleTabClick = async (tab) => {
-    setActiveTab(tab.value);
+  setActiveTab(tab.value);
 
-    const slug = tab.label.toLowerCase().replace(/\s+/g, "-");
-    if (router) {
-      router.push(`/docs/${slug}`);
-    }
+  const slug = tab.label.toLowerCase().replace(/\s+/g, "-");
 
-    if (useQueryParams && router && pathname) {
-      const params = new URLSearchParams(searchParams?.toString());
-      params.set(queryParamName, tab.value);
-      router.push(`${pathname}?${params.toString()}`, { scroll: false });
-    }
+  if (useQueryParams && router && pathname) {
+    // Query param mode — stay on same page, update ?tab=
+    const params = new URLSearchParams(searchParams?.toString());
+    params.set(queryParamName, tab.value);
+    router.push(`${pathname}?${params.toString()}`, { scroll: false });
+  } else {
+    // ✅ Navigation mode — go to /docs/cypress
+    router.push(`/docs/${slug}`);
+  }
 
-    if (onTabChange) {
-      onTabChange(tab);
-    }
+  if (onTabChange) {
+    onTabChange(tab);
+  }
 
-    if (enableApiIntegration && onApiCall) {
-      setIsLoading(true);
-      try {
-        await onApiCall(tab.value);
-      } catch (error) {
-        console.error("Tab API call failed:", error);
-      } finally {
-        setIsLoading(false);
-      }
+  if (enableApiIntegration && onApiCall) {
+    setIsLoading(true);
+    try {
+      await onApiCall(tab.value);
+    } catch (error) {
+      console.error("Tab API call failed:", error);
+    } finally {
+      setIsLoading(false);
     }
-  };
+  }
+};
 
   if (!tabs || tabs.length === 0) {
     return null;
