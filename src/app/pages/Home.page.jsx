@@ -17,7 +17,7 @@ import {
   MessageSquare,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useTheme } from "../scripts/Theme.context";
+import { useTheme } from "../context/Theme.context";
 import { FaDocker } from "react-icons/fa";
 import {
   SiExpress,

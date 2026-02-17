@@ -3,8 +3,8 @@
 import { usePathname } from 'next/navigation';
 import { Geist, Geist_Mono } from 'next/font/google';
 import Navbar from './components/assets/Navbar';
-import { Tooltip } from './ui/Tooltip.ui';
-import { ThemeProvider } from './scripts/Theme.context';
+import { Tooltip } from './components/ui/Tooltip.ui';
+import { ThemeProvider } from './context/Theme.context';
 import { Provider } from 'react-redux';
 import { store } from './lib/store/store';
 import './globals.css'

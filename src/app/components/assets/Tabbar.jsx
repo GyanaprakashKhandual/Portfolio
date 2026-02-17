@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, Suspense } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
@@ -221,4 +221,14 @@ const TabBar = ({
   );
 };
 
-export default TabBar;
+
+
+
+const TabBarWithSuspense = (props) => (
+  <Suspense fallback={null}>
+    <TabBar {...props} />
+  </Suspense>
+);
+
+export default TabBarWithSuspense;
+

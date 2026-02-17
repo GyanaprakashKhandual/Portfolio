@@ -2,7 +2,10 @@
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { useSelector, useDispatch } from "react-redux";
-import { selectSidebarActiveSlug, setActiveSidebarItem } from "../../../../lib/feature/sidebar/left.sidebar.slice";
+import {
+  selectSidebarActiveSlug,
+  setActiveSidebarItem,
+} from "../../../../lib/feature/sidebar/left.sidebar.slice";
 import fileMap from "@/app/script/File.map.doc";
 import MarkdownRenderer from "@/app/components/assets/Markdown.render";
 import { useMdContent } from "@/app/context/Markdown.context";
@@ -12,12 +15,14 @@ export default function SidebarItemPage() {
   const dispatch = useDispatch();
 
   const reduxSlug = useSelector(selectSidebarActiveSlug);
-  const activeSlug = reduxSlug || sidebarItemParam;
 
-  const { setContent } = useMdContent(); // push content up to layout for OutlineSidebar
+  // ✅ Bug 2 fix: URL param is source of truth, Redux is fallback
+  const activeSlug = sidebarItemParam || reduxSlug;
+
+  const { setContent } = useMdContent();
 
   const [localContent, setLocalContent] = useState("");
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false); // ✅ Bug 1 fix: start false
   const [error, setError] = useState("");
 
   // Sync Redux from URL on direct load / page refresh
@@ -29,8 +34,11 @@ export default function SidebarItemPage() {
     }
   }, [reduxSlug, sidebarItemParam, dispatch]);
 
+  // ✅ Bug 3 fix: added setContent to deps
+  // ✅ Bug 4 fix: ignore flag prevents stale fetch overwrites
   useEffect(() => {
     if (!activeSlug || !stack) return;
+    let ignore = false;
 
     const stackSlug = stack.toLowerCase().trim();
     const entry = fileMap[stackSlug]?.[activeSlug];
@@ -43,6 +51,7 @@ export default function SidebarItemPage() {
 
     setLoading(true);
     setError("");
+    setLocalContent("");
 
     fetch(`/api/docs?path=${encodeURIComponent(entry.filePath)}`)
       .then((res) => {
@@ -50,18 +59,23 @@ export default function SidebarItemPage() {
         return res.text();
       })
       .then((text) => {
+        if (ignore) return;
         setLocalContent(text);
-        setContent(text); // ← share with OutlineSidebar via context
+        setContent(text);
         setLoading(false);
       })
       .catch((err) => {
+        if (ignore) return;
         setError(err.message);
-        setContent(""); // clear outline on error
+        setContent("");
         setLoading(false);
       });
-  }, [activeSlug, stack]);
 
-  // ── Loading skeleton ─────────────────────────────────────────────────────────
+    return () => {
+      ignore = true;
+    };
+  }, [activeSlug, stack, setContent]);
+
   if (loading) {
     return (
       <div className="flex flex-col w-full max-w-4xl gap-3 p-8 animate-pulse">
@@ -74,7 +88,6 @@ export default function SidebarItemPage() {
     );
   }
 
-  // ── Error state ──────────────────────────────────────────────────────────────
   if (error) {
     return (
       <div className="w-full max-w-4xl p-8">
@@ -88,7 +101,6 @@ export default function SidebarItemPage() {
     );
   }
 
-  // ── Render markdown ──────────────────────────────────────────────────────────
   return (
     <div className="w-full max-w-4xl p-8">
       <MarkdownRenderer content={localContent} />

@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   positionClasses,
   calculatePosition,
-} from "@/app/scripts/Tooltip.context";
+} from "@/app/context/Tooltip.context";
 
 export const Tooltip = ({
   content = "",

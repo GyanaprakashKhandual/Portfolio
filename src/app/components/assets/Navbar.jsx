@@ -5,10 +5,12 @@ import { useRouter, usePathname } from "next/navigation";
 import { Coffee, Moon, Sun, Menu, X, Music, Video, User } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaCoffee } from "react-icons/fa";
-import { useTheme } from "../../scripts/Theme.context";
+import { useTheme } from "@/app/context/Theme.context";
 import { GitHub } from "@mui/icons-material";
-import { Tooltip } from "@/app/ui/Tooltip.ui";
+import { Tooltip } from "../ui/Tooltip.ui";
 import AuthModal from "../window/Auth.modal";
+
+
 export default function Navbar() {
   const router = useRouter();
   const pathname = usePathname();

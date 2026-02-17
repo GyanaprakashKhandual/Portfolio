@@ -4,11 +4,9 @@ import React from "react";
 import { useRouter } from "next/navigation";
 import { Home, ArrowLeft, Coffee } from "lucide-react";
 import { motion } from "framer-motion";
-import { useTheme } from "./scripts/Theme.context";
 
 export default function NotFound() {
   const router = useRouter();
-  const { theme } = useTheme();
 
   const handleGoHome = () => {
     router.push("/");
