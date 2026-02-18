@@ -3,11 +3,13 @@ import { Geist, Geist_Mono } from 'next/font/google';
 import Providers from './components/assets/Provider';
 import './globals.css';
 
+import NextTopLoader from 'nextjs-toploader';
+
 const geistSans = Geist({ subsets: ['latin'], variable: '--font-geist-sans' });
 const geistMono = Geist_Mono({ subsets: ['latin'], variable: '--font-geist-mono' });
 
 export const metadata = {
-  title: 'Your App',
+  title: 'Gyan Portfolio',
   description: 'Your description',
 };
 
@@ -16,6 +18,12 @@ export default function RootLayout({ children }) {
     <html lang="en" suppressHydrationWarning>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white dark:bg-black text-black dark:text-white transition-colors duration-300`}>
         <Providers>
+          <NextTopLoader
+            color="#29D"
+            height={3}
+            showSpinner={false}
+            options={{ easing: 'ease', speed: 500, minimum: 0.3 }}
+          />
           {children}
         </Providers>
       </body>
