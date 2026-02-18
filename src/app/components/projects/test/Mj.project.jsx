@@ -2,7 +2,7 @@ import { ExternalLink, Github, CheckCircle } from "lucide-react";
 
 export const projectMeta = {
   slug: "mega-jewelers",
-  title: "MegaJewelers",
+  title: "Mega Jewelers",
   shortDesc:
     "Comprehensive QA testing & automation for e-commerce jewelry management platform",
   description:

@@ -19,9 +19,8 @@ export default function RootLayout({ children }) {
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white dark:bg-black text-black dark:text-white transition-colors duration-300`}>
         <Providers>
           <NextTopLoader
-            color="#29D"
-            height={3}
-            showSpinner={false}
+            color="#000000"
+            height={1}
             options={{ easing: 'ease', speed: 500, minimum: 0.3 }}
           />
           {children}

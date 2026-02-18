@@ -1,64 +1,73 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { ChevronRight, ChevronLeft, Search } from "lucide-react";
+import { Filter } from "lucide-react";
 import { usePathname } from "next/navigation";
 
+const categories = [
+  "All",
+  "Development",
+  "Performance Testing",
+  "Testing",
+  "Hacking",
+];
+
 export default function BlogSidebar({ posts }) {
-  const [isOpen, setIsOpen] = useState(true);
-  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [showCategoryDropdown, setShowCategoryDropdown] = useState(false);
   const pathname = usePathname();
 
   const filteredPosts = useMemo(() => {
-    return posts.filter(
-      (post) =>
-        post.meta.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        post.meta.excerpt.toLowerCase().includes(searchTerm.toLowerCase()),
-    );
-  }, [searchTerm, posts]);
-
-  const toggleSidebar = () => {
-    setIsOpen(!isOpen);
-  };
+    return posts.filter((post) => {
+      const category = post.meta.category || "";
+      const matchesCategory =
+        selectedCategory === "All" || category === selectedCategory;
+      return matchesCategory;
+    });
+  }, [selectedCategory, posts]);
 
   return (
     <div className="flex sidebar-scrollbar">
       <div
-        className={`fixed lg:sticky left-0 top-0 h-screen bg-white dark:bg-slate-950 border-r border-gray-200 dark:border-gray-900 transition-all duration-300 ease-in-out z-40 ${
-          isOpen ? "w-72" : "w-0"
-        } overflow-hidden`}
+        className="sticky top-0 bg-white border-r border-gray-200 dark:bg-slate-950 dark:border-gray-900 w-72"
+        style={{ minHeight: "calc(100vh - 105px)", maxHeight: "calc(100vh - 105px)" }}
       >
         <div className="flex flex-col h-full">
           <div className="p-4 border-b border-gray-200 dark:border-slate-800">
-            <div className="flex items-center gap-2">
-              <div className="relative flex-1">
-                <Search className="absolute w-4 h-4 text-gray-400 transform -translate-y-1/2 left-3 top-1/2 dark:text-slate-500" />
-                <input
-                  type="text"
-                  placeholder="Search blogs..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full py-2 pl-10 pr-4 text-gray-900 placeholder-gray-500 bg-white border border-gray-300 rounded-lg dark:border-slate-700 focus:outline-none focus:ring-1 focus:ring-gray-800 dark:focus:ring-blue-400 dark:bg-slate-900 dark:text-white dark:placeholder-slate-400"
-                />
-              </div>
+            <div className="relative">
               <button
-                onClick={toggleSidebar}
-                className="p-2 transition-colors rounded-lg shrink-0 hover:bg-gray-100 dark:hover:bg-slate-800"
+                onClick={() => setShowCategoryDropdown(!showCategoryDropdown)}
+                className="flex items-center justify-between w-full px-3 py-2 transition-colors bg-gray-100 border border-gray-300 rounded-lg dark:bg-slate-900 dark:border-slate-700 hover:bg-gray-200 dark:hover:bg-slate-800"
               >
-                {isOpen ? (
-                  <ChevronLeft
-                    className="w-5 h-5 text-gray-600 dark:text-slate-300"
-                    tooltip-data="Close Sidebar"
-                    tooltip-placement="right"
-                  />
-                ) : (
-                  <ChevronRight
-                    className="w-5 h-5 text-gray-600 dark:text-slate-300"
-                    tooltip-data="Open Sidebar"
-                    tooltip-placement="right"
-                  />
-                )}
+                <div className="flex items-center gap-2">
+                  <Filter className="w-4 h-4 text-gray-600 dark:text-slate-300" />
+                  <span className="text-sm font-medium text-gray-900 dark:text-white">
+                    {selectedCategory}
+                  </span>
+                </div>
+                <ChevronDown className="w-4 h-4 text-gray-600 dark:text-slate-300" />
               </button>
+
+              {showCategoryDropdown && (
+                <div className="absolute left-0 right-0 z-50 mt-1 overflow-hidden bg-white border border-gray-300 rounded-lg shadow-lg top-full dark:bg-slate-900 dark:border-slate-700">
+                  {categories.map((category) => (
+                    <button
+                      key={category}
+                      onClick={() => {
+                        setSelectedCategory(category);
+                        setShowCategoryDropdown(false);
+                      }}
+                      className={`w-full text-left px-4 py-2 text-sm font-medium transition-colors ${
+                        selectedCategory === category
+                          ? "bg-black dark:bg-white text-white dark:text-black"
+                          : "text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-slate-800"
+                      }`}
+                    >
+                      {category}
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
 
@@ -108,32 +117,25 @@ export default function BlogSidebar({ posts }) {
           </div>
         </div>
       </div>
-
-      <button
-        onClick={toggleSidebar}
-        className="fixed left-0 z-50 p-2 transition-colors bg-white border border-gray-200 rounded-r-lg top-6 dark:bg-slate-950 dark:border-slate-800 hover:bg-gray-50 dark:hover:bg-slate-900"
-      >
-        {isOpen ? (
-          <ChevronLeft
-            className="w-5 h-5 text-gray-600 dark:text-slate-300"
-            tooltip-data="Close Sidebar"
-            tooltip-placement="right"
-          />
-        ) : (
-          <ChevronRight
-            className="w-5 h-5 text-gray-600 dark:text-slate-300"
-            tooltip-data="Open Sidebar"
-            tooltip-placement="right"
-          />
-        )}
-      </button>
-
-      {isOpen && (
-        <div
-          className="fixed inset-0 z-30 bg-black bg-opacity-50 dark:bg-opacity-70 lg:hidden"
-          onClick={() => setIsOpen(false)}
-        />
-      )}
     </div>
+  );
+}
+
+function ChevronDown(props) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        d="M19 9l-7 7-7-7"
+      />
+    </svg>
   );
 }

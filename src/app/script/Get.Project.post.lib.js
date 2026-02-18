@@ -21,12 +21,17 @@ const RrProject = dynamic(() =>
   import("../components/projects/test/Rr.project").then((mod) => mod.default)
 );
 
+const ResolutionProject = dynamic(() =>
+  import("../components/projects/web/Resolution.project").then((mod) => mod.default)
+);
+
 
 import { projectMeta as caffetestMeta } from "../components/projects/web/Caffetest.project";
 import { projectMeta as pislMeta } from "../components/projects/test/PISL.project";
 import { projectMeta as resolMeta } from "../components/projects/test/Resol.project";
 import { projectMeta as mjMeta } from "../components/projects/test/Mj.project";
 import { projectMeta as rrMeta } from "../components/projects/test/Rr.project";
+import { projectMeta as resolWebMeta } from "../components/projects/web/Resolution.project";
 
 // Map of all projects
 const projectsMap = {
@@ -34,7 +39,8 @@ const projectsMap = {
   pisl: { meta: pislMeta, component: PISLProject },
   resol: { meta: resolMeta, component: ResolProject },
   megajwelers: { meta: mjMeta, component: MjProject },
-  rrcrop: { meta: rrMeta, component: RrProject }
+  rrcrop: { meta: rrMeta, component: RrProject },
+  resolution: { meta: resolWebMeta, component: ResolutionProject },
 };
 
 export function getProjects() {

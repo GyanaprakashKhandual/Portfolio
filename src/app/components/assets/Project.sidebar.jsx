@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { ChevronRight, ChevronLeft, Search, Filter } from "lucide-react";
+import { Filter } from "lucide-react";
 import { usePathname } from "next/navigation";
 
 const categories = [
@@ -13,8 +13,6 @@ const categories = [
 ];
 
 export default function ProjectSidebar({ projects }) {
-  const [isOpen, setIsOpen] = useState(true);
-  const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [showCategoryDropdown, setShowCategoryDropdown] = useState(false);
   const pathname = usePathname();
@@ -29,53 +27,21 @@ export default function ProjectSidebar({ projects }) {
       const shortDesc = project.shortDesc || "";
       const category = project.category || "";
 
-      const matchesSearch =
-        title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        shortDesc.toLowerCase().includes(searchTerm.toLowerCase());
-
       const matchesCategory =
         selectedCategory === "All" || category === selectedCategory;
 
-      return matchesSearch && matchesCategory;
+      return matchesCategory;
     });
-  }, [searchTerm, selectedCategory, projects]);
-
-  const toggleSidebar = () => {
-    setIsOpen(!isOpen);
-  };
+  }, [selectedCategory, projects]);
 
   return (
-    <div className="flex sidebar-scrollbar max-h-[calc(100vh - 80px)]">
+    <div className="flex sidebar-scrollbar">
       <div
-        className={`fixed lg:sticky left-0 top-0 h-screen bg-white dark:bg-slate-950 border-r border-gray-200 dark:border-slate-800 transition-all duration-300 ease-in-out z-40 ${
-          isOpen ? "w-72" : "w-0"
-        } overflow-hidden`}
+        className="sticky bottom-0 h-screen bg-white border-r border-gray-200 top-20 dark:bg-slate-950 dark:border-slate-800 w-72"
+        style={{ minHeight: "calc(100vh - 105px)", maxHeight: "calc(100vh - 105px)" }}
       >
         <div className="flex flex-col h-full">
           <div className="p-4 border-b border-gray-200 dark:border-slate-800">
-            <div className="flex items-center gap-2 mb-3">
-              <div className="relative flex-1">
-                <Search className="absolute w-4 h-4 text-gray-400 transform -translate-y-1/2 left-3 top-1/2 dark:text-slate-500" />
-                <input
-                  type="text"
-                  placeholder="Search projects..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full py-2 pl-10 pr-4 text-gray-900 placeholder-gray-500 bg-white border border-gray-300 rounded-lg dark:border-slate-700 focus:outline-none focus:ring-1 focus:ring-gray-800 dark:focus:ring-blue-400 dark:bg-slate-900 dark:text-white dark:placeholder-slate-400"
-                />
-              </div>
-              <button
-                onClick={toggleSidebar}
-                className="p-2 transition-colors rounded-lg shrink-0 hover:bg-gray-100 dark:hover:bg-slate-800"
-              >
-                {isOpen ? (
-                  <ChevronLeft className="w-5 h-5 text-gray-600 dark:text-slate-300" />
-                ) : (
-                  <ChevronRight className="w-5 h-5 text-gray-600 dark:text-slate-300" />
-                )}
-              </button>
-            </div>
-
             <div className="relative">
               <button
                 onClick={() => setShowCategoryDropdown(!showCategoryDropdown)}
@@ -168,24 +134,6 @@ export default function ProjectSidebar({ projects }) {
           </div>
         </div>
       </div>
-
-      <button
-        onClick={toggleSidebar}
-        className="fixed left-0 z-50 p-2 transition-colors bg-white border border-gray-200 rounded-r-lg top-6 dark:bg-slate-950 dark:border-slate-800 hover:bg-gray-50 dark:hover:bg-slate-900"
-      >
-        {isOpen ? (
-          <ChevronLeft className="w-5 h-5 text-gray-600 dark:text-slate-300" />
-        ) : (
-          <ChevronRight className="w-5 h-5 text-gray-600 dark:text-slate-300" />
-        )}
-      </button>
-
-      {isOpen && (
-        <div
-          className="fixed inset-0 z-30 bg-black bg-opacity-50 dark:bg-opacity-70 lg:hidden"
-          onClick={() => setIsOpen(false)}
-        />
-      )}
     </div>
   );
 }

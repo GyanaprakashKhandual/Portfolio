@@ -2,7 +2,7 @@ import { ExternalLink, Github, CheckCircle } from "lucide-react";
 
 export const projectMeta = {
   slug: "rr-crop",
-  title: "RrCrop",
+  title: "Rr Crop",
   shortDesc:
     "Comprehensive QA testing & automation for task management with advanced project allocation",
   description:

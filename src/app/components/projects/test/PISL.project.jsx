@@ -4,7 +4,7 @@ import { useState } from "react";
 
 export const projectMeta = {
   slug: "pisl-performance-testing",
-  title: "PISL Performance Testing",
+  title: "PISL Infra",
   shortDesc: "End-to-end performance testing platform with real-time analytics",
   description:
     "Comprehensive performance testing solution for PISL web application using Grafana, K6, and advanced custom reporting with SVG visualization.",
