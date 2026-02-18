@@ -62,11 +62,10 @@ const Toolbar = ({
   return (
     <div
       className={`
-        w-full h-12 flex items-center
+        w-full h-12 flex items-center sticky top-0
         bg-white dark:bg-black
         border-b border-gray-200 dark:border-gray-800
         px-4
-        relative
         shrink-0
         ${className}
       `}

@@ -7,6 +7,7 @@ import OutlineSidebar from "@/app/components/assets/Outline.sidebar";
 import sidebarItems from "@/app/script/Sidebar.item";
 import { MdContentProvider, useMdContent } from "@/app/context/Markdown.context";
 import Toolbar from "@/app/components/assets/Toolbar";
+import FooterToolbar from "@/app/components/assets/Footer.toolbar";
 
 const generateSlug = (label) =>
   label
@@ -108,8 +109,8 @@ function InnerLayout({ children }) {
           <div className="sticky top-0 self-start shrink-0">
             <OutlineSidebar content={content} />
           </div>
-
         </div>
+        <FooterToolbar/>
       </div>
     </div>
   );
