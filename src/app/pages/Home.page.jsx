@@ -151,16 +151,17 @@ export default function HomePage() {
       avatar: "AM",
     },
   ];
+
   return (
     <div
       ref={containerRef}
-      className="min-h-screen overflow-hidden text-black bg-white dark:bg-black dark:text-white"
+      className="min-h-screen overflow-hidden text-primary bg-primary"
     >
       {/* Bubble Effects */}
       {bubbles.map((bubble) => (
         <motion.div
           key={bubble.id}
-          className="fixed rounded-full pointer-events-none bg-black/5 dark:bg-white/5 blur-xl"
+          className="fixed rounded-full pointer-events-none bg-overlay blur-xl"
           initial={{ x: bubble.x, y: bubble.y, scale: 0, opacity: 0.5 }}
           animate={{ scale: 1.5, opacity: 0 }}
           transition={{ duration: 1, ease: "easeOut" }}
@@ -191,7 +192,7 @@ export default function HomePage() {
                 transition={{ delay: 0.2 }}
               >
                 Hi, I&apos;m{" "}
-                <span className="text-transparent bg-linear-to-r from-black to-gray-600 dark:from-white dark:to-gray-400 bg-clip-text">
+                <span className="text-transparent bg-gradient-to-r from-black to-gray-600 bg-clip-text">
                   Gyan
                 </span>
               </motion.h1>
@@ -200,7 +201,7 @@ export default function HomePage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 }}
-                className="space-y-4 text-base text-gray-700 sm:text-lg dark:text-gray-300"
+                className="space-y-4 text-base text-secondary sm:text-lg"
               >
                 <p>
                   I am a <strong>Full-Stack Web Developer</strong> specializing
@@ -219,7 +220,7 @@ export default function HomePage() {
                   building secure systems with best-in-class firewall protection
                   to safeguard applications.
                 </p>
-                <p className="text-sm text-gray-600 sm:text-base dark:text-gray-400">
+                <p className="text-sm text-muted sm:text-base">
                   With 1+ year of experience in QA Engineering, Product Design,
                   and Full-Stack Development, I deliver excellence at every
                   stage.
@@ -232,13 +233,13 @@ export default function HomePage() {
                 transition={{ delay: 0.6 }}
                 className="flex flex-wrap gap-4"
               >
-                <button className="flex items-center gap-2 px-6 py-3 font-medium text-white transition-opacity bg-black rounded-md dark:bg-white dark:text-black">
+                <button className="flex items-center gap-2 px-6 py-3 font-medium btn-primary">
                   <Download className="w-4 h-4" />
                   Download Resume
                 </button>
                 <button
                   onClick={() => router.push("/projects")}
-                  className="px-6 py-3 font-medium transition-colors border border-black rounded-md dark:border-white hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black"
+                  className="px-6 py-3 font-medium btn-secondary"
                 >
                   View Projects
                 </button>
@@ -246,7 +247,7 @@ export default function HomePage() {
                   onClick={() =>
                     router.push("https://github.com/GyanaprakashKhandual")
                   }
-                  className="px-6 py-3 font-medium transition-colors border border-black rounded-md dark:border-white hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black"
+                  className="px-6 py-3 font-medium btn-secondary"
                 >
                   GitHub
                 </button>
@@ -270,12 +271,12 @@ export default function HomePage() {
                     rotate: { duration: 20, repeat: Infinity, ease: "linear" },
                     scale: { duration: 3, repeat: Infinity, ease: "easeInOut" },
                   }}
-                  className="absolute inset-0 rounded-full bg-linear-to-r from-black/10 to-gray-300/10 dark:from-white/10 dark:to-gray-700/10 blur-2xl"
+                  className="absolute inset-0 rounded-full bg-gradient-to-r from-black/10 to-gray-300/10 blur-2xl"
                 />
                 <img
                   src="https://res.cloudinary.com/dvytvjplt/image/upload/v1765866608/profile_pricture_oemv94.jpg"
                   alt="Gyana prakash Khandual"
-                  className="relative object-cover w-full h-full border-4 rounded-full shadow-2xl border-black/10 dark:border-white/10"
+                  className="relative object-cover w-full h-full border-4 rounded-full shadow-image border-image"
                 />
               </div>
             </motion.div>
@@ -284,7 +285,7 @@ export default function HomePage() {
       </section>
 
       {/* Skills Section */}
-      <section className="px-4 py-16 sm:py-24 sm:px-6 lg:px-8 bg-gray-50 dark:bg-gray-950">
+      <section className="px-4 py-16 sm:py-24 sm:px-6 lg:px-8 bg-secondary">
         <div className="mx-auto max-w-7xl">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -293,10 +294,10 @@ export default function HomePage() {
             transition={{ duration: 0.6 }}
             className="mb-12 text-center"
           >
-            <h2 className="mb-4 text-3xl font-bold sm:text-4xl">
+            <h2 className="mb-4 text-3xl font-bold sm:text-4xl text-primary">
               Technical Expertise
             </h2>
-            <p className="max-w-2xl mx-auto text-gray-600 dark:text-gray-400">
+            <p className="max-w-2xl mx-auto text-muted">
               Proficient in modern technologies across the full development
               stack
             </p>
@@ -311,13 +312,13 @@ export default function HomePage() {
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
                 whileHover={{ scale: 1.05 }}
-                className="p-6 text-center transition-shadow bg-white border border-gray-200 rounded-lg dark:bg-black dark:border-gray-800 hover:shadow-lg"
+                className="p-6 text-center transition-shadow rounded-lg bg-card border-primary hover:shadow-md"
               >
-                <skill.icon className="w-8 h-8 mx-auto mb-3" />
-                <h3 className="mb-1 font-semibold">{skill.name}</h3>
-                <p className="text-xs text-gray-500 dark:text-gray-500">
-                  {skill.category}
-                </p>
+                <skill.icon className="w-8 h-8 mx-auto mb-3 text-primary" />
+                <h3 className="mb-1 font-semibold text-primary">
+                  {skill.name}
+                </h3>
+                <p className="text-xs text-muted">{skill.category}</p>
               </motion.div>
             ))}
           </div>
@@ -333,12 +334,10 @@ export default function HomePage() {
             viewport={{ once: true }}
             className="mb-12 text-center"
           >
-            <h2 className="mb-4 text-3xl font-bold sm:text-4xl">
+            <h2 className="mb-4 text-3xl font-bold sm:text-4xl text-primary">
               Achievement Stats
             </h2>
-            <p className="text-gray-600 dark:text-gray-400">
-              Numbers that speak for themselves
-            </p>
+            <p className="text-muted">Numbers that speak for themselves</p>
           </motion.div>
 
           <div className="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4">
@@ -349,13 +348,13 @@ export default function HomePage() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="p-6 text-center border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-950 dark:border-gray-800"
+                className="p-6 text-center rounded-lg border-primary bg-tertiary"
               >
-                <stat.icon className="w-8 h-8 mx-auto mb-3" />
-                <div className="mb-2 text-3xl font-bold">{stat.value}</div>
-                <div className="text-sm text-gray-600 dark:text-gray-400">
-                  {stat.label}
+                <stat.icon className="w-8 h-8 mx-auto mb-3 text-primary" />
+                <div className="mb-2 text-3xl font-bold text-primary">
+                  {stat.value}
                 </div>
+                <div className="text-sm text-muted">{stat.label}</div>
               </motion.div>
             ))}
           </div>
@@ -363,7 +362,7 @@ export default function HomePage() {
       </section>
 
       {/* Projects Section */}
-      <section className="px-4 py-16 sm:py-24 sm:px-6 lg:px-8 bg-gray-50 dark:bg-gray-950">
+      <section className="px-4 py-16 sm:py-24 sm:px-6 lg:px-8 bg-secondary">
         <div className="mx-auto max-w-7xl">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -371,10 +370,10 @@ export default function HomePage() {
             viewport={{ once: true }}
             className="mb-12 text-center"
           >
-            <h2 className="mb-4 text-3xl font-bold sm:text-4xl">
+            <h2 className="mb-4 text-3xl font-bold sm:text-4xl text-primary">
               Core Projects
             </h2>
-            <p className="text-gray-600 dark:text-gray-400">
+            <p className="text-muted">
               AI-powered solutions that make a difference
             </p>
           </motion.div>
@@ -387,22 +386,22 @@ export default function HomePage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.2 }}
-                className="p-8 transition-shadow bg-white border border-gray-200 rounded-lg dark:bg-black dark:border-gray-800 hover:shadow-xl"
+                className="p-8 transition-shadow rounded-lg bg-card border-primary hover:shadow-lg"
               >
                 <div className="flex items-start justify-between mb-4">
-                  <h3 className="text-2xl font-bold">{project.name}</h3>
-                  <div className="flex items-center gap-2 px-3 py-1 text-sm bg-gray-100 rounded-full dark:bg-gray-900">
-                    <Users className="w-4 h-4" />
+                  <h3 className="text-2xl font-bold text-primary">
+                    {project.name}
+                  </h3>
+                  <div className="flex items-center gap-2 px-3 py-1 text-sm rounded-full bg-badge">
+                    <Users className="w-4 h-4 text-muted" />
                     {project.users}
                   </div>
                 </div>
-                <p className="mb-6 text-gray-600 dark:text-gray-400">
-                  {project.description}
-                </p>
+                <p className="mb-6 text-muted">{project.description}</p>
                 <div className="flex flex-wrap gap-3">
                   <button
                     onClick={() => window.open(project.links.app, "_blank")}
-                    className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white transition-opacity bg-black rounded-md dark:bg-white dark:text-black hover:opacity-80"
+                    className="flex items-center gap-2 px-4 py-2 text-sm font-medium btn-primary"
                   >
                     <ExternalLink className="w-4 h-4" />
                     View App
@@ -412,7 +411,7 @@ export default function HomePage() {
                     onClick={() =>
                       window.open(project.links.frontend, "_blank")
                     }
-                    className="flex items-center gap-2 px-4 py-2 text-sm font-medium transition-colors border border-black rounded-md dark:border-white hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black"
+                    className="flex items-center gap-2 px-4 py-2 text-sm font-medium btn-secondary"
                   >
                     <Github className="w-4 h-4" />
                     Frontend
@@ -420,7 +419,7 @@ export default function HomePage() {
 
                   <button
                     onClick={() => window.open(project.links.backend, "_blank")}
-                    className="flex items-center gap-2 px-4 py-2 text-sm font-medium transition-colors border border-black rounded-md dark:border-white hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black"
+                    className="flex items-center gap-2 px-4 py-2 text-sm font-medium btn-secondary"
                   >
                     <Github className="w-4 h-4" />
                     Backend
@@ -437,7 +436,9 @@ export default function HomePage() {
             viewport={{ once: true }}
             className="mb-8 text-center"
           >
-            <h3 className="mb-4 text-2xl font-bold">VS Code Extensions</h3>
+            <h3 className="mb-4 text-2xl font-bold text-primary">
+              VS Code Extensions
+            </h3>
           </motion.div>
 
           <div className="grid gap-8 md:grid-cols-2">
@@ -448,28 +449,28 @@ export default function HomePage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.2 }}
-                className="p-8 transition-shadow bg-white border border-gray-200 rounded-lg dark:bg-black dark:border-gray-800 hover:shadow-xl"
+                className="p-8 transition-shadow rounded-lg bg-card border-primary hover:shadow-lg"
               >
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex items-center gap-3">
-                    <Code2 className="w-8 h-8" />
-                    <h3 className="text-xl font-bold">{extension.name}</h3>
+                    <Code2 className="w-8 h-8 text-primary" />
+                    <h3 className="text-xl font-bold text-primary">
+                      {extension.name}
+                    </h3>
                   </div>
-                  <div className="flex items-center gap-2 px-3 py-1 text-sm bg-gray-100 rounded-full dark:bg-gray-900">
-                    <Download className="w-4 h-4" />
+                  <div className="flex items-center gap-2 px-3 py-1 text-sm rounded-full bg-badge">
+                    <Download className="w-4 h-4 text-muted" />
                     {extension.installs}
                   </div>
                 </div>
-                <p className="mb-6 text-gray-600 dark:text-gray-400">
-                  {extension.description}
-                </p>
+                <p className="mb-6 text-muted">{extension.description}</p>
                 <button
                   onClick={() =>
                     router.push(
                       "https://marketplace.visualstudio.com/manage/publishers/gyanaprakashkhandual",
                     )
                   }
-                  className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white transition-opacity bg-black rounded-md dark:bg-white dark:text-black hover:opacity-80"
+                  className="flex items-center gap-2 px-4 py-2 text-sm font-medium btn-primary"
                 >
                   <ExternalLink className="w-4 h-4" />
                   View Extension
@@ -489,12 +490,10 @@ export default function HomePage() {
             viewport={{ once: true }}
             className="mb-12 text-center"
           >
-            <h2 className="mb-4 text-3xl font-bold sm:text-4xl">
+            <h2 className="mb-4 text-3xl font-bold sm:text-4xl text-primary">
               Client Testimonials
             </h2>
-            <p className="text-gray-600 dark:text-gray-400">
-              What people say about working with me
-            </p>
+            <p className="text-muted">What people say about working with me</p>
           </motion.div>
 
           <div className="grid gap-8 md:grid-cols-3">
@@ -505,19 +504,21 @@ export default function HomePage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.15 }}
-                className="p-8 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-950 dark:border-gray-800"
+                className="p-8 rounded-lg border-primary bg-tertiary"
               >
-                <MessageSquare className="w-8 h-8 mb-4 text-gray-400" />
-                <p className="mb-6 italic text-gray-700 dark:text-gray-300">
+                <MessageSquare className="w-8 h-8 mb-4 text-muted" />
+                <p className="mb-6 italic text-secondary">
                   &quot;{testimonial.feedback}&quot;
                 </p>
                 <div className="flex items-center gap-4">
-                  <div className="flex items-center justify-center w-12 h-12 font-bold text-white bg-black rounded-full dark:bg-white dark:text-black">
+                  <div className="flex items-center justify-center w-12 h-12 font-bold rounded-full text-avatar bg-avatar">
                     {testimonial.avatar}
                   </div>
                   <div>
-                    <div className="font-semibold">{testimonial.name}</div>
-                    <div className="text-sm text-gray-500 dark:text-gray-500">
+                    <div className="font-semibold text-primary">
+                      {testimonial.name}
+                    </div>
+                    <div className="text-sm text-muted">
                       {testimonial.role} at {testimonial.company}
                     </div>
                   </div>
@@ -529,7 +530,7 @@ export default function HomePage() {
       </section>
 
       {/* CTA Section */}
-      <section className="px-4 py-16 text-white bg-black sm:py-24 sm:px-6 lg:px-8 dark:bg-white dark:text-black">
+      <section className="px-4 py-16 text-inverse bg-inverse sm:py-24 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -539,20 +540,20 @@ export default function HomePage() {
             <h2 className="mb-6 text-3xl font-bold sm:text-4xl">
               Let&apos;s Build Something Amazing
             </h2>
-            <p className="max-w-2xl mx-auto mb-8 text-lg text-gray-300 dark:text-gray-700">
+            <p className="max-w-2xl mx-auto mb-8 text-lg text-inverse-muted">
               Ready to take your project to the next level? Let&rsquo;s discuss
               how I can help you achieve your goals.
             </p>
             <div className="flex flex-wrap justify-center gap-4">
               <button
                 onClick={() => router.push("/contact")}
-                className="flex items-center gap-2 px-8 py-4 font-medium text-black transition-opacity bg-white rounded-md dark:bg-black dark:text-white hover:opacity-80"
+                className="flex items-center gap-2 px-8 py-4 font-medium rounded-md text-inverse bg-primary hover:opacity-80"
               >
                 Get In Touch
               </button>
               <button
                 onClick={() => router.push("/projects")}
-                className="px-8 py-4 font-medium text-white transition-colors border border-white rounded-md dark:border-black dark:text-black hover:bg-white hover:text-black dark:hover:bg-black dark:hover:text-white"
+                className="px-8 py-4 font-medium border rounded-md text-inverse border-inverse hover:bg-primary hover:text-primary"
               >
                 View All Projects
               </button>
@@ -562,28 +563,28 @@ export default function HomePage() {
       </section>
 
       {/* Footer */}
-      <footer className="px-4 py-12 border-t border-gray-200 sm:px-6 lg:px-8 dark:border-gray-800">
+      <footer className="px-4 py-12 border-t border-primary sm:px-6 lg:px-8">
         <div className="mx-auto max-w-7xl">
           <div className="grid gap-8 mb-8 md:grid-cols-4">
             <div className="md:col-span-2">
-              <h3 className="mb-4 text-2xl font-bold">
+              <h3 className="mb-4 text-2xl font-bold text-primary">
                 Gyana prakash Khandual
               </h3>
-              <p className="mb-4 text-gray-600 dark:text-gray-400">
+              <p className="mb-4 text-muted">
                 Full-Stack Developer | QA Engineer | Ethical Hacker
               </p>
-              <p className="text-sm text-gray-500 dark:text-gray-500">
+              <p className="text-sm text-muted">
                 Building secure, scalable, and intelligent web applications.
               </p>
             </div>
 
             <div>
-              <h4 className="mb-4 font-semibold">Quick Links</h4>
-              <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-400">
+              <h4 className="mb-4 font-semibold text-primary">Quick Links</h4>
+              <ul className="space-y-2 text-sm text-muted">
                 <li>
                   <a
                     href="https://gyanprakash.vercel.app/about"
-                    className="transition-colors hover:text-black dark:hover:text-white"
+                    className="transition-colors hover:text-primary"
                   >
                     About
                   </a>
@@ -591,7 +592,7 @@ export default function HomePage() {
                 <li>
                   <a
                     href="https://gyanprakash.vercel.app/projects"
-                    className="transition-colors hover:text-black dark:hover:text-white"
+                    className="transition-colors hover:text-primary"
                   >
                     Projects
                   </a>
@@ -599,7 +600,7 @@ export default function HomePage() {
                 <li>
                   <a
                     href="https://gyanprakash.vercel.app/skills"
-                    className="transition-colors hover:text-black dark:hover:text-white"
+                    className="transition-colors hover:text-primary"
                   >
                     Skills
                   </a>
@@ -607,7 +608,7 @@ export default function HomePage() {
                 <li>
                   <a
                     href="https://gyanprakash.vercel.app/contact"
-                    className="transition-colors hover:text-black dark:hover:text-white"
+                    className="transition-colors hover:text-primary"
                   >
                     Contact
                   </a>
@@ -616,12 +617,12 @@ export default function HomePage() {
             </div>
 
             <div>
-              <h4 className="mb-4 font-semibold">Connect</h4>
-              <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-400">
+              <h4 className="mb-4 font-semibold text-primary">Connect</h4>
+              <ul className="space-y-2 text-sm text-muted">
                 <li>
                   <a
                     href="https://github.com/GyanaprakashKhandual"
-                    className="text-black transition-colors dark:text-black hover:text-black dark:hover:text-black"
+                    className="transition-colors hover:text-primary"
                   >
                     GitHub
                   </a>
@@ -629,7 +630,7 @@ export default function HomePage() {
                 <li>
                   <a
                     href="https://www.linkedin.com/in/gyana-prakash-khandual-79b205332/"
-                    className="text-black transition-colors dark:text-black hover:text-black dark:hover:text-black"
+                    className="transition-colors hover:text-primary"
                   >
                     LinkedIn
                   </a>
@@ -637,7 +638,7 @@ export default function HomePage() {
                 <li>
                   <a
                     href="https://www.linkedin.com/in/gyana-prakash-khandual-79b205332/"
-                    className="text-black transition-colors dark:text-black hover:text-black dark:hover:text-black"
+                    className="transition-colors hover:text-primary"
                   >
                     Twitter
                   </a>
@@ -645,7 +646,7 @@ export default function HomePage() {
                 <li>
                   <a
                     href="https://gyanprakash.vercel.app/contact"
-                    className="text-black transition-colors dark:text-black hover:text-black dark:hover:text-black"
+                    className="transition-colors hover:text-primary"
                   >
                     Email
                   </a>
@@ -654,20 +655,20 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="flex flex-col items-center justify-between gap-4 pt-8 border-t border-gray-200 dark:border-gray-800 sm:flex-row">
-            <p className="text-sm text-gray-600 dark:text-gray-400">
+          <div className="flex flex-col items-center justify-between gap-4 pt-8 border-t border-primary sm:flex-row">
+            <p className="text-sm text-muted">
               © 2026 Gyana prakash Khandual. All rights reserved.
             </p>
-            <div className="flex gap-6 text-sm text-gray-600 dark:text-gray-400">
+            <div className="flex gap-6 text-sm text-muted">
               <a
                 href="/privacy-policy"
-                className="transition-colors hover:text-black dark:hover:text-white"
+                className="transition-colors hover:text-primary"
               >
                 Privacy Policy
               </a>
               <a
                 href="/terms-and-conditions"
-                className="transition-colors hover:text-black dark:hover:text-white"
+                className="transition-colors hover:text-primary"
               >
                 Terms of Service
               </a>

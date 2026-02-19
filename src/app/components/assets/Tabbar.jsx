@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useState, useRef, useEffect, Suspense } from "react";
+import React, { useState, useEffect, useRef, Suspense } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import { useRouter, useSearchParams, usePathname } from "next/navigation";
+import { ChevronRight, ChevronLeft } from "lucide-react";
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
 
 const TabBar = ({
   tabs = [],
@@ -125,7 +125,7 @@ const TabBar = ({
 
   return (
     <div
-      className={`relative w-full bg-white border-b border-gray-200 dark:bg-black dark:border-gray-800 ${className}`}
+      className={`relative w-full bg-primary border-b border-primary ${className}`}
     >
       <div className="relative flex justify-center max-w-full mx-auto align-middle">
         <AnimatePresence>
@@ -137,14 +137,14 @@ const TabBar = ({
                 repeat: Infinity,
                 ease: "easeInOut",
               }}
-              className="absolute left-0 z-10 flex items-center w-8 h-full pointer-events-none sm:w-12 lg:w-16 bg-linear-to-r from-white via-white to-transparent dark:from-black dark:via-black"
+              className="absolute left-0 z-10 flex items-center w-8 h-full pointer-events-none sm:w-12 lg:w-16 bg-gradient-to-r from-primary via-primary to-transparent"
             >
               <button
                 onClick={() => scroll("left")}
-                className="p-1 ml-1 transition-all bg-white border border-gray-200 rounded-full shadow-sm pointer-events-auto sm:p-2 sm:ml-2 dark:bg-black dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-950 hover:scale-110 active:scale-95"
+                className="p-1 ml-1 transition-all border rounded-full shadow-sm pointer-events-auto bg-primary border-primary sm:p-2 sm:ml-2 hover:bg-tertiary hover:scale-110 active:scale-95"
                 aria-label="Scroll left"
               >
-                <ChevronLeft className="w-3 h-3 sm:w-4 sm:h-4" />
+                <ChevronLeft className="w-3 h-3 sm:w-4 sm:h-4 text-primary" />
               </button>
             </motion.div>
           )}
@@ -171,8 +171,8 @@ const TabBar = ({
                 transition-all duration-300 shrink-0
                 ${
                   activeTab === tab.value
-                    ? "bg-black text-white dark:bg-white dark:text-black"
-                    : "bg-gray-100 text-gray-700 dark:bg-gray-900 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-800"
+                    ? "bg-inverse text-inverse font-medium"
+                    : "bg-tertiary text-secondary hover:bg-badge hover:text-primary"
                 }
                 ${isLoading ? "opacity-50 cursor-not-allowed" : ""}
               `}
@@ -182,7 +182,7 @@ const TabBar = ({
               {activeTab === tab.value && (
                 <motion.div
                   layoutId="activeTabIndicator"
-                  className="absolute bottom-0 left-0 right-0"
+                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-strong rounded-full"
                   transition={{
                     type: "spring",
                     stiffness: 500,
@@ -200,14 +200,14 @@ const TabBar = ({
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="absolute top-0 right-0 z-10 flex items-center justify-end w-8 h-full pointer-events-none sm:w-12 lg:w-16 bg-linear-to-l from-white via-white to-transparent dark:from-black dark:via-black"
+              className="absolute top-0 right-0 z-10 flex items-center justify-end w-8 h-full pointer-events-none sm:w-12 lg:w-16 bg-gradient-to-l from-primary via-primary to-transparent"
             >
               <button
                 onClick={() => scroll("right")}
-                className="p-1 mr-1 transition-all bg-white border border-gray-200 rounded-full shadow-sm pointer-events-auto sm:p-2 sm:mr-2 dark:bg-black dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-950 hover:scale-110 active:scale-95"
+                className="p-1 mr-1 transition-all border rounded-full shadow-sm pointer-events-auto bg-primary border-primary sm:p-2 sm:mr-2 hover:bg-tertiary hover:scale-110 active:scale-95"
                 aria-label="Scroll right"
               >
-                <ChevronRight className="w-3 h-3 sm:w-4 sm:h-4" />
+                <ChevronRight className="w-3 h-3 sm:w-4 sm:h-4 text-primary" />
               </button>
             </motion.div>
           )}

@@ -15,7 +15,7 @@ import {
 
 const experiences = [
   {
-    company: "Abydos Interactive",
+    company: "Avidus Interactive",
     position: "Quality Assurance Engineer",
     duration: "January 2025 - September 2025",
     description:
@@ -91,7 +91,7 @@ function ExperiencePage() {
   };
 
   return (
-    <div className="min-h-screen pt-24 pb-16 transition-colors duration-300 bg-white dark:bg-black">
+    <div className="min-h-screen pt-24 pb-16 bg-primary">
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
@@ -100,10 +100,10 @@ function ExperiencePage() {
         className="max-w-6xl px-4 mx-auto mb-16 sm:px-6 lg:px-8"
       >
         <div className="text-center">
-          <h1 className="mb-6 text-4xl font-bold text-black sm:text-5xl lg:text-6xl dark:text-white">
+          <h1 className="mb-6 text-4xl font-bold text-primary sm:text-5xl lg:text-6xl">
             My Experience
           </h1>
-          <p className="max-w-2xl mx-auto text-lg text-gray-700 sm:text-xl dark:text-gray-300">
+          <p className="max-w-2xl mx-auto text-lg text-secondary sm:text-xl">
             A journey of quality assurance excellence, product design
             innovation, and team leadership across dynamic organizations
           </p>
@@ -126,7 +126,7 @@ function ExperiencePage() {
                 onClick={() =>
                   setExpandedIndex(expandedIndex === index ? -1 : index)
                 }
-                className="relative overflow-hidden transition-all duration-300 bg-white border border-gray-300 rounded-lg shadow-sm cursor-pointer dark:border-gray-700 dark:bg-gray-900 hover:border-gray-400 dark:hover:border-gray-600 hover:shadow-md"
+                className="relative overflow-hidden transition-all duration-300 border rounded-lg shadow-sm cursor-pointer bg-card border-primary hover:border-strong hover:shadow-md"
               >
                 {/* Content */}
                 <div className="relative p-6 sm:p-8">
@@ -134,18 +134,18 @@ function ExperiencePage() {
                     <div className="flex items-start flex-1 gap-4">
                       <motion.div
                         whileHover={{ scale: 1.1, rotate: 5 }}
-                        className="p-3 text-white bg-black rounded-lg shrink-0 dark:bg-white dark:text-black"
+                        className="p-3 rounded-lg text-inverse bg-inverse shrink-0"
                       >
                         <Briefcase className="w-6 h-6" />
                       </motion.div>
                       <div className="flex-1">
-                        <h3 className="mb-1 text-xl font-bold text-black sm:text-2xl dark:text-white">
+                        <h3 className="mb-1 text-xl font-bold text-primary sm:text-2xl">
                           {exp.position}
                         </h3>
-                        <p className="mb-2 text-sm text-gray-700 sm:text-base dark:text-gray-300">
+                        <p className="mb-2 text-sm text-secondary sm:text-base">
                           {exp.company}
                         </p>
-                        <p className="text-xs text-gray-600 sm:text-sm dark:text-gray-400">
+                        <p className="text-xs text-muted sm:text-sm">
                           {exp.duration}
                         </p>
                       </div>
@@ -155,13 +155,11 @@ function ExperiencePage() {
                       transition={{ duration: 0.3 }}
                       className="mt-1 shrink-0"
                     >
-                      <ChevronDown className="w-5 h-5 text-gray-600 dark:text-gray-400" />
+                      <ChevronDown className="w-5 h-5 text-muted" />
                     </motion.div>
                   </div>
 
-                  <p className="mb-4 text-gray-700 dark:text-gray-300">
-                    {exp.description}
-                  </p>
+                  <p className="mb-4 text-secondary">{exp.description}</p>
 
                   {/* Expanded Content */}
                   <motion.div
@@ -173,8 +171,8 @@ function ExperiencePage() {
                     transition={{ duration: 0.3 }}
                     className="overflow-hidden"
                   >
-                    <div className="pt-6 mt-6 border-t border-gray-300 dark:border-gray-700">
-                      <h4 className="mb-4 text-sm font-semibold tracking-wider text-black uppercase dark:text-white">
+                    <div className="pt-6 mt-6 border-t border-primary">
+                      <h4 className="mb-4 text-sm font-semibold tracking-wider uppercase text-primary">
                         Key Highlights
                       </h4>
                       <ul className="mb-6 space-y-3">
@@ -186,15 +184,15 @@ function ExperiencePage() {
                             transition={{ delay: i * 0.05 }}
                             className="flex items-start gap-3"
                           >
-                            <ArrowRight className="w-4 h-4 mt-1 text-black shrink-0 dark:text-white" />
-                            <span className="text-sm text-gray-700 dark:text-gray-300 sm:text-base">
+                            <ArrowRight className="w-4 h-4 mt-1 text-primary shrink-0" />
+                            <span className="text-sm text-secondary sm:text-base">
                               {highlight}
                             </span>
                           </motion.li>
                         ))}
                       </ul>
 
-                      <h4 className="mb-3 text-sm font-semibold tracking-wider text-black uppercase dark:text-white">
+                      <h4 className="mb-3 text-sm font-semibold tracking-wider uppercase text-primary">
                         Tech Stack & Skills
                       </h4>
                       <div className="flex flex-wrap gap-2">
@@ -204,7 +202,7 @@ function ExperiencePage() {
                             initial={{ opacity: 0, scale: 0.8 }}
                             animate={{ opacity: 1, scale: 1 }}
                             transition={{ delay: i * 0.05 }}
-                            className="px-3 py-1.5 text-xs sm:text-sm font-medium rounded-full bg-black dark:bg-white text-white dark:text-black border border-black dark:border-white"
+                            className="px-3 py-1.5 text-xs sm:text-sm font-medium rounded-full bg-inverse text-inverse border border-strong"
                           >
                             {skill}
                           </motion.span>
@@ -236,14 +234,12 @@ function ExperiencePage() {
             <motion.div
               key={i}
               whileHover={{ y: -4 }}
-              className="p-6 text-center transition-shadow bg-white border border-gray-300 rounded-lg shadow-sm dark:border-gray-700 dark:bg-gray-900 hover:shadow-md"
+              className="p-6 text-center transition-shadow border rounded-lg shadow-sm bg-tertiary border-primary hover:shadow-md"
             >
-              <p className="mb-2 text-2xl font-bold text-black sm:text-3xl dark:text-white">
+              <p className="mb-2 text-2xl font-bold text-primary sm:text-3xl">
                 {stat.value}
               </p>
-              <p className="text-xs text-gray-700 sm:text-sm dark:text-gray-300">
-                {stat.label}
-              </p>
+              <p className="text-xs text-muted sm:text-sm">{stat.label}</p>
             </motion.div>
           ))}
         </div>
@@ -256,7 +252,7 @@ function ExperiencePage() {
         transition={{ duration: 0.6, delay: 0.5 }}
         className="max-w-6xl px-4 mx-auto mt-16 sm:px-6 lg:px-8"
       >
-        <h2 className="mb-8 text-2xl font-bold text-center text-black sm:text-3xl dark:text-white">
+        <h2 className="mb-8 text-2xl font-bold text-center text-primary sm:text-3xl">
           Core Competencies
         </h2>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-4">
@@ -274,12 +270,10 @@ function ExperiencePage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.1 }}
-                className="p-6 text-center transition-all bg-white border border-gray-300 rounded-lg shadow-sm dark:border-gray-700 dark:bg-gray-900 hover:border-gray-400 dark:hover:border-gray-600 hover:shadow-md"
+                className="p-6 text-center transition-all border rounded-lg shadow-sm bg-card border-primary hover:border-strong hover:shadow-md"
               >
-                <TechIcon className="w-8 h-8 mx-auto mb-3 text-black dark:text-white" />
-                <p className="font-semibold text-black dark:text-white">
-                  {tech.name}
-                </p>
+                <TechIcon className="w-8 h-8 mx-auto mb-3 text-primary" />
+                <p className="font-semibold text-primary">{tech.name}</p>
               </motion.div>
             );
           })}

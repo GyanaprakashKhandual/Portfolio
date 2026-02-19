@@ -1,51 +1,121 @@
 @import "tailwindcss";
 
-mark[data-color] {
-  border-radius: 4px;
-  padding: 3px 8px;
-  transition: background-color 0.2s ease-in-out;
-}
-
-@variant dark (&:is(.dark *));
-
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+  --bg-primary: #ffffff; /* main page background (bg-white) */
+  --bg-secondary: #f9fafb; /* section alternate bg (bg-gray-50) */
+  --bg-tertiary: #f3f4f6; /* subtle nested bg, chips, pills (bg-gray-100) */
+  --bg-inverse: #000000; /* CTA sections, reversed blocks (bg-black) */
+  --bg-overlay: rgba(0, 0, 0, 0.05); /* mouse-bubble / glass overlay */
+  --bg-card: #ffffff; /* card / panel surface */
+  --bg-card-hover: #f9fafb; /* card hover state */
+  --bg-badge: #f3f4f6; /* user-count badge, pill tags */
+  --bg-avatar: #000000; /* avatar initials background */
+
+  --text-primary: #000000; /* headings, body (text-black) */
+  --text-secondary: #374151; /* paragraph body (text-gray-700) */
+  --text-muted: #6b7280; /* captions, meta (text-gray-500 / text-gray-600) */
+  --text-placeholder: #9ca3af; /* placeholders, disabled (text-gray-400) */
+  --text-inverse: #ffffff; /* text on dark/black backgrounds */
+  --text-inverse-muted: #d1d5db; /* muted text on black bg (text-gray-300) */
+  --text-avatar: #ffffff; /* initials inside avatar circle */
+
+  --border-primary: #e5e7eb; /* default card/section borders (border-gray-200) */
+  --border-strong: #000000; /* button outlines, strong dividers (border-black) */
+  --border-inverse: #ffffff; /* borders on dark bg (border-white) */
+  --border-radius-sm: 0.375rem; /* rounded-md — buttons, badges */
+  --border-radius-md: 0.5rem; /* rounded-lg — cards */
+  --border-radius-full: 9999px; /* rounded-full — avatars, pills */
+
+  --btn-primary-bg: #000000;
+  --btn-primary-text: #ffffff;
+  --btn-primary-hover-opacity: 0.8; /* hover:opacity-80 */
+
+  --btn-secondary-bg: transparent;
+  --btn-secondary-text: #000000;
+  --btn-secondary-border: #000000;
+  --btn-secondary-hover-bg: #000000;
+  --btn-secondary-hover-text: #ffffff;
+
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.07);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.1); /* hover:shadow-lg */
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.16); /* hover:shadow-xl */
+  --shadow-image: 0 25px 60px rgba(0, 0, 0, 0.25); /* shadow-2xl on profile */
+  --border-image: rgba(0, 0, 0, 0.1); /* border-black/10 on profile */
 }
 
-.dark {
-  --foreground-rgb: 255, 255, 255;
-  --background-start-rgb: 0, 0, 0;
-  --background-end-rgb: 0, 0, 0;
+.bg-primary {
+  background-color: var(--bg-primary);
+}
+.bg-secondary {
+  background-color: var(--bg-secondary);
+}
+.bg-tertiary {
+  background-color: var(--bg-tertiary);
+}
+.bg-inverse {
+  background-color: var(--bg-inverse);
+}
+.bg-card {
+  background-color: var(--bg-card);
+}
+.bg-badge {
+  background-color: var(--bg-badge);
+}
+.bg-avatar {
+  background-color: var(--bg-avatar);
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+.text-primary {
+  color: var(--text-primary);
+}
+.text-secondary {
+  color: var(--text-secondary);
+}
+.text-muted {
+  color: var(--text-muted);
+}
+.text-placeholder {
+  color: var(--text-placeholder);
+}
+.text-inverse {
+  color: var(--text-inverse);
+}
+.text-inverse-muted {
+  color: var(--text-inverse-muted);
 }
 
-*,
-*::before,
-*::after {
+.border-primary {
+  border-color: var(--border-primary);
+}
+.border-strong {
+  border-color: var(--border-strong);
+}
+.border-inverse {
+  border-color: var(--border-inverse);
+}
+
+.btn-primary {
+  background-color: var(--btn-primary-bg);
+  color: var(--btn-primary-text);
+  border-radius: var(--border-radius-sm);
+  transition: opacity var(--transition-base);
+}
+.btn-primary:hover {
+  opacity: var(--btn-primary-hover-opacity);
+}
+
+.btn-secondary {
+  background-color: var(--btn-secondary-bg);
+  color: var(--btn-secondary-text);
+  border: 1px solid var(--btn-secondary-border);
+  border-radius: var(--border-radius-sm);
   transition:
-    background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-    border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-    color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-    fill 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-    stroke 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-    opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-    box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-    transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background-color var(--transition-base),
+    color var(--transition-base);
 }
-
-.no-transition * {
-  transition: none !important;
+.btn-secondary:hover {
+  background-color: var(--btn-secondary-hover-bg);
+  color: var(--btn-secondary-hover-text);
 }
 
 ::-webkit-scrollbar {

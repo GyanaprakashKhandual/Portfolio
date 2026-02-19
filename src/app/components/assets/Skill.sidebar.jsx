@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState } from "react";
+import { motion } from "framer-motion";
 import { ChevronRight, ChevronLeft } from "lucide-react";
 import { useRouter, usePathname } from "next/navigation";
 
@@ -41,21 +42,21 @@ export default function TechSkillsSidebar() {
   return (
     <div className="flex">
       <div
-        className={`fixed lg:sticky left-0 top-0 h-screen bg-white dark:bg-slate-950 border-r border-gray-200 dark:border-slate-800 transition-all duration-300 ease-in-out z-40 ${
+        className={`fixed lg:sticky left-0 top-0 h-screen bg-primary border-r border-primary transition-all duration-300 ease-in-out z-40 ${
           isOpen ? "w-64 sm:w-72" : "w-0"
         } overflow-hidden`}
       >
         <div className="flex flex-col h-full">
-          <div className="p-4 border-b border-gray-200 sm:p-6 dark:border-slate-800">
+          <div className="p-4 border-b border-primary sm:p-6">
             <div className="flex items-center justify-between">
-              <h1 className="text-lg font-bold text-gray-900 sm:text-xl dark:text-white">
+              <h1 className="text-lg font-bold text-primary sm:text-xl">
                 Tech & Skills
               </h1>
               <button
                 onClick={toggleSidebar}
-                className="p-2 transition-colors rounded-lg lg:hidden hover:bg-gray-100 dark:hover:bg-slate-800"
+                className="p-2 transition-colors rounded-lg lg:hidden hover:bg-tertiary"
               >
-                <ChevronLeft className="w-5 h-5 text-gray-600 dark:text-slate-300" />
+                <ChevronLeft className="w-5 h-5 text-muted" />
               </button>
             </div>
           </div>
@@ -70,13 +71,13 @@ export default function TechSkillsSidebar() {
                         expandedCategory === category ? null : category,
                       )
                     }
-                    className="flex items-center justify-between w-full px-3 py-2 mb-2 transition-colors rounded-lg sm:mb-3 hover:bg-gray-100 dark:hover:bg-slate-800"
+                    className="flex items-center justify-between w-full px-3 py-2 mb-2 transition-colors rounded-lg hover:bg-tertiary sm:mb-3"
                   >
-                    <h2 className="text-sm font-semibold text-gray-900 sm:text-base dark:text-white">
+                    <h2 className="text-sm font-semibold text-primary sm:text-base">
                       {category}
                     </h2>
                     <ChevronRight
-                      className={`w-4 h-4 sm:w-5 sm:h-5 text-gray-600 dark:text-slate-300 transition-transform ${
+                      className={`w-4 h-4 sm:w-5 sm:h-5 text-muted transition-transform ${
                         expandedCategory === category ? "rotate-90" : ""
                       }`}
                     />
@@ -90,8 +91,8 @@ export default function TechSkillsSidebar() {
                           onClick={() => handleTabClick(category, tab)}
                           className={`w-full text-left px-3 sm:px-4 py-2 rounded-lg transition-colors duration-200 text-xs sm:text-sm font-medium ${
                             isTabActive(category, tab)
-                              ? "bg-black dark:bg-white text-white dark:text-black"
-                              : "text-gray-700 dark:text-slate-300 hover:bg-gray-100 dark:hover:bg-slate-800"
+                              ? "bg-inverse text-inverse font-medium"
+                              : "text-secondary hover:text-primary hover:bg-tertiary"
                           }`}
                         >
                           {tab}
@@ -100,7 +101,7 @@ export default function TechSkillsSidebar() {
                     </div>
                   )}
 
-                  <hr className="mt-3 border-gray-200 sm:mt-4 dark:border-slate-800" />
+                  <hr className="mt-3 border-primary sm:mt-4" />
                 </div>
               ))}
             </div>
@@ -110,20 +111,20 @@ export default function TechSkillsSidebar() {
 
       <button
         onClick={toggleSidebar}
-        className={`fixed left-0 z-50 p-1.5 sm:p-2 transition-all bg-white border border-gray-200 rounded-r-lg top-16 sm:top-20 dark:bg-slate-950 dark:border-slate-800 hover:bg-gray-50 dark:hover:bg-slate-900 ${
+        className={`fixed left-0 z-50 p-1.5 sm:p-2 transition-all bg-primary border border-primary rounded-r-lg top-16 sm:top-20 hover:bg-tertiary ${
           isOpen ? "translate-x-64 sm:translate-x-72" : "translate-x-0"
         }`}
       >
         {isOpen ? (
-          <ChevronLeft className="w-4 h-4 text-gray-600 sm:w-5 sm:h-5 dark:text-slate-300" />
+          <ChevronLeft className="w-4 h-4 text-muted sm:w-5 sm:h-5" />
         ) : (
-          <ChevronRight className="w-4 h-4 text-gray-600 sm:w-5 sm:h-5 dark:text-slate-300" />
+          <ChevronRight className="w-4 h-4 text-muted sm:w-5 sm:h-5" />
         )}
       </button>
 
       {isOpen && (
         <div
-          className="fixed inset-0 z-30 bg-black bg-opacity-50 dark:bg-opacity-70 lg:hidden"
+          className="fixed inset-0 z-30 bg-overlay lg:hidden"
           onClick={() => setIsOpen(false)}
         />
       )}

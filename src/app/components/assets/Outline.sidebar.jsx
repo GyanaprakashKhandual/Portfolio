@@ -1,7 +1,17 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import { ChevronRight } from "lucide-react";
 import { useRouter, usePathname } from "next/navigation";
+
+function slugify(text) {
+  return String(text)
+    .toLowerCase()
+    .trim()
+    .replace(/[^\w\s-]/g, "")
+    .replace(/\s+/g, "-")
+    .replace(/-+/g, "-");
+}
 
 export default function OutlineSidebar({ content }) {
   const [headings, setHeadings] = useState([]);
@@ -12,7 +22,6 @@ export default function OutlineSidebar({ content }) {
 
   useEffect(() => {
     if (!content) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
       setHeadings([]);
       return;
     }
@@ -66,7 +75,6 @@ export default function OutlineSidebar({ content }) {
 
   useEffect(() => {
     const hash = window.location.hash.replace("#", "");
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     if (hash) setActiveId(hash);
   }, [pathname]);
 
@@ -88,14 +96,14 @@ export default function OutlineSidebar({ content }) {
   if (headings.length === 0) return null;
 
   return (
-    <aside className="sticky top-0 flex-col hidden w-64 max-h-screen min-h-screen py-6 pl-6 pr-2 overflow-y-auto border-l border-gray-200 xl:flex shrink-0 dark:border-gray-800">
-      <p className="px-1 mb-3 text-xs font-semibold tracking-widest text-gray-500 uppercase dark:text-gray-400">
+    <aside className="sticky top-0 flex-col hidden w-64 max-h-screen min-h-screen py-6 pl-6 pr-2 overflow-y-auto border-l border-primary xl:flex shrink-0">
+      <p className="px-1 mb-3 text-xs font-semibold tracking-widest uppercase text-muted">
         On this page
       </p>
 
       <div className="relative mb-3">
         <svg
-          className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-400 dark:text-gray-500 pointer-events-none"
+          className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-muted pointer-events-none"
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
@@ -113,7 +121,7 @@ export default function OutlineSidebar({ content }) {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Search headings..."
-          className="w-full pl-8 pr-3 py-1.5 text-[12px] rounded-md border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 text-gray-700 dark:text-gray-300 placeholder-gray-400 dark:placeholder-gray-600 focus:outline-none focus:ring-1 focus:ring-gray-300 dark:focus:ring-gray-600 transition-colors duration-150"
+          className="w-full pl-8 pr-3 py-1.5 text-[12px] rounded-md border border-primary bg-tertiary text-primary placeholder-muted focus:outline-none focus:ring-1 focus:ring-strong transition-colors duration-150"
         />
       </div>
 
@@ -130,14 +138,14 @@ export default function OutlineSidebar({ content }) {
               ${level === 3 ? "pl-7 text-[12px]" : ""}
               ${
                 activeId === id
-                  ? "text-black dark:text-white font-medium bg-gray-100 dark:bg-gray-900"
-                  : "text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-900/50"
+                  ? "text-primary font-medium bg-tertiary"
+                  : "text-muted hover:text-primary hover:bg-tertiary"
               }
             `}
           >
             <span className="flex items-center gap-2">
               {activeId === id && (
-                <span className="w-0.5 h-3.5 rounded-full bg-black dark:bg-white shrink-0" />
+                <span className="w-0.5 h-3.5 rounded-full bg-primary shrink-0" />
               )}
               <span className={`truncate ${activeId === id ? "" : "pl-2.5"}`}>
                 {text}
@@ -146,9 +154,7 @@ export default function OutlineSidebar({ content }) {
           </button>
         ))}
         {filteredHeadings.length === 0 && (
-          <p className="px-2 py-1 text-[12px] text-gray-400 dark:text-gray-600">
-            No results found.
-          </p>
+          <p className="px-2 py-1 text-[12px] text-muted">No results found.</p>
         )}
       </nav>
     </aside>
