@@ -91,35 +91,33 @@ const TabBar = ({
   };
 
   const handleTabClick = async (tab) => {
-  setActiveTab(tab.value);
+    setActiveTab(tab.value);
 
-  const slug = tab.label.toLowerCase().replace(/\s+/g, "-");
+    const slug = tab.label.toLowerCase().replace(/\s+/g, "-");
 
-  if (useQueryParams && router && pathname) {
-    // Query param mode — stay on same page, update ?tab=
-    const params = new URLSearchParams(searchParams?.toString());
-    params.set(queryParamName, tab.value);
-    router.push(`${pathname}?${params.toString()}`, { scroll: false });
-  } else {
-    // ✅ Navigation mode — go to /docs/cypress
-    router.push(`/docs/${slug}`);
-  }
-
-  if (onTabChange) {
-    onTabChange(tab);
-  }
-
-  if (enableApiIntegration && onApiCall) {
-    setIsLoading(true);
-    try {
-      await onApiCall(tab.value);
-    } catch (error) {
-      console.error("Tab API call failed:", error);
-    } finally {
-      setIsLoading(false);
+    if (useQueryParams && router && pathname) {
+      const params = new URLSearchParams(searchParams?.toString());
+      params.set(queryParamName, tab.value);
+      router.push(`${pathname}?${params.toString()}`, { scroll: false });
+    } else {
+      router.push(`/docs/${slug}`);
     }
-  }
-};
+
+    if (onTabChange) {
+      onTabChange(tab);
+    }
+
+    if (enableApiIntegration && onApiCall) {
+      setIsLoading(true);
+      try {
+        await onApiCall(tab.value);
+      } catch (error) {
+        console.error("Tab API call failed:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+  };
 
   if (!tabs || tabs.length === 0) {
     return null;
@@ -133,17 +131,20 @@ const TabBar = ({
         <AnimatePresence>
           {showLeftArrow && (
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="absolute left-0 z-10 flex items-center w-16 h-full pointer-events-none bg-linear-to-r from-white via-white to-transparent dark:from-black dark:via-black"
+              animate={{ y: [0, -6, 0] }}
+              transition={{
+                duration: 1.2,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+              className="absolute left-0 z-10 flex items-center w-8 h-full pointer-events-none sm:w-12 lg:w-16 bg-linear-to-r from-white via-white to-transparent dark:from-black dark:via-black"
             >
               <button
                 onClick={() => scroll("left")}
-                className="p-2 ml-2 transition-all bg-white border border-gray-200 rounded-full shadow-sm pointer-events-auto dark:bg-black dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-950 hover:scale-110 active:scale-95"
+                className="p-1 ml-1 transition-all bg-white border border-gray-200 rounded-full shadow-sm pointer-events-auto sm:p-2 sm:ml-2 dark:bg-black dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-950 hover:scale-110 active:scale-95"
                 aria-label="Scroll left"
               >
-                <ChevronLeft className="w-4 h-4" />
+                <ChevronLeft className="w-3 h-3 sm:w-4 sm:h-4" />
               </button>
             </motion.div>
           )}
@@ -151,7 +152,7 @@ const TabBar = ({
 
         <div
           ref={scrollContainerRef}
-          className="flex gap-2 px-4 py-3 overflow-x-auto scrollbar-hide sm:px-6 lg:px-8"
+          className="flex w-full gap-1 px-3 py-2 overflow-x-auto sm:gap-2 sm:px-4 md:px-6 lg:px-8 sm:py-3 scrollbar-hide"
           style={{
             scrollbarWidth: "none",
             msOverflowStyle: "none",
@@ -166,7 +167,7 @@ const TabBar = ({
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.03 }}
               className={`
-                relative px-4 py-2 text-sm font-medium whitespace-nowrap rounded-lg
+                relative px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium whitespace-nowrap rounded-lg
                 transition-all duration-300 shrink-0
                 ${
                   activeTab === tab.value
@@ -199,14 +200,14 @@ const TabBar = ({
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="absolute top-0 right-0 z-10 flex items-center justify-end w-16 h-full pointer-events-none bg-linear-to-l from-white via-white to-transparent dark:from-black dark:via-black"
+              className="absolute top-0 right-0 z-10 flex items-center justify-end w-8 h-full pointer-events-none sm:w-12 lg:w-16 bg-linear-to-l from-white via-white to-transparent dark:from-black dark:via-black"
             >
               <button
                 onClick={() => scroll("right")}
-                className="p-2 mr-2 transition-all bg-white border border-gray-200 rounded-full shadow-sm pointer-events-auto dark:bg-black dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-950 hover:scale-110 active:scale-95"
+                className="p-1 mr-1 transition-all bg-white border border-gray-200 rounded-full shadow-sm pointer-events-auto sm:p-2 sm:mr-2 dark:bg-black dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-950 hover:scale-110 active:scale-95"
                 aria-label="Scroll right"
               >
-                <ChevronRight className="w-4 h-4" />
+                <ChevronRight className="w-3 h-3 sm:w-4 sm:h-4" />
               </button>
             </motion.div>
           )}
@@ -222,9 +223,6 @@ const TabBar = ({
   );
 };
 
-
-
-
 const TabBarWithSuspense = (props) => (
   <Suspense fallback={null}>
     <TabBar {...props} />
@@ -232,4 +230,3 @@ const TabBarWithSuspense = (props) => (
 );
 
 export default TabBarWithSuspense;
-

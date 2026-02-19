@@ -38,9 +38,9 @@ export default function DocsPage() {
   { label: "Rest Assured", value: "rest-assured" },
 ];
   return (
-    <div>
-       <TabBar tabs={tabs} useQueryParams={false} />
+    <div className="mt-20">
       <DocPage/>
+      <TabBar tabs={tabs} useQueryParams={false} />
     </div>
   );
 }

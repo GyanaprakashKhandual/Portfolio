@@ -20,27 +20,21 @@ import {
   Pin,
   PinOff,
   Edit,
-  Check,        // ← ADDED: for copy success state
-  X,            // ← ADDED: for closing raw modal
+  Check,
+  X,
 } from "lucide-react";
 import { Tooltip } from "../ui/Tooltip.ui";
 import TechStackModal from "../window/Tech.stack.modal";
 import { useTheme } from "@/app/context/Theme.context";
 import { useSelector } from "react-redux";
 import { selectActiveSlug } from "@/app/lib/feature/tab/tab.slice";
-import { useMdContent } from "@/app/context/Markdown.context"; // ← ADDED
+import { useMdContent } from "@/app/context/Markdown.context";
 
-/* ─────────────────────────────────────────────
-   Visibility + Sticky state (module-level so
-   other components can read via context later)
-───────────────────────────────────────────── */
 const dropdownItems = [
   { label: "Hide Toolbar", key: "toolbar" },
   { label: "Hide Left Sidebar", key: "leftSidebar" },
   { label: "Hide Outline Sidebar", key: "outlineSidebar" },
 ];
-
-
 
 const Toolbar = ({
   tabs = [
@@ -58,7 +52,6 @@ const Toolbar = ({
   onTabChange,
   onMenuToggle,
   className = "",
-  /* Visibility / sticky callbacks — wire these up in the parent layout */
   onToggleToolbar = () => {},
   onToggleLeftSidebar = () => {},
   onToggleOutlineSidebar = () => {},
@@ -72,19 +65,16 @@ const Toolbar = ({
 
   const activeSlug = useSelector(selectActiveSlug);
 
-  // ── ADDED: content from context + action states ──
   const { content } = useMdContent();
   const [copied, setCopied] = useState(false);
   const [rawOpen, setRawOpen] = useState(false);
 
-  /* ── Visibility state ── */
   const [visible, setVisible] = useState({
     toolbar: true,
     leftSidebar: true,
     outlineSidebar: true,
   });
 
-  /* ── Sticky state ── */
   const [sticky, setSticky] = useState({
     sidebar: false,
     outline: false,
@@ -99,7 +89,6 @@ const Toolbar = ({
     if (onTabChange) onTabChange(tab);
   };
 
-  /* Close dropdowns when clicking outside */
   useEffect(() => {
     const handler = (e) => {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target))
@@ -112,7 +101,6 @@ const Toolbar = ({
     return () => document.removeEventListener("mousedown", handler);
   }, [dropdownOpen, settingsOpen]);
 
-  /* Toggle visibility + fire parent callback */
   const toggleVisible = (key) => {
     setVisible((prev) => {
       const next = { ...prev, [key]: !prev[key] };
@@ -124,7 +112,6 @@ const Toolbar = ({
     setDropdownOpen(false);
   };
 
-  // ── ADDED: Copy handler ──
   const handleCopy = () => {
     if (!content) return;
     navigator.clipboard.writeText(content).then(() => {
@@ -133,7 +120,6 @@ const Toolbar = ({
     });
   };
 
-  // ── ADDED: Download handler ──
   const handleDownload = () => {
     if (!content) return;
     const filename = activeSlug ? `${activeSlug}.md` : "document.md";
@@ -146,7 +132,6 @@ const Toolbar = ({
     URL.revokeObjectURL(url);
   };
 
-  // ── ADDED: action click dispatcher ──
   const handleActionClick = (label) => {
     if (label === "Copy") handleCopy();
     if (label === "Raw") setRawOpen(true);
@@ -157,7 +142,6 @@ const Toolbar = ({
   const toggleSticky = (key) =>
     setSticky((prev) => ({ ...prev, [key]: !prev[key] }));
 
-  /* Theme icon */
   const ThemeIcon = !mounted ? Sun : theme === "dark" ? Sun : Moon;
   const themeLabel = !mounted
     ? "Toggle Theme"
@@ -177,7 +161,6 @@ const Toolbar = ({
           ${className}
         `}
       >
-        {/* ── Left: hamburger ── */}
         <div className="flex items-center w-8 shrink-0 sm:w-24">
           <Tooltip content="Open Docs Menu" position="top-right">
             <button
@@ -193,7 +176,6 @@ const Toolbar = ({
           </Tooltip>
         </div>
 
-        {/* ── Center: tabs ── */}
         <div className="absolute flex items-center gap-0.5 sm:gap-1 -translate-x-1/2 left-1/2">
           {tabs.map((tab) => {
             const isActive = activeTab === tab.value;
@@ -224,22 +206,23 @@ const Toolbar = ({
           })}
         </div>
 
-        {/* ── Right: actions ── */}
         <div className="flex items-center gap-0.5 ml-auto shrink-0">
-          {/* Action icons — hidden on small screens */}
-          {/* ── CHANGED: added onClick dispatcher, Copy shows checkmark when copied ── */}
           <div className="hidden md:flex items-center gap-0.5">
             {actions.map(({ icon: Icon, label }) => (
-              <Tooltip key={label} content={label === "Copy" && copied ? "Copied!" : label}>
+              <Tooltip
+                key={label}
+                content={label === "Copy" && copied ? "Copied!" : label}
+              >
                 <button
                   aria-label={label}
                   onClick={() => handleActionClick(label)}
                   className="p-2 text-gray-500 transition-colors duration-150 rounded dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-900"
                 >
-                  {label === "Copy" && copied
-                    ? <Check className="w-4 h-4 text-gray-900" />
-                    : <Icon className="w-4 h-4" />
-                  }
+                  {label === "Copy" && copied ? (
+                    <Check className="w-4 h-4 text-gray-900" />
+                  ) : (
+                    <Icon className="w-4 h-4" />
+                  )}
                 </button>
               </Tooltip>
             ))}
@@ -247,14 +230,17 @@ const Toolbar = ({
 
           <Tooltip content="Edit On Github">
             <button
-            onClick={() => router.push(`https://github.com/GyanaprakashKhandual/Portfolio/blob/main/src/app/note`)}
-             className="p-2 text-gray-500 transition-colors duration-150 rounded dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-900"
+              onClick={() =>
+                router.push(
+                  `https://github.com/GyanaprakashKhandual/Portfolio/blob/main/src/app/note`,
+                )
+              }
+              className="p-2 text-gray-500 transition-colors duration-150 rounded dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-900"
             >
               <Edit className="w-4 h-4" />
             </button>
           </Tooltip>
 
-          {/* ── Theme toggle ── */}
           <Tooltip content={themeLabel}>
             <button
               onClick={toggleTheme}
@@ -265,7 +251,6 @@ const Toolbar = ({
             </button>
           </Tooltip>
 
-          {/* ── Settings dropdown ── */}
           <div className="relative" ref={settingsRef}>
             <Tooltip content="Settings">
               <button
@@ -298,9 +283,8 @@ const Toolbar = ({
                              bg-white dark:bg-gray-950
                              border border-gray-200 dark:border-gray-800
                              rounded-lg shadow-lg shadow-black/10 dark:shadow-black/40
-                             top-full w-52"
+                             top-full w-48 sm:w-52"
                 >
-                  {/* Section label */}
                   <p className="px-3.5 pb-1 pt-0.5 text-[10px] font-semibold uppercase tracking-widest text-gray-400 dark:text-gray-600">
                     Sticky
                   </p>
@@ -322,7 +306,7 @@ const Toolbar = ({
                       key={key}
                       onClick={() => toggleSticky(key)}
                       className="flex items-center justify-between gap-2.5 rounded-md
-                                 mx-2 px-3 py-2.5 text-sm text-left
+                                 mx-2 px-3 py-2.5 text-xs sm:text-sm text-left
                                  w-[calc(100%-1rem)]
                                  text-gray-700 dark:text-gray-300
                                  hover:bg-gray-100 dark:hover:bg-gray-800
@@ -333,7 +317,6 @@ const Toolbar = ({
                         <Icon className="w-3.5 h-3.5 text-gray-400 dark:text-gray-500 shrink-0" />
                         {label}
                       </span>
-                      {/* Toggle pill */}
                       <span
                         className={`
                           relative inline-flex h-4 w-7 shrink-0 rounded-full
@@ -361,7 +344,6 @@ const Toolbar = ({
             </AnimatePresence>
           </div>
 
-          {/* ── More (three-dot) dropdown ── */}
           <div className="relative" ref={dropdownRef}>
             <Tooltip content="More" position="top-left">
               <button
@@ -394,9 +376,8 @@ const Toolbar = ({
                              bg-white dark:bg-gray-950
                              border border-gray-200 dark:border-gray-800
                              rounded-lg shadow-lg shadow-black/10 dark:shadow-black/40
-                             top-full w-52"
+                             top-full w-48 sm:w-52"
                 >
-                  {/* Mobile-only action icons in the dropdown */}
                   <div className="md:hidden">
                     <p className="px-3.5 pb-1 pt-0.5 text-[10px] font-semibold uppercase tracking-widest text-gray-400 dark:text-gray-600">
                       Actions
@@ -404,26 +385,29 @@ const Toolbar = ({
                     {actions.map(({ icon: Icon, label }) => (
                       <button
                         key={label}
-                        onClick={() => { handleActionClick(label); setDropdownOpen(false); }}
+                        onClick={() => {
+                          handleActionClick(label);
+                          setDropdownOpen(false);
+                        }}
                         className="flex items-center gap-2.5 rounded-md
-                                   mx-2 px-3 py-2.5 text-sm text-left
+                                   mx-2 px-3 py-2.5 text-xs sm:text-sm text-left
                                    w-[calc(100%-1rem)]
                                    text-gray-700 dark:text-gray-300
                                    hover:bg-gray-100 dark:hover:bg-gray-800
                                    hover:text-gray-900 dark:hover:text-white
                                    transition-colors duration-100 cursor-pointer select-none"
                       >
-                        {label === "Copy" && copied
-                          ? <Check className="w-3.5 h-3.5 text-green-500 shrink-0" />
-                          : <Icon className="w-3.5 h-3.5 text-gray-400 dark:text-gray-500 shrink-0" />
-                        }
+                        {label === "Copy" && copied ? (
+                          <Check className="w-3.5 h-3.5 text-green-500 shrink-0" />
+                        ) : (
+                          <Icon className="w-3.5 h-3.5 text-gray-400 dark:text-gray-500 shrink-0" />
+                        )}
                         {label === "Copy" && copied ? "Copied!" : label}
                       </button>
                     ))}
                     <div className="my-1.5 mx-3 h-px bg-gray-100 dark:bg-gray-800" />
                   </div>
 
-                  {/* Visibility section label */}
                   <p className="px-3.5 pb-1 pt-0.5 text-[10px] font-semibold uppercase tracking-widest text-gray-400 dark:text-gray-600">
                     Visibility
                   </p>
@@ -435,7 +419,7 @@ const Toolbar = ({
                         key={key}
                         onClick={() => toggleVisible(key)}
                         className="flex items-center justify-between gap-2.5 rounded-md
-                                   mx-2 px-3 py-2.5 text-sm text-left
+                                   mx-2 px-3 py-2.5 text-xs sm:text-sm text-left
                                    w-[calc(100%-1rem)]
                                    text-gray-700 dark:text-gray-300
                                    hover:bg-gray-100 dark:hover:bg-gray-800
@@ -475,18 +459,15 @@ const Toolbar = ({
         </div>
       </div>
 
-      {/* ── TechStack Modal ── */}
       <TechStackModal
         isOpen={techStackOpen}
         onClose={() => setTechStackOpen(false)}
         onConfirm={(stack) => console.log("Selected:", stack)}
       />
 
-      {/* ── ADDED: Raw Markdown Modal (like GitHub's Raw view) ── */}
       <AnimatePresence>
         {rawOpen && (
           <>
-            {/* Backdrop */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -496,45 +477,46 @@ const Toolbar = ({
               className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm"
             />
 
-            {/* Modal */}
             <motion.div
               initial={{ opacity: 0, scale: 0.96, y: 8 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.96, y: 8 }}
               transition={{ duration: 0.15, ease: "easeOut" }}
-              className="fixed z-50 flex flex-col overflow-hidden bg-white border border-gray-200 shadow-2xl inset-4 sm:inset-8 md:inset-16 dark:bg-gray-950 dark:border-gray-800 rounded-xl"
+              className="fixed z-50 flex flex-col overflow-hidden bg-white border border-gray-200 shadow-2xl inset-2 sm:inset-4 md:inset-8 lg:inset-16 dark:bg-gray-950 dark:border-gray-800 rounded-xl"
             >
-              {/* Modal header */}
-              <div className="flex items-center justify-between px-4 py-3 border-b border-gray-200 dark:border-gray-800 shrink-0">
-                <div className="flex items-center gap-2">
-                  <FileText className="w-4 h-4 text-gray-400" />
-                  <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+              <div className="flex flex-wrap items-center justify-between gap-2 px-3 py-2 border-b border-gray-200 sm:px-4 sm:py-3 dark:border-gray-800 shrink-0">
+                <div className="flex items-center min-w-0 gap-2">
+                  <FileText className="w-4 h-4 text-gray-400 shrink-0" />
+                  <span className="text-xs font-medium text-gray-700 truncate sm:text-sm dark:text-gray-300">
                     Raw — {activeSlug ? `${activeSlug}.md` : "document.md"}
                   </span>
                 </div>
-                <div className="flex items-center gap-1">
-                  {/* Copy inside modal */}
+                <div className="flex items-center gap-1 shrink-0">
                   <Tooltip content={copied ? "Copied!" : "Copy raw content"}>
                     <button
                       onClick={handleCopy}
-                      className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium
+                      className="flex items-center gap-1.5 px-2 sm:px-3 py-1 sm:py-1.5 text-xs font-medium
                                  rounded-md border border-gray-200 dark:border-gray-700
                                  text-gray-600 dark:text-gray-400
                                  hover:bg-gray-100 dark:hover:bg-gray-800
                                  transition-colors duration-150"
                     >
-                      {copied
-                        ? <><Check className="w-3.5 h-3.5 text-gray-900" /> Copied</>
-                        : <><Copy className="w-3.5 h-3.5" /> Copy</>
-                      }
+                      {copied ? (
+                        <>
+                          <Check className="w-3.5 h-3.5 text-gray-900" /> Copied
+                        </>
+                      ) : (
+                        <>
+                          <Copy className="w-3.5 h-3.5" /> Copy
+                        </>
+                      )}
                     </button>
                   </Tooltip>
 
-                  {/* Download inside modal */}
                   <Tooltip content="Download .md">
                     <button
                       onClick={handleDownload}
-                      className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium
+                      className="flex items-center gap-1.5 px-2 sm:px-3 py-1 sm:py-1.5 text-xs font-medium
                                  rounded-md border border-gray-200 dark:border-gray-700
                                  text-gray-600 dark:text-gray-400
                                  hover:bg-gray-100 dark:hover:bg-gray-800
@@ -544,7 +526,6 @@ const Toolbar = ({
                     </button>
                   </Tooltip>
 
-                  {/* Close */}
                   <button
                     onClick={() => setRawOpen(false)}
                     className="p-1.5 ml-1 rounded-md text-gray-400 hover:text-gray-700 dark:hover:text-gray-200
@@ -555,9 +536,8 @@ const Toolbar = ({
                 </div>
               </div>
 
-              {/* Raw content */}
               <div className="flex-1 overflow-auto">
-                <pre className="p-4 font-mono text-xs leading-relaxed text-gray-800 break-words whitespace-pre-wrap sm:p-6 sm:text-sm dark:text-gray-200">
+                <pre className="p-3 font-mono text-xs leading-relaxed text-gray-800 whitespace-pre-wrap wrap-break-word sm:p-4 md:p-6 sm:text-sm dark:text-gray-200">
                   {content || "No content loaded."}
                 </pre>
               </div>

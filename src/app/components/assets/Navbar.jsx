@@ -93,7 +93,7 @@ export default function Navbar() {
               ))}
             </div>
 
-            <div className="flex items-center gap-3 sm:gap-4">
+            <div className="flex items-center gap-1 sm:gap-2 md:gap-3">
               <Tooltip
                 content={
                   theme === "dark" ? "Switch to Light" : "Switch to Dark"
@@ -115,10 +115,7 @@ export default function Navbar() {
                         exit={{ rotate: 90, opacity: 0 }}
                         transition={{ duration: 0.2 }}
                       >
-                        <Sun
-                          className="w-5 h-5 text-black dark:text-white"
-                          tooltip-data="Switch To White"
-                        />
+                        <Sun className="w-4 h-4 text-black sm:w-5 sm:h-5 dark:text-white" />
                       </motion.div>
                     ) : (
                       <motion.div
@@ -128,10 +125,7 @@ export default function Navbar() {
                         exit={{ rotate: -90, opacity: 0 }}
                         transition={{ duration: 0.2 }}
                       >
-                        <Moon
-                          className="w-5 h-5 text-black dark:text-white"
-                          tooltip-data="Switch To Dark"
-                        />
+                        <Moon className="w-4 h-4 text-black sm:w-5 sm:h-5 dark:text-white" />
                       </motion.div>
                     )}
                   </AnimatePresence>
@@ -142,9 +136,9 @@ export default function Navbar() {
                   onClick={() => router.push("/music")}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="flex items-center gap-2 px-4 py-2 transition-colors bg-gray-100 rounded-md dark:bg-gray-900 hover:bg-gray-200 dark:hover:bg-gray-800"
+                  className="items-center hidden gap-2 p-2 transition-colors bg-gray-100 rounded-md sm:flex sm:px-4 sm:py-2 dark:bg-gray-900 hover:bg-gray-200 dark:hover:bg-gray-800"
                 >
-                  <Music className="w-5 h-5" />
+                  <Music className="w-4 h-4 sm:w-5 sm:h-5" />
                 </motion.button>
               </Tooltip>
               <Tooltip content="Vlogs">
@@ -152,18 +146,18 @@ export default function Navbar() {
                   onClick={() => router.push("/vlogs")}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="flex items-center gap-2 px-4 py-2 transition-colors bg-gray-100 rounded-md dark:bg-gray-900 hover:bg-gray-200 dark:hover:bg-gray-800"
+                  className="items-center hidden gap-2 p-2 transition-colors bg-gray-100 rounded-md sm:flex sm:px-4 sm:py-2 dark:bg-gray-900 hover:bg-gray-200 dark:hover:bg-gray-800"
                 >
-                  <Video className="w-5 h-5" />
+                  <Video className="w-4 h-4 sm:w-5 sm:h-5" />
                 </motion.button>
               </Tooltip>
               <Tooltip content="Github">
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="flex items-center gap-2 px-4 py-2 transition-colors bg-gray-100 rounded-md dark:bg-gray-900 hover:bg-gray-200 dark:hover:bg-gray-800"
+                  className="items-center hidden gap-2 p-2 transition-colors bg-gray-100 rounded-md md:flex sm:px-4 sm:py-2 dark:bg-gray-900 hover:bg-gray-200 dark:hover:bg-gray-800"
                 >
-                  <GitHub className="w-5 h-5" />
+                  <GitHub className="w-4 h-4 sm:w-5 sm:h-5" />
                 </motion.button>
               </Tooltip>
               <Tooltip content="Please Login">
@@ -171,9 +165,9 @@ export default function Navbar() {
                   onClick={() => setIsAuthModalOpen(true)}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="flex items-center gap-2 px-4 py-2 transition-colors bg-gray-100 rounded-md dark:bg-gray-900 hover:bg-gray-200 dark:hover:bg-gray-800"
+                  className="flex items-center gap-2 p-2 transition-colors bg-gray-100 rounded-md sm:px-4 sm:py-2 dark:bg-gray-900 hover:bg-gray-200 dark:hover:bg-gray-800"
                 >
-                  <User className="w-5 h-5" />
+                  <User className="w-4 h-4 sm:w-5 sm:h-5" />
                 </motion.button>
               </Tooltip>
 
@@ -249,6 +243,32 @@ export default function Navbar() {
                     {link.name}
                   </motion.button>
                 ))}
+
+                <div className="pt-4 space-y-2 border-t border-gray-200 dark:border-gray-800 sm:hidden">
+                  <motion.button
+                    whileHover={{ x: 5 }}
+                    onClick={() => handleNavigation("/music")}
+                    className="flex items-center w-full gap-3 px-4 py-3 text-base font-medium text-left text-gray-700 transition-colors rounded-md dark:text-gray-300 hover:text-black dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-900"
+                  >
+                    <Music className="w-5 h-5" />
+                    Music
+                  </motion.button>
+                  <motion.button
+                    whileHover={{ x: 5 }}
+                    onClick={() => handleNavigation("/vlogs")}
+                    className="flex items-center w-full gap-3 px-4 py-3 text-base font-medium text-left text-gray-700 transition-colors rounded-md dark:text-gray-300 hover:text-black dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-900"
+                  >
+                    <Video className="w-5 h-5" />
+                    Vlogs
+                  </motion.button>
+                  <motion.button
+                    whileHover={{ x: 5 }}
+                    className="flex items-center w-full gap-3 px-4 py-3 text-base font-medium text-left text-gray-700 transition-colors rounded-md dark:text-gray-300 hover:text-black dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-900"
+                  >
+                    <GitHub className="w-5 h-5" />
+                    GitHub
+                  </motion.button>
+                </div>
               </div>
 
               <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-200 sm:p-6 dark:border-gray-800">
@@ -267,12 +287,7 @@ export default function Navbar() {
                         <Tooltip content="Switch to Light">
                           <Sun className="w-4 h-4 cursor-pointer" />
                         </Tooltip>
-                        <span
-                          className="text-sm font-medium"
-                          tooltip-data="Light"
-                        >
-                          Light
-                        </span>
+                        <span className="text-sm font-medium">Light</span>
                       </>
                     ) : (
                       <>
