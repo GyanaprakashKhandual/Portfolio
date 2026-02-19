@@ -38,7 +38,7 @@ const Sidebar = ({
     } else {
       const sidebarItemSlug = item.slug ?? generateSlug(item.label);
       router.push(`/docs/${stack}/${sidebarItemSlug}`);
-      setExpandedItems({});
+      // REMOVED: setExpandedItems({}) — this was collapsing all parents and causing re-render
     }
 
     if (onItemClick) {

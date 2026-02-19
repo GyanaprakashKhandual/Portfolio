@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import Sidebar from "@/app/components/assets/Left.sidebar";
@@ -41,6 +41,10 @@ function InnerLayout({ children }) {
   const [activeItemId, setActiveItemId] = useState(
     () => findActiveId(items, sidebarItem) ?? null
   );
+
+  useEffect(() => {
+  setActiveItemId(findActiveId(items, sidebarItem) ?? null);
+}, [sidebarItem]);
 
   const handleItemClick = (item) => {
     setActiveItemId(item.id);
@@ -106,9 +110,9 @@ function InnerLayout({ children }) {
           {/* ── Right outline sidebar ──
               OutlineSidebar itself uses `hidden xl:flex` so it only appears at xl+
               sticky top-0 keeps it pinned while the article scrolls              */}
-          <div className="sticky top-0 self-start shrink-0">
-            <OutlineSidebar content={content} />
-          </div>
+          <div className="sticky top-0 self-start h-screen overflow-y-auto shrink-0">
+  <OutlineSidebar content={content} />
+</div>
         </div>
         <FooterToolbar/>
       </div>

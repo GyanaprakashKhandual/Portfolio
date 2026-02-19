@@ -1,0 +1,62 @@
+[
+  {
+    "musicName": "Dagbaajre",
+    "musicUrl": "https://www.youtube.com/watch?v=9n8sXl8n9sM",
+    "musicImage": "https://i.ytimg.com/vi/9n8sXl8n9sM/maxresdefault.jpg",
+    "musicArtist": "Sufiyan Shaikh",
+    "musicAlbum": "Dagbaajre",
+    "musicDuration": "3:45",
+    "musicGenre": "Sufi",
+    "musicReleaseDate": "2023-08-15",
+    "musicDescription": "Dagbaajre is a soulful Sufi track that blends traditional Sufi elements with contemporary sound, creating a spiritual and mesmerizing musical experience.",
+    "musicLyrics": "Lyrics not available",
+    "musicBy": "Gyana Prakash Khandual",
+    "musicType": "Romantic",
+    "musicLanguage": "Hindi"
+  },
+  {
+    "musicName": "Raataan Lambiyan",
+    "musicUrl": "https://www.youtube.com/watch?v=gvyUuxdRdR4",
+    "musicImage": "https://i.ytimg.com/vi/gvyUuxdRdR4/maxresdefault.jpg",
+    "musicArtist": "Jubin Nautiyal",
+    "musicAlbum": "Shershaah",
+    "musicDuration": "3:50",
+    "musicGenre": "Romantic",
+    "musicReleaseDate": "2021-07-30",
+    "musicDescription": "A soulful romantic track capturing deep love and emotions with soothing vocals and beautiful composition.",
+    "musicLyrics": "Lyrics not available",
+    "musicBy": "Gyana Prakash Khandual",
+    "musicType": "Romantic",
+    "musicLanguage": "Hindi"
+  },
+  {
+    "musicName": "Kesariya",
+    "musicUrl": "https://www.youtube.com/watch?v=BddP6PYo2gs",
+    "musicImage": "https://i.ytimg.com/vi/BddP6PYo2gs/maxresdefault.jpg",
+    "musicArtist": "Arijit Singh",
+    "musicAlbum": "Brahmastra",
+    "musicDuration": "4:28",
+    "musicGenre": "Love",
+    "musicReleaseDate": "2022-07-17",
+    "musicDescription": "Kesariya is a romantic Bollywood song filled with passion, melody, and emotional depth.",
+    "musicLyrics": "Lyrics not available",
+    "musicBy": "Gyana Prakash Khandual",
+    "musicType": "Romantic",
+    "musicLanguage": "Hindi"
+  },
+  {
+    "musicName": "Tum Hi Ho",
+    "musicUrl": "https://www.youtube.com/watch?v=IJq0yyWug1k",
+    "musicImage": "https://i.ytimg.com/vi/IJq0yyWug1k/maxresdefault.jpg",
+    "musicArtist": "Arijit Singh",
+    "musicAlbum": "Aashiqui 2",
+    "musicDuration": "4:22",
+    "musicGenre": "Romantic",
+    "musicReleaseDate": "2013-04-06",
+    "musicDescription": "Tum Hi Ho is a timeless romantic song that expresses deep love and emotional connection.",
+    "musicLyrics": "Lyrics not available",
+    "musicBy": "Gyana Prakash Khandual",
+    "musicType": "Romantic",
+    "musicLanguage": "Hindi"
+  }
+]

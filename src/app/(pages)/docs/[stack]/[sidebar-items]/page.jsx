@@ -15,7 +15,8 @@ export default function SidebarItemPage() {
   const dispatch = useDispatch();
 
   const reduxSlug = useSelector(selectSidebarActiveSlug);
-  const activeSlug = reduxSlug || sidebarItemParam;
+  // FIX: use sidebarItemParam (URL) first — it always reflects the current page
+  const activeSlug = sidebarItemParam || reduxSlug;
 
   const { setContent } = useMdContent();
 
@@ -32,14 +33,13 @@ export default function SidebarItemPage() {
   }, [reduxSlug, sidebarItemParam, dispatch]);
 
   useEffect(() => {
-    if (!activeSlug || !stack) return;
+    if (!sidebarItemParam || !stack) return; // FIX: depend on sidebarItemParam, not activeSlug
 
     const stackSlug = stack.toLowerCase().trim();
-    const entry = fileMap[stackSlug]?.[activeSlug];
+    const entry = fileMap[stackSlug]?.[sidebarItemParam]; // FIX: always use URL param for lookup
 
     if (!entry) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
-      setError(`No file mapped for "${stackSlug} → ${activeSlug}"`);
+      setError(`No file mapped for "${stackSlug} → ${sidebarItemParam}"`);
       setLoading(false);
       return;
     }
@@ -62,7 +62,7 @@ export default function SidebarItemPage() {
         setContent("");
         setLoading(false);
       });
-  }, [activeSlug, stack]);
+  }, [sidebarItemParam, stack]); // FIX: sidebarItemParam in deps, not activeSlug
 
   if (loading) {
     return (
