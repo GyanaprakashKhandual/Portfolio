@@ -2,6 +2,7 @@
 
 import React, { useState, useRef, useEffect, Suspense } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useRouter } from "next/navigation";
 import {
   ThumbsUp,
   ThumbsDown,

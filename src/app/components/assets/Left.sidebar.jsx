@@ -4,6 +4,7 @@ import React, { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronRight, ChevronLeft, Search, Filter, X } from "lucide-react";
 import { useRouter, usePathname } from "next/navigation";
+import { useParams } from "next/navigation";
 import { Briefcase } from "lucide-react";
 
 const generateSlug = (label) =>

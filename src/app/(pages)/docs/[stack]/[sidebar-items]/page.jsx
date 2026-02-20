@@ -67,11 +67,11 @@ export default function SidebarItemPage() {
   if (loading) {
     return (
       <div className="flex flex-col w-full max-w-4xl gap-3 p-8 animate-pulse">
-        <div className="w-1/2 h-8 bg-gray-200 rounded dark:bg-gray-800" />
-        <div className="w-full h-4 bg-gray-100 rounded dark:bg-gray-900" />
-        <div className="w-5/6 h-4 bg-gray-100 rounded dark:bg-gray-900" />
-        <div className="w-4/6 h-4 bg-gray-100 rounded dark:bg-gray-900" />
-        <div className="w-full h-32 mt-4 bg-gray-100 dark:bg-gray-900 rounded-xl" />
+        <div className="w-1/2 h-8 rounded bg-tertiary" />
+        <div className="w-full h-4 rounded bg-tertiary" />
+        <div className="w-5/6 h-4 rounded bg-tertiary" />
+        <div className="w-4/6 h-4 rounded bg-tertiary" />
+        <div className="w-full h-32 mt-4 bg-tertiary rounded-xl" />
       </div>
     );
   }
@@ -79,11 +79,11 @@ export default function SidebarItemPage() {
   if (error) {
     return (
       <div className="w-full max-w-4xl p-8">
-        <div className="px-5 py-4 border border-red-200 rounded-xl bg-red-50 dark:bg-red-950/20 dark:border-red-800">
-          <p className="text-sm font-medium text-red-700 dark:text-red-400">
+        <div className="px-5 py-4 border border-primary rounded-xl bg-secondary">
+          <p className="text-sm font-medium text-primary">
             Could not load document
           </p>
-          <p className="mt-1 font-mono text-xs text-red-500">{error}</p>
+          <p className="mt-1 font-mono text-xs text-muted">{error}</p>
         </div>
       </div>
     );

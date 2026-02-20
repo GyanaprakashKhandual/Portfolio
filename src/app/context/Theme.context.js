@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/set-state-in-effect */
 "use client";
 
 import React, { createContext, useContext, useEffect, useState } from "react";
@@ -12,8 +11,7 @@ export function ThemeProvider({ children }) {
   useEffect(() => {
     setMounted(true);
     const storedTheme = localStorage.getItem("theme");
-    const systemTheme = window.matchMedia("(prefers-color-scheme: dark)")
-      .matches
+    const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches
       ? "dark"
       : "light";
     setTheme(storedTheme || systemTheme);
@@ -23,8 +21,13 @@ export function ThemeProvider({ children }) {
     if (!mounted) return;
 
     const root = window.document.documentElement;
-    root.classList.remove("light", "dark");
-    root.classList.add(theme);
+
+    if (theme === "dark") {
+      root.setAttribute("data-theme", "dark");
+    } else {
+      root.removeAttribute("data-theme");
+    }
+
     localStorage.setItem("theme", theme);
   }, [theme, mounted]);
 

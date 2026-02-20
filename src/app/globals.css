@@ -42,6 +42,48 @@
   --shadow-image: 0 25px 60px rgba(0, 0, 0, 0.25); /* shadow-2xl on profile */
   --border-image: rgba(0, 0, 0, 0.1); /* border-black/10 on profile */
 }
+[data-theme="dark"] {
+  --bg-primary: #0a0a0a;           /* main page background */
+  --bg-secondary: #111111;         /* section alternate bg */
+  --bg-tertiary: #1a1a1a;          /* subtle nested bg, chips, pills */
+  --bg-inverse: #ffffff;           /* CTA sections, reversed blocks */
+  --bg-overlay: rgba(255, 255, 255, 0.05); /* mouse-bubble / glass overlay */
+  --bg-card: #141414;              /* card / panel surface */
+  --bg-card-hover: #1f1f1f;        /* card hover state */
+  --bg-badge: #1a1a1a;             /* user-count badge, pill tags */
+  --bg-avatar: #ffffff;            /* avatar initials background */
+
+  --text-primary: #ffffff;         /* headings, body */
+  --text-secondary: #d1d5db;       /* paragraph body */
+  --text-muted: #9ca3af;           /* captions, meta */
+  --text-placeholder: #6b7280;     /* placeholders, disabled */
+  --text-inverse: #000000;         /* text on light/white backgrounds */
+  --text-inverse-muted: #374151;   /* muted text on white bg */
+  --text-avatar: #000000;          /* initials inside avatar circle */
+
+  --border-primary: #2a2a2a;       /* default card/section borders */
+  --border-strong: #ffffff;        /* button outlines, strong dividers */
+  --border-inverse: #000000;       /* borders on light bg */
+  --border-radius-sm: 0.375rem;    /* unchanged — not color-dependent */
+  --border-radius-md: 0.5rem;      /* unchanged */
+  --border-radius-full: 9999px;    /* unchanged */
+
+  --btn-primary-bg: #ffffff;
+  --btn-primary-text: #000000;
+  --btn-primary-hover-opacity: 0.85;
+
+  --btn-secondary-bg: transparent;
+  --btn-secondary-text: #ffffff;
+  --btn-secondary-border: #ffffff;
+  --btn-secondary-hover-bg: #ffffff;
+  --btn-secondary-hover-text: #000000;
+
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.6);
+  --shadow-image: 0 25px 60px rgba(0, 0, 0, 0.7);
+  --border-image: rgba(255, 255, 255, 0.08); /* subtle light border on images */
+}
 
 .bg-primary {
   background-color: var(--bg-primary);

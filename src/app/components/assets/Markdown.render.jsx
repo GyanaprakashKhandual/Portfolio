@@ -121,7 +121,7 @@ export default function MarkdownRenderer({ content }) {
             if (inline) {
               return (
                 <code
-                  className="bg-tertiary text-strong px-1.5 py-0.5 rounded text-[13px] font-mono"
+                  className="bg-tertiary text-primary px-1.5 py-0.5 rounded text-[13px] font-mono"
                   {...props}
                 >
                   {children}
@@ -175,7 +175,7 @@ export default function MarkdownRenderer({ content }) {
               href={href}
               target="_blank"
               rel="noopener noreferrer"
-              className="underline transition-colors text-strong underline-offset-2 hover:text-primary"
+              className="underline transition-colors text-primary underline-offset-2 hover:text-muted"
             >
               {children}
             </a>
