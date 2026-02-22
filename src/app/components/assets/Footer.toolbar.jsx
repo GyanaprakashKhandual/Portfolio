@@ -260,45 +260,6 @@ const FooterToolbar = ({
           ${className}
         `}
       >
-        <div className="flex items-center justify-between px-3 py-3 border-b border-primary sm:px-6 sm:py-4">
-          {prevPage ? (
-            <a
-              href={prevPage.href}
-              className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm text-muted transition-colors duration-150 group hover:text-primary"
-            >
-              <ChevronRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 rotate-180 transition-transform duration-150 group-hover:-translate-x-0.5 shrink-0" />
-              <span>
-                <span className="block text-[10px] sm:text-xs text-muted mb-0.5">
-                  Previous
-                </span>
-                <span className="line-clamp-1 max-w-25 sm:max-w-40">
-                  {prevPage.label}
-                </span>
-              </span>
-            </a>
-          ) : (
-            <div />
-          )}
-
-          {nextPage ? (
-            <a
-              href={nextPage.href}
-              className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm text-right text-muted transition-colors duration-150 group hover:text-primary"
-            >
-              <span>
-                <span className="block text-[10px] sm:text-xs text-muted mb-0.5">
-                  Next
-                </span>
-                <span className="line-clamp-1 max-w-25 sm:max-w-40">
-                  {nextPage.label}
-                </span>
-              </span>
-              <ChevronRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform duration-150 group-hover:translate-x-0.5 shrink-0" />
-            </a>
-          ) : (
-            <div />
-          )}
-        </div>
 
         <div className="flex flex-col sm:flex-row sm:flex-wrap items-start sm:items-center justify-between gap-2 sm:gap-3 px-3 sm:px-6 py-2.5 sm:py-3">
           <div className="flex items-center gap-3 sm:gap-4">

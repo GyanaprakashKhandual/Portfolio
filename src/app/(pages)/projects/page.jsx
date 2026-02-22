@@ -10,7 +10,7 @@ export default function ProjectsPage() {
   const projects = getProjects();
 
   return (
-    <div className="px-4 py-8 mx-auto max-w-7xl sm:px-6 lg:px-8">
+    <div className="px-4 py-8 mx-auto max-w-7xl sm:px-6 lg:px-8 bg-primary">
       {projects.length > 0 ? (
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
           {projects.map((project) => (
