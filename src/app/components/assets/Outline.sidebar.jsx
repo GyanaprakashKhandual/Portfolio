@@ -100,10 +100,7 @@ export default function OutlineSidebar({ content, scrollContainerId = "main-scro
   if (headings.length === 0) return null;
 
   return (
-    <aside className="sticky top-0 flex-col hidden w-64 max-h-screen min-h-screen py-6 pl-6 pr-2 overflow-y-auto border-l border-primary xl:flex shrink-0">
-      <p className="px-1 mb-3 text-xs font-semibold tracking-widest uppercase text-muted">
-        On this page
-      </p>
+    <aside className="sticky top-0 flex-col hidden w-64 max-h-screen min-h-screen py-3 pl-6 pr-2 overflow-y-auto border-l border-primary xl:flex shrink-0">
       <div className="relative mb-3">
         <svg
           className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-muted pointer-events-none"

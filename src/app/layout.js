@@ -16,7 +16,21 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-primary text-black dark:text-white transition-colors duration-300`}>
+      <body
+        className={`
+          ${geistSans.variable} 
+          ${geistMono.variable} 
+          antialiased 
+          bg-primary 
+          text-black 
+          dark:text-white 
+          transition-colors 
+          duration-300
+          min-h-screen 
+          max-h-screen 
+          overflow-hidden
+        `}
+      >
         <Providers>
           <NextTopLoader
             color="#000000"

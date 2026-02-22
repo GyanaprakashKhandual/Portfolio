@@ -205,7 +205,7 @@ const NewsletterWidget = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
           >
-            <Tooltip content="Subscribe to newsletter">
+            <Tooltip content="To Newsletter">
               <button
                 onClick={() => setExpanded(true)}
                 className="flex items-center gap-1.5 h-8 px-2 sm:px-3 text-xs font-medium rounded-md text-muted hover:text-primary hover:bg-tertiary border border-primary transition-colors duration-150"
