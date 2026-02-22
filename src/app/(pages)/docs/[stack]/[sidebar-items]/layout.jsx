@@ -35,12 +35,17 @@ const findActiveId = (items, slug) => {
 function InnerLayout({ children }) {
   const { content } = useMdContent();
   const { stack, "sidebar-items": sidebarItem } = useParams();
-
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
+
+  const [showToolbar, setShowToolbar] = useState(true);
+  const [showLeftSidebar, setShowLeftSidebar] = useState(true);
+  const [showOutlineSidebar, setShowOutlineSidebar] = useState(true);
+
+  const [sidebarSticky, setSidebarSticky] = useState(true);
+  const [outlineSticky, setOutlineSticky] = useState(true);
 
   const tabSlug = stack?.toLowerCase().trim() ?? "";
   const items = sidebarItems[tabSlug] ?? [];
-
   const [activeItemId, setActiveItemId] = useState(
     () => findActiveId(items, sidebarItem) ?? null,
   );
@@ -56,19 +61,56 @@ function InnerLayout({ children }) {
 
   return (
     <div className="flex h-screen overflow-hidden bg-primary">
-      {/* ── Left sidebar: always sticky, full height ── */}
-      <Sidebar
-        isOpen={mobileSidebarOpen}
-        onClose={() => setMobileSidebarOpen(false)}
-        header={stack}
-        items={items}
-        activeItemId={activeItemId}
-        onItemClick={handleItemClick}
-      />
 
-      {/* ── Center column: toolbar + scrollable content + footer ── */}
-      <div className="flex flex-col flex-1 h-screen min-w-0 overflow-hidden">
-        {/* ── Mobile-only top bar with hamburger ── */}
+      {/* LEFT SIDEBAR */}
+      {showLeftSidebar && (
+        <div
+          className={`hidden lg:flex flex-col shrink-0 ${
+            sidebarSticky ? "sticky top-0 h-screen" : "relative"
+          }`}
+        >
+          <Sidebar
+            isOpen={mobileSidebarOpen}
+            onClose={() => setMobileSidebarOpen(false)}
+            header={stack}
+            items={items}
+            activeItemId={activeItemId}
+            onItemClick={handleItemClick}
+          />
+        </div>
+      )}
+
+      {/* MOBILE SIDEBAR */}
+      <div className="lg:hidden">
+        <Sidebar
+          isOpen={mobileSidebarOpen}
+          onClose={() => setMobileSidebarOpen(false)}
+          header={stack}
+          items={items}
+          activeItemId={activeItemId}
+          onItemClick={handleItemClick}
+        />
+      </div>
+
+      {/* CENTER COLUMN */}
+      <div className="flex flex-col flex-1 min-w-0 overflow-hidden">
+
+        {/* TOOLBAR (TOP, BETWEEN SIDEBARS) */}
+        {showToolbar && (
+          <div className="sticky top-0 z-30 shrink-0">
+            <Toolbar
+              onToggleToolbar={(v) => setShowToolbar(v)}
+              onToggleLeftSidebar={(v) => setShowLeftSidebar(v)}
+              onToggleOutlineSidebar={(v) => setShowOutlineSidebar(v)}
+              onStickyChange={(key, val) => {
+                if (key === "sidebar") setSidebarSticky(val);
+                if (key === "outline") setOutlineSticky(val);
+              }}
+            />
+          </div>
+        )}
+
+        {/* MOBILE TOP BAR */}
         <div className="flex items-center h-12 gap-3 px-4 border-b bg-primary border-primary lg:hidden shrink-0">
           <button
             onClick={() => setMobileSidebarOpen((prev) => !prev)}
@@ -86,27 +128,36 @@ function InnerLayout({ children }) {
           </span>
         </div>
 
-        {/* ── Toolbar: always sticky between left sidebar and outline sidebar ── */}
-        <div className="border-b shrink-0 border-primary">
-          <Toolbar />
-        </div>
-
-        {/* ── Body row: scrollable article + sticky outline sidebar ── */}
+        {/* CONTENT (UNDER TOOLBAR) */}
         <div className="flex flex-1 min-w-0 overflow-hidden">
-          {/* ── Scrollable article ── */}
-          <main className="flex-1 min-w-0 overflow-y-auto">{children}</main>
+          <div className="flex flex-col flex-1 min-w-0 overflow-hidden sidebar-scrollbar">
+            <main
+              id="main-scroll-area"
+              className="flex-1 overflow-y-auto"
+            >
+              {children}
 
-          {/* ── Right outline sidebar: sticky, full height, always visible ── */}
-          <aside className="hidden h-full overflow-y-auto border-l xl:flex shrink-0 border-primary">
-            <OutlineSidebar content={content} />
-          </aside>
-        </div>
-
-        {/* ── Footer toolbar: always present at bottom ── */}
-        <div className="border-t shrink-0 border-primary">
-          <FooterToolbar />
+              <div className="shrink-0">
+                <FooterToolbar />
+              </div>
+            </main>
+          </div>
         </div>
       </div>
+
+      {/* RIGHT OUTLINE SIDEBAR */}
+      {showOutlineSidebar && (
+        <div
+          className={`hidden xl:flex shrink-0 border-l border-primary ${
+            outlineSticky ? "sticky top-0 h-screen" : "relative"
+          } overflow-y-auto`}
+        >
+          <OutlineSidebar
+            content={content}
+            scrollContainerId="main-scroll-area"
+          />
+        </div>
+      )}
     </div>
   );
 }

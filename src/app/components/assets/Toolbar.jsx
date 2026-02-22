@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useState, useRef, useEffect, Suspense } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
@@ -68,32 +67,27 @@ const Toolbar = ({
   onToggleToolbar = () => {},
   onToggleLeftSidebar = () => {},
   onToggleOutlineSidebar = () => {},
+  onStickyChange = () => {},
 }) => {
   const { theme, toggleTheme, mounted } = useTheme();
-
   const [activeTab, setActiveTab] = useState(defaultTab);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [techStackOpen, setTechStackOpen] = useState(false);
-
   const activeSlug = useSelector(selectActiveSlug);
-
   const { content } = useMdContent();
   const [copied, setCopied] = useState(false);
   const [rawOpen, setRawOpen] = useState(false);
-
   const [visible, setVisible] = useState({
     toolbar: true,
     leftSidebar: true,
     outlineSidebar: true,
   });
-
   const [sticky, setSticky] = useState({
     sidebar: false,
     outline: false,
     tooltips: true,
   });
-
   const dropdownRef = useRef(null);
   const settingsRef = useRef(null);
 
@@ -152,8 +146,17 @@ const Toolbar = ({
   };
 
   const router = useRouter();
-  const toggleSticky = (key) =>
-    setSticky((prev) => ({ ...prev, [key]: !prev[key] }));
+
+  const toggleSticky = (key) => {
+    setSticky((prev) => {
+      const next = { ...prev, [key]: !prev[key] };
+      // Wire sidebar/outline sticky back to the layout
+      if (key === "sidebar" || key === "outline") {
+        onStickyChange(key, !prev[key]);
+      }
+      return next;
+    });
+  };
 
   const ThemeIcon = !mounted ? Sun : theme === "dark" ? Sun : Moon;
   const themeLabel = !mounted
@@ -185,8 +188,7 @@ const Toolbar = ({
             </button>
           </Tooltip>
         </div>
-
-        <div className="absolute flex items-center gap-0.5 sm:gap-1 -translate-x-1/2 left-1/2">
+        <div className="flex flex-1 items-center justify-center gap-0.5 sm:gap-1">
           {tabs.map((tab) => {
             const isActive = activeTab === tab.value;
             return (
@@ -215,8 +217,7 @@ const Toolbar = ({
             );
           })}
         </div>
-
-        <div className="flex items-center gap-0.5 ml-auto shrink-0">
+        <div className="flex items-center gap-0.5 shrink-0">
           <div className="hidden md:flex items-center gap-0.5">
             {actions.map(({ icon: Icon, label }) => (
               <Tooltip
@@ -237,7 +238,6 @@ const Toolbar = ({
               </Tooltip>
             ))}
           </div>
-
           <Tooltip content="Edit On Github">
             <button
               onClick={() =>
@@ -250,7 +250,6 @@ const Toolbar = ({
               <Edit className="w-4 h-4" />
             </button>
           </Tooltip>
-
           <Tooltip content={themeLabel}>
             <button
               onClick={toggleTheme}
@@ -260,7 +259,6 @@ const Toolbar = ({
               <ThemeIcon className="w-4 h-4" />
             </button>
           </Tooltip>
-
           <div className="relative" ref={settingsRef}>
             <Tooltip content="Settings">
               <button
@@ -281,7 +279,6 @@ const Toolbar = ({
                 <Settings className="w-4 h-4" />
               </button>
             </Tooltip>
-
             <AnimatePresence>
               {settingsOpen && (
                 <motion.div
@@ -298,7 +295,6 @@ const Toolbar = ({
                   <p className="px-3.5 pb-1 pt-0.5 text-[10px] font-semibold uppercase tracking-widest text-muted">
                     Sticky
                   </p>
-
                   {[
                     {
                       key: "sidebar",
@@ -352,7 +348,6 @@ const Toolbar = ({
               )}
             </AnimatePresence>
           </div>
-
           <div className="relative" ref={dropdownRef}>
             <Tooltip content="More" position="top-left">
               <button
@@ -373,7 +368,6 @@ const Toolbar = ({
                 <MoreHorizontal className="w-4 h-4" />
               </button>
             </Tooltip>
-
             <AnimatePresence>
               {dropdownOpen && (
                 <motion.div
@@ -415,11 +409,9 @@ const Toolbar = ({
                     ))}
                     <div className="my-1.5 mx-3 h-px bg-primary" />
                   </div>
-
                   <p className="px-3.5 pb-1 pt-0.5 text-[10px] font-semibold uppercase tracking-widest text-muted">
                     Visibility
                   </p>
-
                   {dropdownItems.map(({ label, key }) => {
                     const isVisible = visible[key];
                     return (
@@ -462,13 +454,11 @@ const Toolbar = ({
           </div>
         </div>
       </div>
-
       <TechStackModal
         isOpen={techStackOpen}
         onClose={() => setTechStackOpen(false)}
         onConfirm={(stack) => console.log("Selected:", stack)}
       />
-
       <AnimatePresence>
         {rawOpen && (
           <>
@@ -480,7 +470,6 @@ const Toolbar = ({
               onClick={() => setRawOpen(false)}
               className="fixed inset-0 z-50 bg-overlay backdrop-blur-sm"
             />
-
             <motion.div
               initial={{ opacity: 0, scale: 0.96, y: 8 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -516,7 +505,6 @@ const Toolbar = ({
                       )}
                     </button>
                   </Tooltip>
-
                   <Tooltip content="Download .md">
                     <button
                       onClick={handleDownload}
@@ -529,7 +517,6 @@ const Toolbar = ({
                       <Download className="w-3.5 h-3.5" /> Download
                     </button>
                   </Tooltip>
-
                   <button
                     onClick={() => setRawOpen(false)}
                     className="p-1.5 ml-1 rounded-md text-muted hover:text-primary hover:bg-tertiary transition-colors duration-150"
@@ -538,7 +525,6 @@ const Toolbar = ({
                   </button>
                 </div>
               </div>
-
               <div className="flex-1 overflow-auto">
                 <pre className="p-3 font-mono text-xs leading-relaxed break-words whitespace-pre-wrap text-secondary sm:p-4 md:p-6 sm:text-sm">
                   {content || "No content loaded."}

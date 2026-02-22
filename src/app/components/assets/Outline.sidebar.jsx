@@ -1,8 +1,6 @@
 "use client";
-
 import React, { useState, useEffect, useRef } from "react";
-import { ChevronRight } from "lucide-react";
-import { useRouter, usePathname } from "next/navigation";
+import { usePathname } from "next/navigation";
 
 function slugify(text) {
   return String(text)
@@ -13,7 +11,7 @@ function slugify(text) {
     .replace(/-+/g, "-");
 }
 
-export default function OutlineSidebar({ content }) {
+export default function OutlineSidebar({ content, scrollContainerId = "main-scroll-area" }) {
   const [headings, setHeadings] = useState([]);
   const [activeId, setActiveId] = useState("");
   const [search, setSearch] = useState("");
@@ -25,10 +23,8 @@ export default function OutlineSidebar({ content }) {
       setHeadings([]);
       return;
     }
-
     const lines = content.split("\n");
     const parsed = [];
-
     lines.forEach((line) => {
       const match = line.match(/^(#{1,3})\s+(.+)/);
       if (match) {
@@ -38,26 +34,26 @@ export default function OutlineSidebar({ content }) {
         parsed.push({ level, text, id });
       }
     });
-
     setHeadings(parsed);
   }, [content]);
 
   useEffect(() => {
     if (headings.length === 0) return;
-
     if (observerRef.current) observerRef.current.disconnect();
+
+    const scrollContainer = document.getElementById(scrollContainerId) ?? undefined;
 
     const observer = new IntersectionObserver(
       (entries) => {
         const visible = entries
           .filter((e) => e.isIntersecting)
           .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
-
         if (visible.length > 0) {
           setActiveId(visible[0].target.id);
         }
       },
       {
+        root: scrollContainer ?? null,
         rootMargin: "-80px 0px -60% 0px",
         threshold: 0,
       },
@@ -69,9 +65,8 @@ export default function OutlineSidebar({ content }) {
     });
 
     observerRef.current = observer;
-
     return () => observer.disconnect();
-  }, [headings]);
+  }, [headings, scrollContainerId]);
 
   useEffect(() => {
     const hash = window.location.hash.replace("#", "");
@@ -85,8 +80,17 @@ export default function OutlineSidebar({ content }) {
     window.history.pushState(null, "", `${pathname}#${id}`);
     setActiveId(id);
 
-    const top = el.getBoundingClientRect().top + window.scrollY - 96;
-    window.scrollTo({ top, behavior: "smooth" });
+    // Scroll within the designated scroll container if available, otherwise window
+    const scrollContainer = document.getElementById(scrollContainerId);
+    if (scrollContainer) {
+      const containerRect = scrollContainer.getBoundingClientRect();
+      const elRect = el.getBoundingClientRect();
+      const offset = elRect.top - containerRect.top + scrollContainer.scrollTop - 96;
+      scrollContainer.scrollTo({ top: offset, behavior: "smooth" });
+    } else {
+      const top = el.getBoundingClientRect().top + window.scrollY - 96;
+      window.scrollTo({ top, behavior: "smooth" });
+    }
   };
 
   const filteredHeadings = headings.filter(({ text }) =>
@@ -100,7 +104,6 @@ export default function OutlineSidebar({ content }) {
       <p className="px-1 mb-3 text-xs font-semibold tracking-widest uppercase text-muted">
         On this page
       </p>
-
       <div className="relative mb-3">
         <svg
           className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-muted pointer-events-none"
@@ -124,7 +127,6 @@ export default function OutlineSidebar({ content }) {
           className="w-full pl-8 pr-3 py-1.5 text-[12px] rounded-md border border-primary bg-tertiary text-primary placeholder-muted focus:outline-none focus:ring-1 focus:ring-strong transition-colors duration-150"
         />
       </div>
-
       <nav className="flex flex-col gap-0.5">
         {filteredHeadings.map(({ id, text, level }) => (
           <button
