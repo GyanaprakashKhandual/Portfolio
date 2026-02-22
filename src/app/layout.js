@@ -1,4 +1,3 @@
-// app/layout.jsx — NO 'use client'
 import { Geist, Geist_Mono } from 'next/font/google';
 import Providers from './components/assets/Provider';
 import './globals.css';
@@ -30,8 +29,8 @@ export default function RootLayout({ children }) {
           transition-colors 
           duration-300
           min-h-screen 
-          max-h-screen 
-          overflow-hidden
+          max-h-screen
+          overflow-x-hidden
         `}
       >
         <Providers>
@@ -40,7 +39,10 @@ export default function RootLayout({ children }) {
             height={1}
             options={{ easing: 'ease', speed: 500, minimum: 0.3 }}
           />
-          {children}
+          <main className="">
+            {/* pt-16/pt-20 matches your navbar h-16/h-20 */}
+            {children}
+          </main>
         </Providers>
       </body>
     </html>

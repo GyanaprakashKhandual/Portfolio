@@ -34,7 +34,7 @@ import {
   PinOff,
   Edit,
   Check,
-  Layers, // ← Slate icon (new import only)
+  Layers,
   Flame,
   Trees,
   Gem,
@@ -45,18 +45,23 @@ import {
   Wrench,
   Flower,
   Sword,
+  GitCommit,
+  User,
+  ExternalLink,
+  Loader,
+  Loader2,
 } from "lucide-react";
 import { Tooltip } from "../ui/Tooltip.ui";
 import TechStackModal from "../window/Tech.stack.modal";
 import { useTheme } from "@/app/context/Theme.context";
-import { useSelector } from "react-redux";
-import { selectActiveSlug } from "@/app/lib/feature/tab/tab.slice";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  selectActiveSlug,
+  setActiveTab,
+} from "@/app/lib/feature/tab/tab.slice";
 import { useMdContent } from "@/app/context/Markdown.context";
 import { FaCoffee } from "react-icons/fa";
 
-// ─── Theme icon resolver ───────────────────────────────────────────────────────
-// Maps the icon string from THEMES registry → actual Lucide component.
-// Add new entries here whenever you add a new theme to the registry.
 const THEME_ICON_MAP = {
   Sun,
   Moon,
@@ -65,13 +70,12 @@ const THEME_ICON_MAP = {
   Trees,
   Gem,
   Sword,
-     Snowflake,
+  Snowflake,
   Crown,
   Waves,
-   Heart,
-   Wrench,
-   Flower,
-  // Trees, Flower2, etc. — add as you import them above
+  Heart,
+  Wrench,
+  Flower,
 };
 
 const dropdownItems = [
@@ -79,6 +83,103 @@ const dropdownItems = [
   { label: "Hide Left Sidebar", key: "leftSidebar" },
   { label: "Hide Outline Sidebar", key: "outlineSidebar" },
 ];
+
+// ── GitHub Commits Panel ──────────────────────────────────────────────────────
+function BlamePanel() {
+  const [commits, setCommits] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    fetch(
+      "https://api.github.com/repos/GyanaprakashKhandual/Portfolio/commits?path=src/app/note&per_page=20",
+    )
+      .then((r) => {
+        if (!r.ok) throw new Error("Failed to fetch commits");
+        return r.json();
+      })
+      .then((data) => {
+        setCommits(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        setError(err.message);
+        setLoading(false);
+      });
+  }, []);
+
+  if (loading)
+    return (
+      <div className="flex items-center justify-center h-40 gap-2 text-sm text-muted">
+  <Loader2 className="w-4 h-4 animate-spin" />
+</div>
+    );
+
+  if (error)
+    return (
+      <div className="flex items-center justify-center h-40 text-sm text-red-500">
+        {error}
+      </div>
+    );
+
+  return (
+    <div className="flex flex-col gap-0 overflow-y-auto">
+      {commits.map((c) => {
+        const sha = c.sha?.slice(0, 7);
+        const message = c.commit?.message?.split("\n")[0];
+        const author = c.commit?.author?.name;
+        const date = c.commit?.author?.date
+          ? new Date(c.commit.author.date).toLocaleDateString("en-GB", {
+              day: "2-digit",
+              month: "short",
+              year: "numeric",
+            })
+          : "";
+        const avatar = c.author?.avatar_url;
+        const url = c.html_url;
+
+        return (
+          <div
+            key={c.sha}
+            className="flex items-start gap-3 px-4 py-3 transition-colors duration-150 border-b border-primary hover:bg-tertiary"
+          >
+            {avatar ? (
+              <img
+                src={avatar}
+                alt={author}
+                className="w-7 h-7 rounded-full shrink-0 mt-0.5"
+              />
+            ) : (
+              <div className="w-7 h-7 rounded-full bg-tertiary flex items-center justify-center shrink-0 mt-0.5">
+                <User className="w-4 h-4 text-muted" />
+              </div>
+            )}
+            <div className="flex-1 min-w-0">
+              <p className="text-xs font-medium truncate sm:text-sm text-primary">
+                {message}
+              </p>
+              <div className="flex flex-wrap items-center gap-2 mt-1">
+                <span className="text-[11px] text-muted font-mono">{sha}</span>
+                <span className="text-[11px] text-muted">·</span>
+                <span className="text-[11px] text-muted">{author}</span>
+                <span className="text-[11px] text-muted">·</span>
+                <span className="text-[11px] text-muted">{date}</span>
+              </div>
+            </div>
+            <a
+              href={url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-1.5 rounded text-muted hover:text-primary hover:bg-tertiary transition-colors duration-150 shrink-0"
+            >
+              <ExternalLink className="w-3.5 h-3.5" />
+            </a>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
 
 const Toolbar = ({
   tabs = [
@@ -100,13 +201,17 @@ const Toolbar = ({
   onToggleLeftSidebar = () => {},
   onToggleOutlineSidebar = () => {},
   onStickyChange = () => {},
+  // ← ADDED: content renderer props
+  previewContent = null,
+  rawContent = null,
 }) => {
   const { theme, toggleTheme, setThemeById, themes, mounted } = useTheme();
-  const [activeTab, setActiveTab] = useState(defaultTab);
+  const [activeTab, setActiveTabLocal] = useState(defaultTab);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [techStackOpen, setTechStackOpen] = useState(false);
   const activeSlug = useSelector(selectActiveSlug);
+  const dispatch = useDispatch(); // ← ADDED
   const { content } = useMdContent();
   const [copied, setCopied] = useState(false);
   const [rawOpen, setRawOpen] = useState(false);
@@ -123,8 +228,15 @@ const Toolbar = ({
   const dropdownRef = useRef(null);
   const settingsRef = useRef(null);
 
+  // ← ADDED: deduplicate themes by id to fix the duplicate key console error
+  const uniqueThemes = themes
+    ? themes.filter(
+        (t, index, self) => self.findIndex((x) => x.id === t.id) === index,
+      )
+    : [];
+
   const handleTabClick = (tab) => {
-    setActiveTab(tab.value);
+    setActiveTabLocal(tab.value);
     if (onTabChange) onTabChange(tab);
   };
 
@@ -175,6 +287,11 @@ const Toolbar = ({
     if (label === "Copy") handleCopy();
     if (label === "Raw") setRawOpen(true);
     if (label === "Download") handleDownload();
+    // ← ADDED: Panel button toggles outline sidebar
+    if (label === "Panel") {
+      onToggleOutlineSidebar(!visible.outlineSidebar);
+      setVisible((prev) => ({ ...prev, outlineSidebar: !prev.outlineSidebar }));
+    }
   };
 
   const router = useRouter();
@@ -182,7 +299,6 @@ const Toolbar = ({
   const toggleSticky = (key) => {
     setSticky((prev) => {
       const next = { ...prev, [key]: !prev[key] };
-      // Wire sidebar/outline sticky back to the layout
       if (key === "sidebar" || key === "outline") {
         onStickyChange(key, !prev[key]);
       }
@@ -377,14 +493,14 @@ const Toolbar = ({
                     </button>
                   ))}
 
-                  {/* ── Theme Picker ── added below Sticky, no existing line touched ── */}
-                  {mounted && themes && themes.length > 0 && (
+                  {mounted && uniqueThemes.length > 0 && (
                     <>
                       <div className="my-1.5 mx-3 h-px bg-primary" />
                       <p className="px-3.5 pb-1 pt-0.5 text-[10px] font-semibold uppercase tracking-widest text-muted">
                         Theme
                       </p>
-                      {themes.map(({ id, label, icon }) => {
+                      {/* ← CHANGED: uniqueThemes instead of themes to fix duplicate key error */}
+                      {uniqueThemes.map(({ id, label, icon }) => {
                         const IconComponent = THEME_ICON_MAP[icon] ?? Sun;
                         const isActive = theme === id;
                         return (
@@ -520,11 +636,93 @@ const Toolbar = ({
           </div>
         </div>
       </div>
+
+      {/* ── Tab Content Renderer ── ADDED below toolbar bar ── */}
+      <AnimatePresence mode="wait">
+        {activeTab === "preview" && previewContent && (
+          <motion.div
+            key="preview"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.15 }}
+          >
+            {previewContent}
+          </motion.div>
+        )}
+
+        {activeTab === "code" && (
+          <motion.div
+            key="code"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.15 }}
+            className="flex-1 overflow-auto"
+          >
+            <div className="flex items-center justify-between px-4 py-2 border-b border-primary shrink-0">
+              <span className="text-xs font-medium text-muted">
+                {activeSlug ? `${activeSlug}.md` : "document.md"}
+              </span>
+              <Tooltip content={copied ? "Copied!" : "Copy"}>
+                <button
+                  onClick={handleCopy}
+                  className="flex items-center gap-1.5 px-2 py-1 text-xs rounded border border-primary text-muted hover:bg-tertiary hover:text-primary transition-colors duration-150"
+                >
+                  {copied ? (
+                    <>
+                      <Check className="w-3.5 h-3.5 text-primary" /> Copied
+                    </>
+                  ) : (
+                    <>
+                      <Copy className="w-3.5 h-3.5" /> Copy
+                    </>
+                  )}
+                </button>
+              </Tooltip>
+            </div>
+            <pre className="p-4 font-mono text-xs leading-relaxed break-words whitespace-pre-wrap text-secondary sm:text-sm">
+              {content || "No content loaded."}
+            </pre>
+          </motion.div>
+        )}
+
+        {activeTab === "blame" && (
+          <motion.div
+            key="blame"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.15 }}
+            className="flex-1 overflow-auto"
+          >
+            <div className="flex items-center gap-2 px-4 py-2.5 border-b border-primary shrink-0">
+              <GitCommit className="w-4 h-4 text-muted" />
+              <span className="text-xs font-semibold tracking-widest uppercase text-muted">
+                Commits — src/app/note
+              </span>
+            </div>
+            <BlamePanel />
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       <TechStackModal
         isOpen={techStackOpen}
         onClose={() => setTechStackOpen(false)}
-        onConfirm={(stack) => console.log("Selected:", stack)}
+        onConfirm={(stack) => {
+          // ← CHANGED: dispatch to Redux tabSlice instead of just console.log
+          dispatch(
+            setActiveTab({
+              slug: stack?.slug ?? "",
+              value: stack?.value ?? "",
+              label: stack?.label ?? "",
+            }),
+          );
+          setTechStackOpen(false);
+        }}
       />
+
       <AnimatePresence>
         {rawOpen && (
           <>
@@ -541,7 +739,7 @@ const Toolbar = ({
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.96, y: 8 }}
               transition={{ duration: 0.15, ease: "easeOut" }}
-              className="fixed z-50 flex flex-col overflow-hidden border shadow-2xl bg-card border-primary inset-2 sm:inset-4 md:inset-8 lg:inset-16 rounded-xl"
+              className="fixed inset-0 z-50 flex flex-col max-h-screen min-h-screen overflow-hidden border shadow-2xl bg-card border-primary sidebar-scrollbar"
             >
               <div className="flex flex-wrap items-center justify-between gap-2 px-3 py-2 border-b border-primary sm:px-4 sm:py-3 shrink-0">
                 <div className="flex items-center min-w-0 gap-2">
@@ -583,12 +781,14 @@ const Toolbar = ({
                       <Download className="w-3.5 h-3.5" /> Download
                     </button>
                   </Tooltip>
-                  <button
-                    onClick={() => setRawOpen(false)}
-                    className="p-1.5 ml-1 rounded-md text-muted hover:text-primary hover:bg-tertiary transition-colors duration-150"
-                  >
-                    <X className="w-4 h-4" />
-                  </button>
+                  <Tooltip content="Close Raw View">
+                    <button
+                      onClick={() => setRawOpen(false)}
+                      className="p-1.5 ml-1 rounded-md text-muted hover:text-primary hover:bg-tertiary transition-colors duration-150"
+                    >
+                      <X className="w-4 h-4" />
+                    </button>
+                  </Tooltip>
                 </div>
               </div>
               <div className="flex-1 overflow-auto">

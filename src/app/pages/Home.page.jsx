@@ -192,7 +192,7 @@ export default function HomePage() {
                 transition={{ delay: 0.2 }}
               >
                 Hi, I&apos;m{" "}
-                <span className="text-transparent bg-gradient-to-r from-black to-gray-600 bg-clip-text">
+                <span className="text-transparent text-primary bg-clip-text">
                   Gyan
                 </span>
               </motion.h1>

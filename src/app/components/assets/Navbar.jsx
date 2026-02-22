@@ -1,8 +1,17 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useRouter, usePathname } from "next/navigation";
-import { Coffee, Moon, Sun, Menu, X, Music, Video, User } from "lucide-react";
+import {
+  Coffee,
+  Menu,
+  X,
+  Music,
+  Video,
+  User,
+  Palette,
+  Check,
+} from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaCoffee } from "react-icons/fa";
 import { useTheme } from "@/app/context/Theme.context";
@@ -10,13 +19,23 @@ import { GitHub } from "@mui/icons-material";
 import { Tooltip } from "../ui/Tooltip.ui";
 import AuthModal from "../window/Auth.modal";
 
+// Dynamically resolve lucide icon by name string
+import * as LucideIcons from "lucide-react";
+
+function ThemeIcon({ iconName, className }) {
+  const Icon = LucideIcons[iconName] || LucideIcons.Circle;
+  return <Icon className={className} />;
+}
+
 export default function Navbar() {
   const router = useRouter();
   const pathname = usePathname();
-  const { theme, toggleTheme } = useTheme();
+  const { theme, setThemeById, themes } = useTheme();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const [isThemeMenuOpen, setIsThemeMenuOpen] = useState(false);
+  const themeMenuRef = useRef(null);
 
   const navLinks = [
     { name: "Skills", path: "/skills" },
@@ -32,9 +51,19 @@ export default function Navbar() {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
     };
-
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Close theme menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (themeMenuRef.current && !themeMenuRef.current.contains(e.target)) {
+        setIsThemeMenuOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   const handleNavigation = (path) => {
@@ -47,6 +76,11 @@ export default function Navbar() {
   };
 
   const isActive = (path) => pathname === path;
+
+  // Deduplicate themes by id (your THEMES array has duplicates)
+  const uniqueThemes = themes.filter(
+    (t, index, self) => self.findIndex((x) => x.id === t.id) === index,
+  );
 
   return (
     <>
@@ -93,43 +127,64 @@ export default function Navbar() {
             </div>
 
             <div className="flex items-center gap-1 sm:gap-2 md:gap-3">
-              <Tooltip
-                content={
-                  theme === "dark" ? "Switch to Light" : "Switch to Dark"
-                }
-              >
-                <motion.button
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
-                  onClick={toggleTheme}
-                  className="p-2 transition-colors rounded-md bg-tertiary hover:bg-badge"
-                  aria-label="Toggle theme"
-                >
-                  <AnimatePresence mode="wait">
-                    {theme === "dark" ? (
-                      <motion.div
-                        key="sun"
-                        initial={{ rotate: -90, opacity: 0 }}
-                        animate={{ rotate: 0, opacity: 1 }}
-                        exit={{ rotate: 90, opacity: 0 }}
-                        transition={{ duration: 0.2 }}
-                      >
-                        <Sun className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
-                      </motion.div>
-                    ) : (
-                      <motion.div
-                        key="moon"
-                        initial={{ rotate: 90, opacity: 0 }}
-                        animate={{ rotate: 0, opacity: 1 }}
-                        exit={{ rotate: -90, opacity: 0 }}
-                        transition={{ duration: 0.2 }}
-                      >
-                        <Moon className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </motion.button>
-              </Tooltip>
+              {/* ── Theme Picker ── */}
+              <div className="relative" ref={themeMenuRef}>
+                <Tooltip content="Change Theme">
+                  <motion.button
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
+                    onClick={() => setIsThemeMenuOpen((prev) => !prev)}
+                    className="p-2 transition-colors rounded-md bg-tertiary hover:bg-badge"
+                    aria-label="Open theme menu"
+                  >
+                    <Palette className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
+                  </motion.button>
+                </Tooltip>
+
+                <AnimatePresence>
+                  {isThemeMenuOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0.95, y: -8 }}
+                      animate={{ opacity: 1, scale: 1, y: 0 }}
+                      exit={{ opacity: 0, scale: 0.95, y: -8 }}
+                      transition={{ duration: 0.15 }}
+                      className="absolute right-0 z-50 w-48 mt-2 overflow-hidden border shadow-xl rounded-xl border-primary bg-primary sidebar-scrollbar"
+                    >
+                      <div className="px-3 py-2 border-b border-primary">
+                        <p className="text-xs font-semibold tracking-wider uppercase text-secondary">
+                          Choose Theme
+                        </p>
+                      </div>
+                      <div className="py-1 overflow-y-auto max-h-72">
+                        {uniqueThemes.map((t) => (
+                          <motion.button
+                            key={t.id}
+                            // whileHover={{ x: 4 }}
+                            onClick={() => {
+                              setThemeById(t.id);
+                              setIsThemeMenuOpen(false);
+                            }}
+                            className={`w-full flex items-center gap-3 px-4 py-2.5 text-sm transition-colors ${
+                              theme === t.id
+                                ? "text-primary bg-tertiary font-medium"
+                                : "text-secondary hover:text-primary hover:bg-tertiary"
+                            }`}
+                          >
+                            <ThemeIcon
+                              iconName={t.icon}
+                              className="flex-shrink-0 w-4 h-4 text-primary"
+                            />
+                            <span className="flex-1 text-left">{t.label}</span>
+                            {theme === t.id && (
+                              <Check className="w-3.5 h-3.5 text-primary" />
+                            )}
+                          </motion.button>
+                        ))}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
 
               <Tooltip content="Music">
                 <motion.button
@@ -272,35 +327,33 @@ export default function Navbar() {
                 </div>
               </div>
 
+              {/* ── Mobile Theme Picker ── */}
               <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-primary sm:p-6">
-                <div className="flex items-center justify-between">
-                  <span className="text-sm text-muted">Theme</span>
-                  <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    onClick={toggleTheme}
-                    className="flex items-center gap-2 px-4 py-2 transition-colors rounded-md bg-tertiary hover:bg-badge"
-                  >
-                    {theme === "dark" ? (
-                      <>
-                        <Tooltip content="Switch to Light">
-                          <Sun className="w-4 h-4 cursor-pointer text-primary" />
-                        </Tooltip>
-                        <span className="text-sm font-medium text-primary">
-                          Light
-                        </span>
-                      </>
-                    ) : (
-                      <>
-                        <Tooltip content="Switch to Dark">
-                          <Moon className="w-4 h-4 cursor-pointer text-primary" />
-                        </Tooltip>
-                        <span className="text-sm font-medium text-primary">
-                          Dark
-                        </span>
-                      </>
-                    )}
-                  </motion.button>
+                <p className="mb-2 text-xs font-semibold tracking-wider uppercase text-secondary">
+                  Theme
+                </p>
+                <div className="grid grid-cols-3 gap-2 overflow-y-auto max-h-40">
+                  {uniqueThemes.map((t) => (
+                    <motion.button
+                      key={t.id}
+                      whileTap={{ scale: 0.95 }}
+                      onClick={() => {
+                        setThemeById(t.id);
+                        setIsMobileMenuOpen(false);
+                      }}
+                      className={`flex flex-col items-center gap-1 p-2 rounded-lg text-xs font-medium transition-colors ${
+                        theme === t.id
+                          ? "bg-tertiary text-primary ring-1 ring-primary"
+                          : "text-secondary hover:bg-tertiary hover:text-primary"
+                      }`}
+                    >
+                      <ThemeIcon
+                        iconName={t.icon}
+                        className="w-4 h-4 text-primary"
+                      />
+                      {t.label}
+                    </motion.button>
+                  ))}
                 </div>
               </div>
             </motion.div>

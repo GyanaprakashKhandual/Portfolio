@@ -25,33 +25,60 @@ const Sidebar = ({
   className = "",
 }) => {
   const [expandedItems, setExpandedItems] = useState({});
+  const [activeId, setActiveId] = useState(activeItemId); // ← ADDED: internal active tracking
   const router = useRouter();
   const { stack } = useParams();
 
-  const toggleExpand = (itemId) => {
+ const toggleExpand = (itemId) => {
     setExpandedItems((prev) => ({
       ...prev,
       [itemId]: !prev[itemId],
     }));
   };
 
-  const handleItemClick = (item) => {
-    if (item.children && item.children.length > 0) {
-      toggleExpand(item.id);
-    } else {
-      const sidebarItemSlug = item.slug ?? generateSlug(item.label);
-      router.push(`/docs/${stack}/${sidebarItemSlug}`);
+// ← ADDED: finds and expands all ancestor ids of the clicked item
+const expandParents = (items, targetId, path = []) => {
+  for (const item of items) {
+    if (item.id === targetId) return path;
+    if (item.children) {
+      const found = expandParents(item.children, targetId, [...path, item.id]);
+      if (found) return found;
+    }
+  }
+  return null;
+};
+
+const handleItemClick = (item) => {
+  if (item.children && item.children.length > 0) {
+    toggleExpand(item.id);
+  } else {
+    const sidebarItemSlug = item.slug ?? generateSlug(item.label);
+    setActiveId(item.id);
+
+    // ← ADDED: expand all parents of clicked item and keep them open
+    const parentIds = expandParents(items, item.id);
+    if (parentIds) {
+      setExpandedItems((prev) => {
+        const next = { ...prev };
+        parentIds.forEach((id) => {
+          next[id] = true; // force open, never toggle
+        });
+        return next;
+      });
     }
 
-    if (onItemClick) {
-      onItemClick(item);
-    }
-  };
+    router.push(`/docs/${stack}/${sidebarItemSlug}`);
+  }
+
+  if (onItemClick) {
+    onItemClick(item);
+  }
+};
 
   const renderItem = (item, level = 0) => {
     const hasChildren = item.children && item.children.length > 0;
     const isExpanded = expandedItems[item.id];
-    const isActive = activeItemId === item.id;
+    const isActive = activeId === item.id; // ← CHANGED: use internal activeId instead of prop
 
     return (
       <div key={item.id}>
