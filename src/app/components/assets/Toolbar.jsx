@@ -1,8 +1,21 @@
 "use client";
-import React, { useState, useRef, useEffect } from "react";
+
+import React, { useState, useRef, useEffect, Suspense } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
 import {
+  ThumbsUp,
+  ThumbsDown,
+  MessageSquare,
+  Bell,
+  ChevronRight,
+  GitBranch,
+  Clock,
+  Flag,
+  Share2,
+  X,
+  Send,
+  CheckCircle2,
   Menu,
   Copy,
   FileText,
@@ -21,7 +34,17 @@ import {
   PinOff,
   Edit,
   Check,
-  X,
+  Layers, // ← Slate icon (new import only)
+  Flame,
+  Trees,
+  Gem,
+  Snowflake,
+  Crown,
+  Waves,
+  Heart,
+  Wrench,
+  Flower,
+  Sword,
 } from "lucide-react";
 import { Tooltip } from "../ui/Tooltip.ui";
 import TechStackModal from "../window/Tech.stack.modal";
@@ -29,6 +52,27 @@ import { useTheme } from "@/app/context/Theme.context";
 import { useSelector } from "react-redux";
 import { selectActiveSlug } from "@/app/lib/feature/tab/tab.slice";
 import { useMdContent } from "@/app/context/Markdown.context";
+import { FaCoffee } from "react-icons/fa";
+
+// ─── Theme icon resolver ───────────────────────────────────────────────────────
+// Maps the icon string from THEMES registry → actual Lucide component.
+// Add new entries here whenever you add a new theme to the registry.
+const THEME_ICON_MAP = {
+  Sun,
+  Moon,
+  Layers,
+  Flame,
+  Trees,
+  Gem,
+  Sword,
+     Snowflake,
+  Crown,
+  Waves,
+   Heart,
+   Wrench,
+   Flower,
+  // Trees, Flower2, etc. — add as you import them above
+};
 
 const dropdownItems = [
   { label: "Hide Toolbar", key: "toolbar" },
@@ -55,32 +99,27 @@ const Toolbar = ({
   onToggleToolbar = () => {},
   onToggleLeftSidebar = () => {},
   onToggleOutlineSidebar = () => {},
+  onStickyChange = () => {},
 }) => {
-  const { theme, toggleTheme, mounted } = useTheme();
-
+  const { theme, toggleTheme, setThemeById, themes, mounted } = useTheme();
   const [activeTab, setActiveTab] = useState(defaultTab);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [techStackOpen, setTechStackOpen] = useState(false);
-
   const activeSlug = useSelector(selectActiveSlug);
-
   const { content } = useMdContent();
   const [copied, setCopied] = useState(false);
   const [rawOpen, setRawOpen] = useState(false);
-
   const [visible, setVisible] = useState({
     toolbar: true,
     leftSidebar: true,
     outlineSidebar: true,
   });
-
   const [sticky, setSticky] = useState({
     sidebar: false,
     outline: false,
     tooltips: true,
   });
-
   const dropdownRef = useRef(null);
   const settingsRef = useRef(null);
 
@@ -139,8 +178,17 @@ const Toolbar = ({
   };
 
   const router = useRouter();
-  const toggleSticky = (key) =>
-    setSticky((prev) => ({ ...prev, [key]: !prev[key] }));
+
+  const toggleSticky = (key) => {
+    setSticky((prev) => {
+      const next = { ...prev, [key]: !prev[key] };
+      // Wire sidebar/outline sticky back to the layout
+      if (key === "sidebar" || key === "outline") {
+        onStickyChange(key, !prev[key]);
+      }
+      return next;
+    });
+  };
 
   const ThemeIcon = !mounted ? Sun : theme === "dark" ? Sun : Moon;
   const themeLabel = !mounted
@@ -154,8 +202,8 @@ const Toolbar = ({
       <div
         className={`
           w-full h-12 flex items-center
-          bg-white dark:bg-black
-          border-b border-gray-200 dark:border-gray-800
+          bg-primary
+          border-b border-primary
           px-2 sm:px-4
           shrink-0
           ${className}
@@ -166,17 +214,13 @@ const Toolbar = ({
             <button
               onClick={() => setTechStackOpen(true)}
               aria-label="Toggle sidebar"
-              className="p-1.5 rounded text-gray-500 dark:text-gray-400
-                         hover:text-gray-900 dark:hover:text-gray-100
-                         hover:bg-gray-100 dark:hover:bg-gray-900
-                         transition-colors duration-150"
+              className="p-1.5 rounded text-muted hover:text-primary hover:bg-tertiary transition-colors duration-150"
             >
               <Menu className="w-5 h-5" />
             </button>
           </Tooltip>
         </div>
-
-        <div className="absolute flex items-center gap-0.5 sm:gap-1 -translate-x-1/2 left-1/2">
+        <div className="flex flex-1 items-center justify-center gap-0.5 sm:gap-1">
           {tabs.map((tab) => {
             const isActive = activeTab === tab.value;
             return (
@@ -188,8 +232,8 @@ const Toolbar = ({
                   transition-colors duration-150 rounded-sm whitespace-nowrap
                   ${
                     isActive
-                      ? "text-gray-900 dark:text-white"
-                      : "text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300"
+                      ? "text-primary font-medium"
+                      : "text-muted hover:text-primary"
                   }
                 `}
               >
@@ -197,7 +241,7 @@ const Toolbar = ({
                 {isActive && (
                   <motion.span
                     layoutId="toolbar-tab-indicator"
-                    className="absolute bottom-0 left-0 right-0 h-0.5 bg-gray-900 dark:bg-white rounded-full"
+                    className="absolute bottom-0 left-0 right-0 h-0.5 bg-strong rounded-full"
                     transition={{ type: "spring", stiffness: 400, damping: 30 }}
                   />
                 )}
@@ -205,8 +249,7 @@ const Toolbar = ({
             );
           })}
         </div>
-
-        <div className="flex items-center gap-0.5 ml-auto shrink-0">
+        <div className="flex items-center gap-0.5 shrink-0">
           <div className="hidden md:flex items-center gap-0.5">
             {actions.map(({ icon: Icon, label }) => (
               <Tooltip
@@ -216,10 +259,10 @@ const Toolbar = ({
                 <button
                   aria-label={label}
                   onClick={() => handleActionClick(label)}
-                  className="p-2 text-gray-500 transition-colors duration-150 rounded dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-900"
+                  className="p-2 transition-colors duration-150 rounded text-muted hover:text-primary hover:bg-tertiary"
                 >
                   {label === "Copy" && copied ? (
-                    <Check className="w-4 h-4 text-gray-900" />
+                    <Check className="w-4 h-4 text-primary" />
                   ) : (
                     <Icon className="w-4 h-4" />
                   )}
@@ -227,7 +270,6 @@ const Toolbar = ({
               </Tooltip>
             ))}
           </div>
-
           <Tooltip content="Edit On Github">
             <button
               onClick={() =>
@@ -235,22 +277,20 @@ const Toolbar = ({
                   `https://github.com/GyanaprakashKhandual/Portfolio/blob/main/src/app/note`,
                 )
               }
-              className="p-2 text-gray-500 transition-colors duration-150 rounded dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-900"
+              className="p-2 transition-colors duration-150 rounded text-muted hover:text-primary hover:bg-tertiary"
             >
               <Edit className="w-4 h-4" />
             </button>
           </Tooltip>
-
           <Tooltip content={themeLabel}>
             <button
               onClick={toggleTheme}
               aria-label="Toggle theme"
-              className="p-2 text-gray-500 transition-colors duration-150 rounded dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-900"
+              className="p-2 transition-colors duration-150 rounded text-muted hover:text-primary hover:bg-tertiary"
             >
               <ThemeIcon className="w-4 h-4" />
             </button>
           </Tooltip>
-
           <div className="relative" ref={settingsRef}>
             <Tooltip content="Settings">
               <button
@@ -263,15 +303,14 @@ const Toolbar = ({
                   p-2 rounded transition-colors duration-150
                   ${
                     settingsOpen
-                      ? "bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-white"
-                      : "text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-900"
+                      ? "bg-tertiary text-primary"
+                      : "text-muted hover:text-primary hover:bg-tertiary"
                   }
                 `}
               >
                 <Settings className="w-4 h-4" />
               </button>
             </Tooltip>
-
             <AnimatePresence>
               {settingsOpen && (
                 <motion.div
@@ -280,15 +319,14 @@ const Toolbar = ({
                   exit={{ opacity: 0, scale: 0.95, y: -4 }}
                   transition={{ duration: 0.12, ease: "easeOut" }}
                   className="absolute right-0 z-50 py-1.5 mt-1 origin-top-right
-                             bg-white dark:bg-gray-950
-                             border border-gray-200 dark:border-gray-800
-                             rounded-lg shadow-lg shadow-black/10 dark:shadow-black/40
+                             bg-card
+                             border border-primary
+                             rounded-lg shadow-lg shadow-black/10
                              top-full w-48 sm:w-52"
                 >
-                  <p className="px-3.5 pb-1 pt-0.5 text-[10px] font-semibold uppercase tracking-widest text-gray-400 dark:text-gray-600">
+                  <p className="px-3.5 pb-1 pt-0.5 text-[10px] font-semibold uppercase tracking-widest text-muted">
                     Sticky
                   </p>
-
                   {[
                     {
                       key: "sidebar",
@@ -308,13 +346,12 @@ const Toolbar = ({
                       className="flex items-center justify-between gap-2.5 rounded-md
                                  mx-2 px-3 py-2.5 text-xs sm:text-sm text-left
                                  w-[calc(100%-1rem)]
-                                 text-gray-700 dark:text-gray-300
-                                 hover:bg-gray-100 dark:hover:bg-gray-800
-                                 hover:text-gray-900 dark:hover:text-white
+                                 text-secondary
+                                 hover:bg-tertiary hover:text-primary
                                  transition-colors duration-100 cursor-pointer select-none"
                     >
                       <span className="flex items-center gap-2.5">
-                        <Icon className="w-3.5 h-3.5 text-gray-400 dark:text-gray-500 shrink-0" />
+                        <Icon className="w-3.5 h-3.5 text-muted shrink-0" />
                         {label}
                       </span>
                       <span
@@ -323,15 +360,15 @@ const Toolbar = ({
                           border transition-colors duration-200
                           ${
                             sticky[key]
-                              ? "bg-gray-900 dark:bg-white border-gray-900 dark:border-white"
-                              : "bg-gray-200 dark:bg-gray-800 border-gray-200 dark:border-gray-700"
+                              ? "bg-inverse border-strong"
+                              : "bg-tertiary border-primary"
                           }
                         `}
                       >
                         <span
                           className={`
                             inline-block h-3 w-3 mt-0.5 rounded-full
-                            bg-white dark:bg-gray-900
+                            bg-primary
                             shadow transition-transform duration-200
                             ${sticky[key] ? "translate-x-3.5" : "translate-x-0.5"}
                           `}
@@ -339,11 +376,44 @@ const Toolbar = ({
                       </span>
                     </button>
                   ))}
+
+                  {/* ── Theme Picker ── added below Sticky, no existing line touched ── */}
+                  {mounted && themes && themes.length > 0 && (
+                    <>
+                      <div className="my-1.5 mx-3 h-px bg-primary" />
+                      <p className="px-3.5 pb-1 pt-0.5 text-[10px] font-semibold uppercase tracking-widest text-muted">
+                        Theme
+                      </p>
+                      {themes.map(({ id, label, icon }) => {
+                        const IconComponent = THEME_ICON_MAP[icon] ?? Sun;
+                        const isActive = theme === id;
+                        return (
+                          <button
+                            key={id}
+                            onClick={() => setThemeById(id)}
+                            className="flex items-center justify-between gap-2.5 rounded-md
+                                       mx-2 px-3 py-2.5 text-xs sm:text-sm text-left
+                                       w-[calc(100%-1rem)]
+                                       text-secondary
+                                       hover:bg-tertiary hover:text-primary
+                                       transition-colors duration-100 cursor-pointer select-none"
+                          >
+                            <span className="flex items-center gap-2.5">
+                              <IconComponent className="w-3.5 h-3.5 text-muted shrink-0" />
+                              {label}
+                            </span>
+                            {isActive && (
+                              <Check className="w-3.5 h-3.5 text-primary shrink-0" />
+                            )}
+                          </button>
+                        );
+                      })}
+                    </>
+                  )}
                 </motion.div>
               )}
             </AnimatePresence>
           </div>
-
           <div className="relative" ref={dropdownRef}>
             <Tooltip content="More" position="top-left">
               <button
@@ -356,15 +426,14 @@ const Toolbar = ({
                   p-2 rounded transition-colors duration-150
                   ${
                     dropdownOpen
-                      ? "bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-white"
-                      : "text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-900"
+                      ? "bg-tertiary text-primary"
+                      : "text-muted hover:text-primary hover:bg-tertiary"
                   }
                 `}
               >
                 <MoreHorizontal className="w-4 h-4" />
               </button>
             </Tooltip>
-
             <AnimatePresence>
               {dropdownOpen && (
                 <motion.div
@@ -372,14 +441,14 @@ const Toolbar = ({
                   animate={{ opacity: 1, scale: 1, y: 0 }}
                   exit={{ opacity: 0, scale: 0.95, y: -4 }}
                   transition={{ duration: 0.12, ease: "easeOut" }}
-                  className="absolute right-0 z-50 py-1.5 mt-1 origin-top-right
-                             bg-white dark:bg-gray-950
-                             border border-gray-200 dark:border-gray-800
-                             rounded-lg shadow-lg shadow-black/10 dark:shadow-black/40
+                  className="max-h-48 absolute right-0 z-50 py-1.5 mt-1 origin-top-right
+                             bg-card
+                             border border-primary
+                             rounded-lg shadow-lg shadow-black/10
                              top-full w-48 sm:w-52"
                 >
                   <div className="md:hidden">
-                    <p className="px-3.5 pb-1 pt-0.5 text-[10px] font-semibold uppercase tracking-widest text-gray-400 dark:text-gray-600">
+                    <p className="px-3.5 pb-1 pt-0.5 text-[10px] font-semibold uppercase tracking-widest text-muted">
                       Actions
                     </p>
                     {actions.map(({ icon: Icon, label }) => (
@@ -392,26 +461,23 @@ const Toolbar = ({
                         className="flex items-center gap-2.5 rounded-md
                                    mx-2 px-3 py-2.5 text-xs sm:text-sm text-left
                                    w-[calc(100%-1rem)]
-                                   text-gray-700 dark:text-gray-300
-                                   hover:bg-gray-100 dark:hover:bg-gray-800
-                                   hover:text-gray-900 dark:hover:text-white
+                                   text-secondary
+                                   hover:bg-tertiary hover:text-primary
                                    transition-colors duration-100 cursor-pointer select-none"
                       >
                         {label === "Copy" && copied ? (
-                          <Check className="w-3.5 h-3.5 text-green-500 shrink-0" />
+                          <Check className="w-3.5 h-3.5 text-primary shrink-0" />
                         ) : (
-                          <Icon className="w-3.5 h-3.5 text-gray-400 dark:text-gray-500 shrink-0" />
+                          <Icon className="w-3.5 h-3.5 text-muted shrink-0" />
                         )}
                         {label === "Copy" && copied ? "Copied!" : label}
                       </button>
                     ))}
-                    <div className="my-1.5 mx-3 h-px bg-gray-100 dark:bg-gray-800" />
+                    <div className="my-1.5 mx-3 h-px bg-primary" />
                   </div>
-
-                  <p className="px-3.5 pb-1 pt-0.5 text-[10px] font-semibold uppercase tracking-widest text-gray-400 dark:text-gray-600">
+                  <p className="px-3.5 pb-1 pt-0.5 text-[10px] font-semibold uppercase tracking-widest text-muted">
                     Visibility
                   </p>
-
                   {dropdownItems.map(({ label, key }) => {
                     const isVisible = visible[key];
                     return (
@@ -421,19 +487,15 @@ const Toolbar = ({
                         className="flex items-center justify-between gap-2.5 rounded-md
                                    mx-2 px-3 py-2.5 text-xs sm:text-sm text-left
                                    w-[calc(100%-1rem)]
-                                   text-gray-700 dark:text-gray-300
-                                   hover:bg-gray-100 dark:hover:bg-gray-800
-                                   hover:text-gray-900 dark:hover:text-white
-                                   active:bg-gray-200 dark:active:bg-gray-700
-                                   focus-visible:outline-none focus-visible:ring-2
-                                   focus-visible:ring-blue-500
+                                   text-secondary
+                                   hover:bg-tertiary hover:text-primary
                                    transition-colors duration-100 cursor-pointer select-none"
                       >
                         <span className="flex items-center gap-2.5">
                           {isVisible ? (
-                            <EyeOff className="w-3.5 h-3.5 text-gray-400 dark:text-gray-500 shrink-0" />
+                            <EyeOff className="w-3.5 h-3.5 text-muted shrink-0" />
                           ) : (
-                            <Eye className="w-3.5 h-3.5 text-gray-400 dark:text-gray-500 shrink-0" />
+                            <Eye className="w-3.5 h-3.5 text-muted shrink-0" />
                           )}
                           {isVisible ? label : label.replace("Hide", "Show")}
                         </span>
@@ -442,8 +504,8 @@ const Toolbar = ({
                           text-[10px] font-medium px-1.5 py-0.5 rounded
                           ${
                             isVisible
-                              ? "bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400"
-                              : "bg-gray-900 dark:bg-white text-white dark:text-gray-900"
+                              ? "bg-tertiary text-muted"
+                              : "bg-inverse text-inverse"
                           }
                         `}
                         >
@@ -458,13 +520,11 @@ const Toolbar = ({
           </div>
         </div>
       </div>
-
       <TechStackModal
         isOpen={techStackOpen}
         onClose={() => setTechStackOpen(false)}
         onConfirm={(stack) => console.log("Selected:", stack)}
       />
-
       <AnimatePresence>
         {rawOpen && (
           <>
@@ -474,20 +534,19 @@ const Toolbar = ({
               exit={{ opacity: 0 }}
               transition={{ duration: 0.15 }}
               onClick={() => setRawOpen(false)}
-              className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm"
+              className="fixed inset-0 z-50 bg-overlay backdrop-blur-sm"
             />
-
             <motion.div
               initial={{ opacity: 0, scale: 0.96, y: 8 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.96, y: 8 }}
               transition={{ duration: 0.15, ease: "easeOut" }}
-              className="fixed z-50 flex flex-col overflow-hidden bg-white border border-gray-200 shadow-2xl inset-2 sm:inset-4 md:inset-8 lg:inset-16 dark:bg-gray-950 dark:border-gray-800 rounded-xl"
+              className="fixed z-50 flex flex-col overflow-hidden border shadow-2xl bg-card border-primary inset-2 sm:inset-4 md:inset-8 lg:inset-16 rounded-xl"
             >
-              <div className="flex flex-wrap items-center justify-between gap-2 px-3 py-2 border-b border-gray-200 sm:px-4 sm:py-3 dark:border-gray-800 shrink-0">
+              <div className="flex flex-wrap items-center justify-between gap-2 px-3 py-2 border-b border-primary sm:px-4 sm:py-3 shrink-0">
                 <div className="flex items-center min-w-0 gap-2">
-                  <FileText className="w-4 h-4 text-gray-400 shrink-0" />
-                  <span className="text-xs font-medium text-gray-700 truncate sm:text-sm dark:text-gray-300">
+                  <FileText className="w-4 h-4 text-muted shrink-0" />
+                  <span className="text-xs font-medium truncate text-primary sm:text-sm">
                     Raw — {activeSlug ? `${activeSlug}.md` : "document.md"}
                   </span>
                 </div>
@@ -496,14 +555,14 @@ const Toolbar = ({
                     <button
                       onClick={handleCopy}
                       className="flex items-center gap-1.5 px-2 sm:px-3 py-1 sm:py-1.5 text-xs font-medium
-                                 rounded-md border border-gray-200 dark:border-gray-700
-                                 text-gray-600 dark:text-gray-400
-                                 hover:bg-gray-100 dark:hover:bg-gray-800
+                                 rounded-md border border-primary
+                                 text-muted
+                                 hover:bg-tertiary hover:text-primary
                                  transition-colors duration-150"
                     >
                       {copied ? (
                         <>
-                          <Check className="w-3.5 h-3.5 text-gray-900" /> Copied
+                          <Check className="w-3.5 h-3.5 text-primary" /> Copied
                         </>
                       ) : (
                         <>
@@ -512,32 +571,28 @@ const Toolbar = ({
                       )}
                     </button>
                   </Tooltip>
-
                   <Tooltip content="Download .md">
                     <button
                       onClick={handleDownload}
                       className="flex items-center gap-1.5 px-2 sm:px-3 py-1 sm:py-1.5 text-xs font-medium
-                                 rounded-md border border-gray-200 dark:border-gray-700
-                                 text-gray-600 dark:text-gray-400
-                                 hover:bg-gray-100 dark:hover:bg-gray-800
+                                 rounded-md border border-primary
+                                 text-muted
+                                 hover:bg-tertiary hover:text-primary
                                  transition-colors duration-150"
                     >
                       <Download className="w-3.5 h-3.5" /> Download
                     </button>
                   </Tooltip>
-
                   <button
                     onClick={() => setRawOpen(false)}
-                    className="p-1.5 ml-1 rounded-md text-gray-400 hover:text-gray-700 dark:hover:text-gray-200
-                               hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-150"
+                    className="p-1.5 ml-1 rounded-md text-muted hover:text-primary hover:bg-tertiary transition-colors duration-150"
                   >
                     <X className="w-4 h-4" />
                   </button>
                 </div>
               </div>
-
               <div className="flex-1 overflow-auto">
-                <pre className="p-3 font-mono text-xs leading-relaxed text-gray-800 whitespace-pre-wrap wrap-break-word sm:p-4 md:p-6 sm:text-sm dark:text-gray-200">
+                <pre className="p-3 font-mono text-xs leading-relaxed break-words whitespace-pre-wrap text-secondary sm:p-4 md:p-6 sm:text-sm">
                   {content || "No content loaded."}
                 </pre>
               </div>

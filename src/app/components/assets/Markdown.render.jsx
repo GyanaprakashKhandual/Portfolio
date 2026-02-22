@@ -24,9 +24,7 @@ function extractText(children) {
 
 export default function MarkdownRenderer({ content }) {
   if (!content) {
-    return (
-      <p className="text-sm italic text-gray-400">No content available.</p>
-    );
+    return <p className="text-sm italic text-muted">No content available.</p>;
   }
 
   return (
@@ -40,12 +38,12 @@ export default function MarkdownRenderer({ content }) {
             return (
               <h1
                 id={id}
-                className="flex items-center gap-2 pb-2 mt-8 mb-4 text-3xl font-bold text-gray-900 border-b border-gray-200 group scroll-mt-24 dark:text-white dark:border-gray-700"
+                className="flex items-center gap-2 pb-2 mt-8 mb-4 text-3xl font-bold border-b text-primary border-primary group scroll-mt-24"
               >
                 {children}
                 <a
                   href={`#${id}`}
-                  className="text-2xl font-normal text-gray-400 transition-opacity opacity-0 group-hover:opacity-40"
+                  className="text-2xl font-normal transition-opacity opacity-0 text-muted group-hover:opacity-60"
                   aria-label="Link to section"
                 >
                   #
@@ -58,12 +56,12 @@ export default function MarkdownRenderer({ content }) {
             return (
               <h2
                 id={id}
-                className="flex items-center gap-2 pb-1 mt-8 mb-3 text-2xl font-semibold text-gray-900 border-b border-gray-100 group scroll-mt-24 dark:text-white dark:border-gray-800"
+                className="flex items-center gap-2 pb-1 mt-8 mb-3 text-2xl font-semibold border-b text-primary border-primary group scroll-mt-24"
               >
                 {children}
                 <a
                   href={`#${id}`}
-                  className="text-xl font-normal text-gray-400 transition-opacity opacity-0 group-hover:opacity-40"
+                  className="text-xl font-normal transition-opacity opacity-0 text-muted group-hover:opacity-60"
                   aria-label="Link to section"
                 >
                   #
@@ -76,12 +74,12 @@ export default function MarkdownRenderer({ content }) {
             return (
               <h3
                 id={id}
-                className="flex items-center gap-2 mt-6 mb-2 text-xl font-semibold text-gray-800 group scroll-mt-24 dark:text-gray-100"
+                className="flex items-center gap-2 mt-6 mb-2 text-xl font-semibold text-primary group scroll-mt-24"
               >
                 {children}
                 <a
                   href={`#${id}`}
-                  className="text-lg font-normal text-gray-400 transition-opacity opacity-0 group-hover:opacity-40"
+                  className="text-lg font-normal transition-opacity opacity-0 text-muted group-hover:opacity-60"
                   aria-label="Link to section"
                 >
                   #
@@ -94,7 +92,7 @@ export default function MarkdownRenderer({ content }) {
             return (
               <h4
                 id={id}
-                className="mt-4 mb-2 text-lg font-medium text-gray-800 scroll-mt-24 dark:text-gray-100"
+                className="mt-4 mb-2 text-lg font-medium text-primary scroll-mt-24"
               >
                 {children}
               </h4>
@@ -102,18 +100,18 @@ export default function MarkdownRenderer({ content }) {
           },
 
           p: ({ children }) => (
-            <p className="text-gray-700 dark:text-gray-300 leading-7 mb-4 text-[15px]">
+            <p className="text-secondary leading-7 mb-4 text-[15px]">
               {children}
             </p>
           ),
 
           ul: ({ children }) => (
-            <ul className="list-disc list-outside pl-6 mb-4 space-y-1 text-gray-700 dark:text-gray-300 text-[15px]">
+            <ul className="list-disc list-outside pl-6 mb-4 space-y-1 text-secondary text-[15px]">
               {children}
             </ul>
           ),
           ol: ({ children }) => (
-            <ol className="list-decimal list-outside pl-6 mb-4 space-y-1 text-gray-700 dark:text-gray-300 text-[15px]">
+            <ol className="list-decimal list-outside pl-6 mb-4 space-y-1 text-secondary text-[15px]">
               {children}
             </ol>
           ),
@@ -123,7 +121,7 @@ export default function MarkdownRenderer({ content }) {
             if (inline) {
               return (
                 <code
-                  className="bg-gray-100 dark:bg-gray-800 text-rose-600 dark:text-rose-400 px-1.5 py-0.5 rounded text-[13px] font-mono"
+                  className="bg-tertiary text-primary px-1.5 py-0.5 rounded text-[13px] font-mono"
                   {...props}
                 >
                   {children}
@@ -138,48 +136,46 @@ export default function MarkdownRenderer({ content }) {
           },
 
           pre: ({ children }) => (
-            <pre className="bg-gray-950 dark:bg-gray-900 rounded-xl overflow-x-auto p-4 mb-6 text-[13px] leading-relaxed border border-gray-800">
+            <pre className="bg-inverse rounded-xl overflow-x-auto p-4 mb-6 text-[13px] leading-relaxed border border-strong">
               {children}
             </pre>
           ),
 
           blockquote: ({ children }) => (
-            <blockquote className="border-l-4 border-blue-400 bg-blue-50 dark:bg-blue-950/30 dark:border-blue-500 pl-4 pr-3 py-2 my-4 rounded-r-lg text-gray-700 dark:text-gray-300 italic text-[15px]">
+            <blockquote className="border-l-4 border-strong bg-tertiary pl-4 pr-3 py-2 my-4 rounded-r-lg text-secondary italic text-[15px]">
               {children}
             </blockquote>
           ),
 
           table: ({ children }) => (
             <div className="mb-6 overflow-x-auto">
-              <table className="min-w-full border border-gray-200 dark:border-gray-700 rounded-lg text-[14px]">
+              <table className="min-w-full border border-primary rounded-lg text-[14px]">
                 {children}
               </table>
             </div>
           ),
           thead: ({ children }) => (
-            <thead className="bg-gray-100 dark:bg-gray-800">{children}</thead>
+            <thead className="bg-tertiary">{children}</thead>
           ),
           th: ({ children }) => (
-            <th className="px-4 py-2.5 text-left font-semibold text-gray-800 dark:text-gray-200 border-b border-gray-200 dark:border-gray-700">
+            <th className="px-4 py-2.5 text-left font-semibold text-primary border-b border-primary">
               {children}
             </th>
           ),
           td: ({ children }) => (
-            <td className="px-4 py-2.5 text-gray-700 dark:text-gray-300 border-b border-gray-100 dark:border-gray-800">
+            <td className="px-4 py-2.5 text-secondary border-b border-primary">
               {children}
             </td>
           ),
 
-          hr: () => (
-            <hr className="my-8 border-gray-200 dark:border-gray-700" />
-          ),
+          hr: () => <hr className="my-8 border-primary" />,
 
           a: ({ href, children }) => (
             <a
               href={href}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-blue-600 underline transition-colors dark:text-blue-400 underline-offset-2 hover:text-blue-800 dark:hover:text-blue-300"
+              className="underline transition-colors text-primary underline-offset-2 hover:text-muted"
             >
               {children}
             </a>
@@ -190,19 +186,15 @@ export default function MarkdownRenderer({ content }) {
             <img
               src={src}
               alt={alt}
-              className="max-w-full my-4 border border-gray-200 rounded-lg dark:border-gray-700"
+              className="max-w-full my-4 border rounded-lg border-primary"
             />
           ),
 
           strong: ({ children }) => (
-            <strong className="font-semibold text-gray-900 dark:text-white">
-              {children}
-            </strong>
+            <strong className="font-semibold text-primary">{children}</strong>
           ),
           em: ({ children }) => (
-            <em className="italic text-gray-700 dark:text-gray-300">
-              {children}
-            </em>
+            <em className="italic text-secondary">{children}</em>
           ),
         }}
       >

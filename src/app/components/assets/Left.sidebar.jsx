@@ -1,8 +1,11 @@
 "use client";
-import React, { useState } from "react";
+
+import React, { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronRight } from "lucide-react";
-import { useRouter, useParams } from "next/navigation";
+import { ChevronRight, ChevronLeft, Search, Filter, X } from "lucide-react";
+import { useRouter, usePathname } from "next/navigation";
+import { useParams } from "next/navigation";
+import { Briefcase } from "lucide-react";
 
 const generateSlug = (label) =>
   label
@@ -59,8 +62,8 @@ const Sidebar = ({
             transition-colors duration-150 group
             ${
               isActive
-                ? "bg-black text-white dark:bg-white dark:text-black font-medium"
-                : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-900"
+                ? "bg-inverse text-inverse font-medium"
+                : "text-secondary hover:bg-tertiary"
             }
           `}
           style={{ paddingLeft: `${(level + 1) * 14}px` }}
@@ -72,7 +75,7 @@ const Sidebar = ({
                 transition={{ duration: 0.2 }}
                 className="shrink-0"
               >
-                <ChevronRight className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                <ChevronRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-muted" />
               </motion.div>
             ) : (
               <span className="shrink-0 w-3.5 sm:w-4" />
@@ -108,7 +111,7 @@ const Sidebar = ({
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
             onClick={onClose}
-            className="fixed inset-0 z-40 bg-black/20 dark:bg-black/40 lg:hidden"
+            className="fixed inset-0 z-40 bg-overlay lg:hidden"
           />
         )}
       </AnimatePresence>
@@ -124,8 +127,8 @@ const Sidebar = ({
               lg:hidden sidebar-scrollbar
               fixed top-14 sm:top-20 left-0 z-50
               w-64 sm:w-72
-              bg-white dark:bg-black
-              border-r border-gray-200 dark:border-gray-800
+              bg-primary
+              border-r border-primary
               flex flex-col
               min-h-[calc(100vh-56px)] max-h-[calc(100vh-56px)]
               sm:min-h-[calc(100vh-80px)] sm:max-h-[calc(100vh-80px)]
@@ -148,8 +151,8 @@ const Sidebar = ({
           sticky top-0 bottom-0
           w-56 xl:w-72 shrink-0
           min-h-screen max-h-screen
-          bg-white dark:bg-black
-          border-r border-gray-200 dark:border-gray-800
+          bg-primary
+          border-r border-primary
           overflow-hidden
           ${className}
         `}
@@ -163,8 +166,8 @@ const Sidebar = ({
 function SidebarInner({ header, items, renderItem }) {
   return (
     <>
-      <div className="flex items-center h-10 px-4 py-3 border-b border-gray-200 sm:h-12 sm:px-6 sm:py-4 shrink-0 dark:border-gray-800">
-        <h2 className="text-base font-bold text-black capitalize truncate sm:text-lg dark:text-white">
+      <div className="flex items-center h-10 px-4 py-3 border-b border-primary sm:h-12 sm:px-6 sm:py-4 shrink-0">
+        <h2 className="text-base font-bold capitalize truncate text-primary sm:text-lg">
           {header}
         </h2>
       </div>

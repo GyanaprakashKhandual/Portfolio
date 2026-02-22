@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Code2, Monitor, Server, TestTube2, Check } from "lucide-react";
@@ -90,7 +91,7 @@ const TechStackModal = ({ isOpen, onClose, onConfirm }) => {
 
   const toggleItem = (value) => {
     setSelected((prev) =>
-      prev.includes(value) ? prev.filter((v) => v !== value) : [...prev, value]
+      prev.includes(value) ? prev.filter((v) => v !== value) : [...prev, value],
     );
   };
 
@@ -113,7 +114,7 @@ const TechStackModal = ({ isOpen, onClose, onConfirm }) => {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.18 }}
             onClick={onClose}
-            className="fixed inset-0 z-40 bg-black/30 dark:bg-black/60 backdrop-blur-[2px]"
+            className="fixed inset-0 z-40 bg-overlay backdrop-blur-[2px]"
           />
 
           {/* Modal */}
@@ -123,16 +124,16 @@ const TechStackModal = ({ isOpen, onClose, onConfirm }) => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 12, scale: 0.97 }}
             transition={{ type: "spring", stiffness: 380, damping: 32 }}
-            className="fixed z-50 flex flex-col w-full max-w-lg overflow-hidden -translate-x-1/2 -translate-y-1/2 bg-white border border-gray-200 shadow-2xl top-1/2 left-1/2 dark:bg-black dark:border-gray-800 rounded-xl shadow-black/10 dark:shadow-black/60"
+            className="fixed z-50 flex flex-col w-full max-w-lg overflow-hidden -translate-x-1/2 -translate-y-1/2 border shadow-2xl bg-card border-primary top-1/2 left-1/2 rounded-xl"
             style={{ maxHeight: "90vh" }}
           >
             {/* ── Header ── */}
-            <div className="flex items-center justify-between px-5 py-4 border-b border-gray-100 dark:border-gray-800 shrink-0">
+            <div className="flex items-center justify-between px-5 py-4 border-b border-primary shrink-0">
               <div>
-                <h2 className="text-sm font-semibold text-gray-900 dark:text-white">
+                <h2 className="text-sm font-semibold text-primary">
                   Select Tech Stack
                 </h2>
-                <p className="mt-0.5 text-xs text-gray-400 dark:text-gray-600">
+                <p className="mt-0.5 text-xs text-muted">
                   {selected.length > 0
                     ? `${selected.length} selected`
                     : "Choose the technologies for this project"}
@@ -140,10 +141,7 @@ const TechStackModal = ({ isOpen, onClose, onConfirm }) => {
               </div>
               <button
                 onClick={onClose}
-                className="p-1.5 rounded-md text-gray-400 dark:text-gray-500
-                           hover:text-gray-700 dark:hover:text-gray-300
-                           hover:bg-gray-100 dark:hover:bg-gray-900
-                           transition-colors duration-150"
+                className="p-1.5 rounded-md text-muted hover:text-primary hover:bg-tertiary transition-colors duration-150"
               >
                 <X className="w-4 h-4" />
               </button>
@@ -155,7 +153,7 @@ const TechStackModal = ({ isOpen, onClose, onConfirm }) => {
                 const isActive = activeTab === tab.value;
                 const Icon = tab.icon;
                 const tabSelectedCount = tab.items.filter((i) =>
-                  selected.includes(i.value)
+                  selected.includes(i.value),
                 ).length;
 
                 return (
@@ -167,8 +165,8 @@ const TechStackModal = ({ isOpen, onClose, onConfirm }) => {
                       rounded-t-md transition-colors duration-150
                       ${
                         isActive
-                          ? "text-gray-900 dark:text-white"
-                          : "text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300"
+                          ? "text-primary"
+                          : "text-muted hover:text-primary hover:bg-tertiary"
                       }
                     `}
                   >
@@ -181,8 +179,8 @@ const TechStackModal = ({ isOpen, onClose, onConfirm }) => {
                           h-4 min-w-4 px-1 rounded-full text-[10px] font-semibold
                           ${
                             isActive
-                              ? "bg-gray-900 dark:bg-white text-white dark:text-gray-900"
-                              : "bg-gray-200 dark:bg-gray-800 text-gray-600 dark:text-gray-400"
+                              ? "bg-inverse text-inverse"
+                              : "bg-badge text-muted"
                           }
                         `}
                       >
@@ -194,8 +192,12 @@ const TechStackModal = ({ isOpen, onClose, onConfirm }) => {
                     {isActive && (
                       <motion.span
                         layoutId="techstack-tab-indicator"
-                        className="absolute bottom-0 left-0 right-0 h-0.5 bg-gray-900 dark:bg-white rounded-full"
-                        transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                        className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary rounded-full"
+                        transition={{
+                          type: "spring",
+                          stiffness: 400,
+                          damping: 30,
+                        }}
                       />
                     )}
                   </button>
@@ -204,7 +206,7 @@ const TechStackModal = ({ isOpen, onClose, onConfirm }) => {
             </div>
 
             {/* Tab border separator */}
-            <div className="h-px bg-gray-100 dark:bg-gray-800 shrink-0" />
+            <div className="h-px bg-primary shrink-0" />
 
             {/* ── Items grid ── */}
             <div className="flex-1 px-5 py-4 overflow-y-auto">
@@ -229,8 +231,8 @@ const TechStackModal = ({ isOpen, onClose, onConfirm }) => {
                           border transition-all duration-150
                           ${
                             isSelected
-                              ? "bg-gray-900 dark:bg-white text-white dark:text-gray-900 border-gray-900 dark:border-white"
-                              : "bg-white dark:bg-black text-gray-700 dark:text-gray-300 border-gray-200 dark:border-gray-800 hover:border-gray-400 dark:hover:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-900"
+                              ? "bg-inverse text-inverse border-strong"
+                              : "bg-card text-secondary border-primary hover:border-strong hover:bg-tertiary"
                           }
                         `}
                       >
@@ -241,13 +243,13 @@ const TechStackModal = ({ isOpen, onClose, onConfirm }) => {
                             border transition-all duration-150
                             ${
                               isSelected
-                                ? "bg-white dark:bg-gray-900 border-white dark:border-gray-900"
-                                : "border-gray-300 dark:border-gray-700"
+                                ? "bg-inverse border-inverse"
+                                : "border-primary"
                             }
                           `}
                         >
                           {isSelected && (
-                            <Check className="w-2.5 h-2.5 text-gray-900 dark:text-white" />
+                            <Check className="w-2.5 h-2.5 text-inverse" />
                           )}
                         </span>
                         {item.label}
@@ -259,28 +261,25 @@ const TechStackModal = ({ isOpen, onClose, onConfirm }) => {
             </div>
 
             {/* ── Footer ── */}
-            <div className="flex items-center justify-between gap-3 px-5 py-4 border-t border-gray-100 dark:border-gray-800 shrink-0">
+            <div className="flex items-center justify-between gap-3 px-5 py-4 border-t border-primary shrink-0">
               <button
                 onClick={() => setSelected([])}
                 disabled={selected.length === 0}
-                className="text-xs text-gray-400 transition-colors duration-150 dark:text-gray-600 hover:text-gray-700 dark:hover:text-gray-300 disabled:opacity-40 disabled:cursor-not-allowed"
+                className="text-xs transition-colors duration-150 text-muted hover:text-primary disabled:opacity-40 disabled:cursor-not-allowed"
               >
                 Clear all
               </button>
               <div className="flex items-center gap-2">
                 <button
                   onClick={onClose}
-                  className="px-3.5 py-2 text-sm rounded-lg
-                             text-gray-600 dark:text-gray-400
-                             hover:bg-gray-100 dark:hover:bg-gray-900
-                             transition-colors duration-150"
+                  className="px-3.5 py-2 text-sm rounded-lg text-muted hover:bg-tertiary transition-colors duration-150"
                 >
                   Cancel
                 </button>
                 <button
                   onClick={handleConfirm}
                   disabled={selected.length === 0}
-                  className="px-4 py-2 text-sm font-medium text-white transition-colors duration-150 bg-gray-900 rounded-lg dark:bg-white dark:text-gray-900 hover:bg-gray-700 dark:hover:bg-gray-200 disabled:opacity-40 disabled:cursor-not-allowed"
+                  className="px-4 py-2 text-sm font-medium btn-primary disabled:opacity-40 disabled:cursor-not-allowed"
                 >
                   Confirm{selected.length > 0 ? ` (${selected.length})` : ""}
                 </button>

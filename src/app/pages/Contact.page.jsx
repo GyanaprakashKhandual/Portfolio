@@ -37,28 +37,28 @@ const socialLinks = [
 function AlertBox({ type, message, icon: Icon }) {
   const styles = {
     success: {
-      bg: "bg-green-50 dark:bg-green-900/20",
-      border: "border-green-300 dark:border-green-700",
-      icon: "text-green-600 dark:text-green-400",
-      text: "text-green-700 dark:text-green-300",
+      bg: "bg-tertiary",
+      border: "border-primary",
+      icon: "text-primary",
+      text: "text-primary",
     },
     error: {
-      bg: "bg-red-50 dark:bg-red-900/20",
-      border: "border-red-300 dark:border-red-700",
-      icon: "text-red-600 dark:text-red-400",
-      text: "text-red-700 dark:text-red-300",
+      bg: "bg-tertiary",
+      border: "border-strong",
+      icon: "text-primary",
+      text: "text-primary",
     },
     warning: {
-      bg: "bg-yellow-50 dark:bg-yellow-900/20",
-      border: "border-yellow-300 dark:border-yellow-700",
-      icon: "text-yellow-600 dark:text-yellow-400",
-      text: "text-yellow-700 dark:text-yellow-300",
+      bg: "bg-tertiary",
+      border: "border-strong",
+      icon: "text-primary",
+      text: "text-primary",
     },
     info: {
-      bg: "bg-blue-50 dark:bg-blue-900/20",
-      border: "border-blue-300 dark:border-blue-700",
-      icon: "text-blue-600 dark:text-blue-400",
-      text: "text-blue-700 dark:text-blue-300",
+      bg: "bg-tertiary",
+      border: "border-primary",
+      icon: "text-primary",
+      text: "text-primary",
     },
   };
 
@@ -79,7 +79,7 @@ function AlertBox({ type, message, icon: Icon }) {
 function LoadingSpinner() {
   return (
     <div className="flex items-center justify-center">
-      <div className="w-5 h-5 border-2 border-white rounded-full dark:border-black border-t-transparent dark:border-t-transparent animate-spin"></div>
+      <div className="w-5 h-5 border-2 rounded-full border-inverse border-t-transparent animate-spin"></div>
     </div>
   );
 }
@@ -185,7 +185,7 @@ function ContactPage() {
   };
 
   return (
-    <div className="min-h-screen pt-24 pb-16 transition-colors duration-300 bg-white hide-scrolllbar dark:bg-black">
+    <div className="min-h-screen pt-24 pb-16 bg-primary">
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -193,12 +193,12 @@ function ContactPage() {
         className="px-4 mx-auto mb-16 max-w-7xl sm:px-6 lg:px-8"
       >
         <div className="text-center">
-          <h1 className="mb-6 text-4xl font-bold text-black sm:text-5xl lg:text-6xl dark:text-white">
+          <h1 className="mb-6 text-4xl font-bold text-primary sm:text-5xl lg:text-6xl">
             Get In Touch
           </h1>
-          <p className="max-w-2xl mx-auto text-lg text-gray-700 sm:text-xl dark:text-gray-300">
-            Have a question or project in mind? I&apos;d love to hear from you.
-            Let&apos;s connect and create something amazing together.
+          <p className="max-w-2xl mx-auto text-lg text-secondary sm:text-xl">
+            Have a question or project in mind? I'd love to hear from you. Let's
+            connect and create something amazing together.
           </p>
         </div>
       </motion.div>
@@ -213,33 +213,29 @@ function ContactPage() {
           <motion.div variants={itemVariants} className="lg:col-span-1">
             <motion.div
               whileHover={{ y: -4 }}
-              className="p-8 mb-8 transition-all bg-white border border-gray-300 rounded-lg shadow-sm dark:border-gray-700 dark:bg-gray-900 hover:shadow-md"
+              className="p-8 mb-8 transition-all border rounded-lg shadow-sm bg-card border-primary hover:shadow-md"
             >
               <div className="mb-6">
-                <div className="flex items-center justify-center w-20 h-20 mb-4 text-2xl font-bold text-white bg-black rounded-full dark:bg-white dark:text-black">
+                <div className="flex items-center justify-center w-20 h-20 mb-4 text-2xl font-bold rounded-full text-inverse bg-inverse">
                   GK
                 </div>
-                <h3 className="mb-1 text-2xl font-bold text-black dark:text-white">
+                <h3 className="mb-1 text-2xl font-bold text-primary">
                   Gyana prakash Khandual
                 </h3>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
-                  Product Designer & SDET
-                </p>
+                <p className="text-sm text-muted">Product Designer & SDET</p>
               </div>
 
-              <div className="pb-8 mb-8 space-y-4 border-b border-gray-300 dark:border-gray-700">
+              <div className="pb-8 mb-8 space-y-4 border-b border-primary">
                 <motion.div
                   whileHover={{ x: 4 }}
                   className="flex items-start gap-3"
                 >
-                  <MapPin className="w-5 h-5 text-black dark:text-white shrink-0 mt-0.5" />
+                  <MapPin className="w-5 h-5 text-primary shrink-0 mt-0.5" />
                   <div>
-                    <p className="mb-1 text-xs font-semibold tracking-wider text-gray-600 uppercase dark:text-gray-400">
+                    <p className="mb-1 text-xs font-semibold tracking-wider uppercase text-muted">
                       Location
                     </p>
-                    <p className="text-gray-800 dark:text-gray-200">
-                      Bangalore, Karnataka, India
-                    </p>
+                    <p className="text-primary">Bangalore, Karnataka, India</p>
                   </div>
                 </motion.div>
 
@@ -247,14 +243,14 @@ function ContactPage() {
                   whileHover={{ x: 4 }}
                   className="flex items-start gap-3"
                 >
-                  <Phone className="w-5 h-5 text-black dark:text-white shrink-0 mt-0.5" />
+                  <Phone className="w-5 h-5 text-primary shrink-0 mt-0.5" />
                   <div>
-                    <p className="mb-1 text-xs font-semibold tracking-wider text-gray-600 uppercase dark:text-gray-400">
+                    <p className="mb-1 text-xs font-semibold tracking-wider uppercase text-muted">
                       Phone
                     </p>
                     <a
                       href="tel:7606939833"
-                      className="text-gray-800 transition-colors dark:text-gray-200 hover:text-black dark:hover:text-white"
+                      className="transition-colors text-primary hover:text-strong"
                     >
                       +91 7606939833
                     </a>
@@ -265,14 +261,14 @@ function ContactPage() {
                   whileHover={{ x: 4 }}
                   className="flex items-start gap-3"
                 >
-                  <Mail className="w-5 h-5 text-black dark:text-white shrink-0 mt-0.5" />
+                  <Mail className="w-5 h-5 text-primary shrink-0 mt-0.5" />
                   <div>
-                    <p className="mb-1 text-xs font-semibold tracking-wider text-gray-600 uppercase dark:text-gray-400">
+                    <p className="mb-1 text-xs font-semibold tracking-wider uppercase text-muted">
                       Email
                     </p>
                     <a
                       href="mailto:gyanaprakashkhnadual@gmail.com"
-                      className="text-sm text-gray-800 break-all transition-colors dark:text-gray-200 hover:text-black dark:hover:text-white"
+                      className="text-sm break-all transition-colors text-primary hover:text-strong"
                     >
                       gyanaprakashkhnadual@gmail.com
                     </a>
@@ -281,7 +277,7 @@ function ContactPage() {
               </div>
 
               <div>
-                <p className="mb-4 text-xs font-semibold tracking-wider text-gray-600 uppercase dark:text-gray-400">
+                <p className="mb-4 text-xs font-semibold tracking-wider uppercase text-muted">
                   Connect With Me
                 </p>
                 <div className="space-y-2">
@@ -295,14 +291,14 @@ function ContactPage() {
                         rel="noopener noreferrer"
                         whileHover={{ scale: 1.02, x: 4 }}
                         whileTap={{ scale: 0.98 }}
-                        className="flex items-center gap-3 p-3 text-black transition-all border border-gray-300 rounded-lg dark:border-gray-700 bg-gray-50 dark:bg-gray-800 hover:bg-black dark:hover:bg-white hover:text-white dark:hover:text-black dark:text-white"
+                        className="flex items-center gap-3 p-3 transition-all border rounded-lg text-primary border-primary bg-tertiary hover:bg-inverse hover:text-inverse"
                       >
                         <Icon className="w-5 h-5 shrink-0" />
                         <div className="flex-1 min-w-0">
                           <p className="text-xs font-semibold tracking-wider uppercase">
                             {social.name}
                           </p>
-                          <p className="text-xs text-gray-600 truncate dark:text-gray-400 group-hover:text-gray-300">
+                          <p className="text-xs truncate text-muted">
                             {social.handle}
                           </p>
                         </div>
@@ -317,15 +313,15 @@ function ContactPage() {
           <motion.div variants={itemVariants} className="lg:col-span-2">
             <motion.form
               onSubmit={handleSubmit}
-              className="p-8 bg-white border border-gray-300 rounded-lg shadow-sm dark:border-gray-700 dark:bg-gray-900"
+              className="p-8 border rounded-lg shadow-sm bg-card border-primary"
             >
               <div className="space-y-6">
                 <motion.div variants={itemVariants}>
                   <label
                     htmlFor="name"
-                    className="block mb-2 text-sm font-semibold text-black dark:text-white"
+                    className="block mb-2 text-sm font-semibold text-primary"
                   >
-                    Full Name <span className="text-red-500">*</span>
+                    Full Name <span className="text-strong">*</span>
                   </label>
                   <input
                     type="text"
@@ -334,7 +330,7 @@ function ContactPage() {
                     value={formData.name}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 text-black placeholder-gray-500 transition-all bg-white border border-gray-300 rounded-lg dark:border-gray-700 dark:bg-gray-800 dark:text-white dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-black dark:focus:ring-white"
+                    className="w-full px-4 py-3 border rounded-lg text-primary placeholder-muted bg-card border-primary focus:outline-none focus:ring-2 focus:ring-strong"
                     placeholder="Enter your full name"
                   />
                 </motion.div>
@@ -342,9 +338,9 @@ function ContactPage() {
                 <motion.div variants={itemVariants}>
                   <label
                     htmlFor="email"
-                    className="block mb-2 text-sm font-semibold text-black dark:text-white"
+                    className="block mb-2 text-sm font-semibold text-primary"
                   >
-                    Email Address <span className="text-red-500">*</span>
+                    Email Address <span className="text-strong">*</span>
                   </label>
                   <input
                     type="email"
@@ -353,7 +349,7 @@ function ContactPage() {
                     value={formData.email}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 text-black placeholder-gray-500 transition-all bg-white border border-gray-300 rounded-lg dark:border-gray-700 dark:bg-gray-800 dark:text-white dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-black dark:focus:ring-white"
+                    className="w-full px-4 py-3 border rounded-lg text-primary placeholder-muted bg-card border-primary focus:outline-none focus:ring-2 focus:ring-strong"
                     placeholder="your.email@example.com"
                   />
                 </motion.div>
@@ -361,9 +357,9 @@ function ContactPage() {
                 <motion.div variants={itemVariants}>
                   <label
                     htmlFor="subject"
-                    className="block mb-2 text-sm font-semibold text-black dark:text-white"
+                    className="block mb-2 text-sm font-semibold text-primary"
                   >
-                    Subject <span className="text-red-500">*</span>
+                    Subject <span className="text-strong">*</span>
                   </label>
                   <input
                     type="text"
@@ -372,7 +368,7 @@ function ContactPage() {
                     value={formData.subject}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 text-black placeholder-gray-500 transition-all bg-white border border-gray-300 rounded-lg dark:border-gray-700 dark:bg-gray-800 dark:text-white dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-black dark:focus:ring-white"
+                    className="w-full px-4 py-3 border rounded-lg text-primary placeholder-muted bg-card border-primary focus:outline-none focus:ring-2 focus:ring-strong"
                     placeholder="What's this about?"
                   />
                 </motion.div>
@@ -380,9 +376,9 @@ function ContactPage() {
                 <motion.div variants={itemVariants}>
                   <label
                     htmlFor="message"
-                    className="block mb-2 text-sm font-semibold text-black dark:text-white"
+                    className="block mb-2 text-sm font-semibold text-primary"
                   >
-                    Message <span className="text-red-500">*</span>
+                    Message <span className="text-strong">*</span>
                   </label>
                   <textarea
                     id="message"
@@ -391,7 +387,7 @@ function ContactPage() {
                     onChange={handleChange}
                     required
                     rows="6"
-                    className="w-full px-4 py-3 text-black placeholder-gray-500 transition-all bg-white border border-gray-300 rounded-lg resize-none dark:border-gray-700 dark:bg-gray-800 dark:text-white dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-black dark:focus:ring-white"
+                    className="w-full px-4 py-3 border rounded-lg resize-none text-primary placeholder-muted bg-card border-primary focus:outline-none focus:ring-2 focus:ring-strong"
                     placeholder="Tell me more about your project..."
                   />
                 </motion.div>
@@ -429,7 +425,7 @@ function ContactPage() {
                   disabled={loading}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className="flex items-center justify-center w-full gap-2 px-6 py-3 font-semibold text-white transition-all bg-black rounded-lg dark:bg-white dark:text-black hover:shadow-lg disabled:opacity-70 disabled:cursor-not-allowed"
+                  className="flex items-center justify-center w-full gap-2 px-6 py-3 font-semibold btn-primary disabled:opacity-70 disabled:cursor-not-allowed"
                 >
                   {loading ? (
                     <>
@@ -444,8 +440,8 @@ function ContactPage() {
                   )}
                 </motion.button>
 
-                <p className="text-xs text-center text-gray-600 dark:text-gray-400">
-                  I&apos;ll get back to you as soon as possible.
+                <p className="text-xs text-center text-muted">
+                  I'll get back to you as soon as possible.
                 </p>
               </div>
             </motion.form>

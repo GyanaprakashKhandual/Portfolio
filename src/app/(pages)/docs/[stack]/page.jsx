@@ -17,7 +17,7 @@ function StackPage() {
   };
 
   return (
-    <div className="flex bg-white">
+    <div className="flex bg-primary">
       <SidebarLayout
         isOpen={true}
         header={stack}
@@ -28,7 +28,7 @@ function StackPage() {
 
       <main className="flex-1 p-8">
         {items.length === 0 && (
-          <p className="text-sm text-gray-400">
+          <p className="text-sm text-muted">
             No docs found for &quot;{stack}&quot;
           </p>
         )}

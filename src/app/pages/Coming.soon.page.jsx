@@ -19,7 +19,7 @@ export default function ComingSoon() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen px-4 bg-white dark:bg-black">
+    <div className="flex items-center justify-center min-h-screen px-4 bg-primary">
       <div className="w-full max-w-2xl text-center">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
@@ -33,14 +33,14 @@ export default function ComingSoon() {
             transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
             className="relative inline-block mb-6"
           >
-            <Wrench className="w-16 h-16 text-black sm:w-20 sm:h-20 dark:text-white" />
+            <Wrench className="w-16 h-16 text-primary sm:w-20 sm:h-20" />
           </motion.div>
 
           <motion.h1
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.4, duration: 0.5 }}
-            className="mb-4 text-4xl font-bold text-black sm:text-5xl md:text-6xl dark:text-white"
+            className="mb-4 text-4xl font-bold text-primary sm:text-5xl md:text-6xl"
           >
             Coming Soon
           </motion.h1>
@@ -49,19 +49,19 @@ export default function ComingSoon() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.6, duration: 0.5 }}
-            className="mb-4 text-xl font-semibold text-gray-800 sm:text-2xl md:text-3xl dark:text-gray-200"
+            className="mb-4 text-xl font-semibold text-primary sm:text-2xl md:text-3xl"
           >
-            We&apos;re Working On It
+            We're Working On It
           </motion.h2>
 
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.8, duration: 0.5 }}
-            className="mb-8 text-base text-gray-600 sm:text-lg dark:text-gray-400"
+            className="mb-8 text-base text-muted sm:text-lg"
           >
-            This page is under construction. We&apos;re crafting something
-            amazing for you. Check back soon!
+            This page is under construction. We're crafting something amazing
+            for you. Check back soon!
           </motion.p>
         </motion.div>
 
@@ -75,7 +75,7 @@ export default function ComingSoon() {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={handleGoHome}
-            className="flex items-center justify-center gap-2 px-6 py-3 text-base font-medium text-white transition-colors bg-black rounded-md sm:px-8 dark:bg-white dark:text-black hover:bg-gray-800 dark:hover:bg-gray-200"
+            className="flex items-center justify-center gap-2 px-6 py-3 text-base font-medium btn-primary sm:px-8"
           >
             <Home className="w-5 h-5" />
             <span>Go Home</span>
@@ -85,7 +85,7 @@ export default function ComingSoon() {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={handleGoBack}
-            className="flex items-center justify-center gap-2 px-6 py-3 text-base font-medium text-black transition-colors bg-gray-100 rounded-md sm:px-8 dark:bg-gray-900 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-800"
+            className="flex items-center justify-center gap-2 px-6 py-3 text-base font-medium btn-secondary sm:px-8"
           >
             <ArrowLeft className="w-5 h-5" />
             <span>Go Back</span>
@@ -102,22 +102,20 @@ export default function ComingSoon() {
             <motion.div
               animate={{ scale: [1, 1.2, 1] }}
               transition={{ duration: 1.5, repeat: Infinity }}
-              className="w-2 h-2 bg-black rounded-full dark:bg-white"
+              className="w-2 h-2 rounded-full bg-inverse"
             />
             <motion.div
               animate={{ scale: [1, 1.2, 1] }}
               transition={{ duration: 1.5, repeat: Infinity, delay: 0.2 }}
-              className="w-2 h-2 bg-black rounded-full dark:bg-white"
+              className="w-2 h-2 rounded-full bg-inverse"
             />
             <motion.div
               animate={{ scale: [1, 1.2, 1] }}
               transition={{ duration: 1.5, repeat: Infinity, delay: 0.4 }}
-              className="w-2 h-2 bg-black rounded-full dark:bg-white"
+              className="w-2 h-2 rounded-full bg-inverse"
             />
           </div>
-          <p className="text-sm text-gray-500 dark:text-gray-500">
-            Stay tuned for updates!
-          </p>
+          <p className="text-sm text-muted">Stay tuned for updates!</p>
         </motion.div>
       </div>
     </div>

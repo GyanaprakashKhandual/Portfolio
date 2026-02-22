@@ -25,7 +25,7 @@ export default function AuthModal({ isOpen, onClose }) {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
             onClick={onClose}
-            className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm"
+            className="fixed inset-0 z-50 bg-overlay backdrop-blur-sm"
           />
 
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
@@ -34,7 +34,7 @@ export default function AuthModal({ isOpen, onClose }) {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ duration: 0.3, ease: "easeOut" }}
-              className="relative w-full max-w-md overflow-hidden bg-white shadow-2xl dark:bg-black rounded-2xl"
+              className="relative w-full max-w-md overflow-hidden shadow-2xl bg-card rounded-2xl"
               onClick={(e) => e.stopPropagation()}
             >
               <div className="p-6 sm:p-8">
@@ -44,10 +44,10 @@ export default function AuthModal({ isOpen, onClose }) {
                   transition={{ delay: 0.1, duration: 0.4 }}
                   className="mb-6 text-center"
                 >
-                  <h2 className="mb-2 text-2xl font-bold text-black sm:text-3xl dark:text-white">
+                  <h2 className="mb-2 text-2xl font-bold text-primary sm:text-3xl">
                     Welcome Back
                   </h2>
-                  <p className="text-sm text-gray-600 sm:text-base dark:text-gray-400">
+                  <p className="text-sm text-muted sm:text-base">
                     Sign in to continue to your account
                   </p>
                 </motion.div>
@@ -58,11 +58,9 @@ export default function AuthModal({ isOpen, onClose }) {
                   transition={{ delay: 0.2, duration: 0.4 }}
                   className="flex items-center gap-3 mb-6"
                 >
-                  <div className="flex-1 h-px bg-gray-200 dark:bg-gray-800" />
-                  <span className="text-xs text-gray-500 dark:text-gray-500">
-                    Continue with
-                  </span>
-                  <div className="flex-1 h-px bg-gray-200 dark:bg-gray-800" />
+                  <div className="flex-1 h-px bg-primary" />
+                  <span className="text-xs text-muted">Continue with</span>
+                  <div className="flex-1 h-px bg-primary" />
                 </motion.div>
 
                 <div className="space-y-3">
@@ -73,7 +71,7 @@ export default function AuthModal({ isOpen, onClose }) {
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     onClick={handleGoogleLogin}
-                    className="flex items-center justify-center w-full gap-3 px-6 py-3 text-base font-medium text-black transition-colors bg-white border-2 border-gray-200 rounded-lg dark:bg-gray-900 dark:text-white dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800 hover:border-gray-300 dark:hover:border-gray-700"
+                    className="flex items-center justify-center w-full gap-3 px-6 py-3 text-base font-medium btn-secondary"
                   >
                     <Google />
                     <span>Continue with Google</span>
@@ -86,7 +84,7 @@ export default function AuthModal({ isOpen, onClose }) {
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     onClick={handleGithubLogin}
-                    className="flex items-center justify-center w-full gap-3 px-6 py-3 text-base font-medium text-white transition-colors bg-black border-2 border-black rounded-lg dark:bg-white dark:text-black dark:border-white hover:bg-gray-800 dark:hover:bg-gray-100"
+                    className="flex items-center justify-center w-full gap-3 px-6 py-3 text-base font-medium btn-primary"
                   >
                     <Github className="w-5 h-5" />
                     <span>Continue with GitHub</span>
@@ -99,19 +97,13 @@ export default function AuthModal({ isOpen, onClose }) {
                   transition={{ delay: 0.5, duration: 0.4 }}
                   className="mt-6 text-center"
                 >
-                  <p className="text-xs text-gray-500 dark:text-gray-500">
+                  <p className="text-xs text-muted">
                     By continuing, you agree to our{" "}
-                    <a
-                      href="/terms"
-                      className="hover:text-gray-700 dark:hover:text-gray-300"
-                    >
+                    <a href="/terms" className="hover:text-primary">
                       Terms of Service
                     </a>{" "}
                     and{" "}
-                    <a
-                      href="/privacy"
-                      className="hover:text-gray-700 dark:hover:text-gray-300"
-                    >
+                    <a href="/privacy" className="hover:text-primary">
                       Privacy Policy
                     </a>
                   </p>

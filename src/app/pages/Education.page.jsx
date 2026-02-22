@@ -25,7 +25,7 @@ const educationData = [
     grade: "A++",
     stream: "Science Stream",
     icon: BookOpen,
-    color: "bg-black",
+    color: "bg-inverse", // changed to use your black inverse
   },
   {
     id: 2,
@@ -35,7 +35,7 @@ const educationData = [
     grade: "A++",
     stream: "Computer Science",
     icon: GraduationCap,
-    color: "bg-black",
+    color: "bg-inverse",
   },
   {
     id: 3,
@@ -45,7 +45,7 @@ const educationData = [
     grade: "A++",
     stream: "Quality Assurance & Testing",
     icon: Code,
-    color: "bg-black",
+    color: "bg-inverse",
   },
   {
     id: 4,
@@ -55,7 +55,7 @@ const educationData = [
     grade: "A++",
     stream: "Web Development",
     icon: Code,
-    color: "bg-black",
+    color: "bg-inverse",
   },
   {
     id: 5,
@@ -65,7 +65,7 @@ const educationData = [
     grade: "A++",
     stream: "Cyber Security",
     icon: Shield,
-    color: "bg-black",
+    color: "bg-inverse",
   },
 ];
 
@@ -113,7 +113,7 @@ function EducationPage() {
   };
 
   return (
-    <div className="min-h-screen px-4 py-12 bg-white dark:bg-black sm:px-6 lg:px-8">
+    <div className="min-h-screen px-4 py-12 bg-primary sm:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl">
         {/* Page Header */}
         <motion.div
@@ -123,12 +123,12 @@ function EducationPage() {
           className="mb-12 text-center"
         >
           <div className="flex items-center justify-center gap-3 mb-4">
-            <GraduationCap className="w-12 h-12 text-black dark:text-white" />
-            <h1 className="text-4xl font-bold text-black md:text-5xl dark:text-white">
+            <GraduationCap className="w-12 h-12 text-primary" />
+            <h1 className="text-4xl font-bold text-primary md:text-5xl">
               Education
             </h1>
           </div>
-          <p className="max-w-2xl mx-auto text-lg text-gray-600 dark:text-gray-400">
+          <p className="max-w-2xl mx-auto text-lg text-muted">
             My academic journey and professional certifications
           </p>
         </motion.div>
@@ -151,7 +151,7 @@ function EducationPage() {
                 whileHover={{ y: -8, scale: 1.02 }}
                 className="relative"
               >
-                <div className="overflow-hidden transition-all duration-300 bg-white border-2 border-gray-200 dark:bg-black dark:border-gray-800 rounded-xl hover:shadow-sm">
+                <div className="overflow-hidden transition-all duration-300 border-2 bg-card border-primary rounded-xl hover:shadow-md">
                   {/* Card Header with Color Bar */}
                   <div className={`${edu.color} h-2 w-full`} />
 
@@ -160,28 +160,28 @@ function EducationPage() {
                     {/* Icon and Grade Badge */}
                     <div className="flex items-start justify-between mb-4">
                       <div className={`${edu.color} p-3 rounded-lg`}>
-                        <Icon className="w-6 h-6 text-white" />
+                        <Icon className="w-6 h-6 text-inverse" />
                       </div>
-                      <div className="flex items-center gap-1 px-3 py-1 bg-gray-100 rounded-full dark:bg-gray-900">
-                        <Award className="w-4 h-4 text-yellow-500" />
-                        <span className="text-sm font-bold text-black dark:text-white">
+                      <div className="flex items-center gap-1 px-3 py-1 rounded-full bg-badge">
+                        <Award className="w-4 h-4 text-primary" />
+                        <span className="text-sm font-bold text-primary">
                           {edu.grade}
                         </span>
                       </div>
                     </div>
 
                     {/* Degree Title */}
-                    <h3 className="mb-2 text-xl font-bold leading-tight text-black dark:text-white">
+                    <h3 className="mb-2 text-xl font-bold leading-tight text-primary">
                       {edu.degree}
                     </h3>
 
                     {/* Institution */}
-                    <p className="mb-3 font-medium text-gray-600 dark:text-gray-400">
+                    <p className="mb-3 font-medium text-muted">
                       {edu.institution}
                     </p>
 
                     {/* Duration */}
-                    <div className="flex items-center gap-2 mb-4 text-sm text-gray-500 dark:text-gray-500">
+                    <div className="flex items-center gap-2 mb-4 text-sm text-muted">
                       <Calendar className="w-4 h-4" />
                       <span>{edu.duration}</span>
                     </div>
@@ -196,14 +196,14 @@ function EducationPage() {
                       transition={{ duration: 0.3 }}
                       className="overflow-hidden"
                     >
-                      <div className="pt-4 border-t border-gray-200 dark:border-gray-800">
+                      <div className="pt-4 border-t border-primary">
                         <div className="flex items-center gap-2 mb-2">
-                          <BookOpen className="w-4 h-4 text-gray-600 dark:text-gray-400" />
-                          <span className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                          <BookOpen className="w-4 h-4 text-muted" />
+                          <span className="text-sm font-medium text-muted">
                             Stream:
                           </span>
                         </div>
-                        <p className="text-sm font-medium text-black dark:text-white">
+                        <p className="text-sm font-medium text-primary">
                           {edu.stream}
                         </p>
                       </div>
@@ -212,15 +212,15 @@ function EducationPage() {
                     {/* Expand/Collapse Button */}
                     <button
                       onClick={() => toggleCard(edu.id)}
-                      className="flex items-center justify-center w-full gap-2 px-4 py-2 mt-4 transition-all duration-200 bg-gray-100 rounded-lg dark:bg-gray-900 hover:bg-gray-200 dark:hover:bg-gray-800"
+                      className="flex items-center justify-center w-full gap-2 px-4 py-2 mt-4 transition-all duration-200 btn-secondary"
                     >
-                      <span className="text-sm font-medium text-black dark:text-white">
+                      <span className="text-sm font-medium text-primary">
                         {isExpanded ? "Show Less" : "Show More"}
                       </span>
                       {isExpanded ? (
-                        <ChevronUp className="w-4 h-4 text-black dark:text-white" />
+                        <ChevronUp className="w-4 h-4 text-primary" />
                       ) : (
-                        <ChevronDown className="w-4 h-4 text-black dark:text-white" />
+                        <ChevronDown className="w-4 h-4 text-primary" />
                       )}
                     </button>
                   </div>
@@ -237,11 +237,11 @@ function EducationPage() {
           transition={{ delay: 0.6, duration: 0.6 }}
           className="mt-16 text-center"
         >
-          <div className="p-8 border border-gray-300 bg-linear-to-r from-gray-100 to-gray-200 dark:from-gray-900 dark:to-gray-800 rounded-xl dark:border-gray-700">
-            <h2 className="mb-4 text-2xl font-bold text-black dark:text-white">
+          <div className="p-8 border border-primary bg-tertiary rounded-xl">
+            <h2 className="mb-4 text-2xl font-bold text-primary">
               Educational Excellence
             </h2>
-            <p className="max-w-3xl mx-auto text-gray-600 dark:text-gray-400">
+            <p className="max-w-3xl mx-auto text-muted">
               Consistently maintained A++ grade across all academic
               qualifications and professional certifications, demonstrating
               dedication to continuous learning and excellence in technology

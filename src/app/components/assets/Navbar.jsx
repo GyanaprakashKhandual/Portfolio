@@ -10,7 +10,6 @@ import { GitHub } from "@mui/icons-material";
 import { Tooltip } from "../ui/Tooltip.ui";
 import AuthModal from "../window/Auth.modal";
 
-
 export default function Navbar() {
   const router = useRouter();
   const pathname = usePathname();
@@ -54,8 +53,8 @@ export default function Navbar() {
       <motion.nav
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           scrolled
-            ? "bg-white dark:bg-black/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-800"
-            : "bg-white dark:bg-black/60 backdrop-blur-sm"
+            ? "bg-primary backdrop-blur-md border-b border-primary"
+            : "bg-primary backdrop-blur-sm"
         }`}
       >
         <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
@@ -66,9 +65,9 @@ export default function Navbar() {
               className="flex items-center gap-2 cursor-pointer"
               onClick={() => handleNavigation("/")}
             >
-              <FaCoffee className="w-6 h-6 text-black sm:w-7 sm:h-7 dark:text-white" />
-              <span className="ml-2 text-xl font-bold text-black sm:text-2xl dark:text-white">
-                Gyan&#39;s
+              <FaCoffee className="w-6 h-6 text-primary sm:w-7 sm:h-7" />
+              <span className="ml-2 text-xl font-bold text-primary sm:text-2xl">
+                Gyan's
               </span>
             </motion.div>
 
@@ -84,8 +83,8 @@ export default function Navbar() {
                   onClick={() => handleNavigation(link.path)}
                   className={`px-4 py-2 text-sm font-medium transition-colors rounded-md ${
                     isActive(link.path)
-                      ? "text-black dark:text-white bg-gray-200 dark:bg-gray-800"
-                      : "text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-900"
+                      ? "text-primary bg-tertiary font-medium"
+                      : "text-secondary hover:text-primary hover:bg-tertiary"
                   }`}
                 >
                   {link.name}
@@ -103,7 +102,7 @@ export default function Navbar() {
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
                   onClick={toggleTheme}
-                  className="p-2 transition-colors bg-gray-100 rounded-md dark:bg-gray-900 hover:bg-gray-200 dark:hover:bg-gray-800"
+                  className="p-2 transition-colors rounded-md bg-tertiary hover:bg-badge"
                   aria-label="Toggle theme"
                 >
                   <AnimatePresence mode="wait">
@@ -115,7 +114,7 @@ export default function Navbar() {
                         exit={{ rotate: 90, opacity: 0 }}
                         transition={{ duration: 0.2 }}
                       >
-                        <Sun className="w-4 h-4 text-black sm:w-5 sm:h-5 dark:text-white" />
+                        <Sun className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
                       </motion.div>
                     ) : (
                       <motion.div
@@ -125,49 +124,53 @@ export default function Navbar() {
                         exit={{ rotate: -90, opacity: 0 }}
                         transition={{ duration: 0.2 }}
                       >
-                        <Moon className="w-4 h-4 text-black sm:w-5 sm:h-5 dark:text-white" />
+                        <Moon className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
                       </motion.div>
                     )}
                   </AnimatePresence>
                 </motion.button>
               </Tooltip>
+
               <Tooltip content="Music">
                 <motion.button
                   onClick={() => router.push("/music")}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="items-center hidden gap-2 p-2 transition-colors bg-gray-100 rounded-md sm:flex sm:px-4 sm:py-2 dark:bg-gray-900 hover:bg-gray-200 dark:hover:bg-gray-800"
+                  className="items-center hidden gap-2 p-2 transition-colors rounded-md bg-tertiary sm:flex sm:px-4 sm:py-2 hover:bg-badge"
                 >
-                  <Music className="w-4 h-4 sm:w-5 sm:h-5" />
+                  <Music className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
                 </motion.button>
               </Tooltip>
+
               <Tooltip content="Vlogs">
                 <motion.button
                   onClick={() => router.push("/vlogs")}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="items-center hidden gap-2 p-2 transition-colors bg-gray-100 rounded-md sm:flex sm:px-4 sm:py-2 dark:bg-gray-900 hover:bg-gray-200 dark:hover:bg-gray-800"
+                  className="items-center hidden gap-2 p-2 transition-colors rounded-md bg-tertiary sm:flex sm:px-4 sm:py-2 hover:bg-badge"
                 >
-                  <Video className="w-4 h-4 sm:w-5 sm:h-5" />
+                  <Video className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
                 </motion.button>
               </Tooltip>
+
               <Tooltip content="Github">
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="items-center hidden gap-2 p-2 transition-colors bg-gray-100 rounded-md md:flex sm:px-4 sm:py-2 dark:bg-gray-900 hover:bg-gray-200 dark:hover:bg-gray-800"
+                  className="items-center hidden gap-2 p-2 transition-colors rounded-md bg-tertiary md:flex sm:px-4 sm:py-2 hover:bg-badge"
                 >
-                  <GitHub className="w-4 h-4 sm:w-5 sm:h-5" />
+                  <GitHub className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
                 </motion.button>
               </Tooltip>
+
               <Tooltip content="Please Login">
                 <motion.button
                   onClick={() => setIsAuthModalOpen(true)}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="flex items-center gap-2 p-2 transition-colors bg-gray-100 rounded-md sm:px-4 sm:py-2 dark:bg-gray-900 hover:bg-gray-200 dark:hover:bg-gray-800"
+                  className="flex items-center gap-2 p-2 transition-colors rounded-md bg-tertiary sm:px-4 sm:py-2 hover:bg-badge"
                 >
-                  <User className="w-4 h-4 sm:w-5 sm:h-5" />
+                  <User className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
                 </motion.button>
               </Tooltip>
 
@@ -175,13 +178,13 @@ export default function Navbar() {
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
                 onClick={toggleMobileMenu}
-                className="p-2 transition-colors bg-gray-100 rounded-md lg:hidden dark:bg-gray-900 hover:bg-gray-200 dark:hover:bg-gray-800"
+                className="p-2 transition-colors rounded-md bg-tertiary lg:hidden hover:bg-badge"
                 aria-label="Toggle menu"
               >
                 {isMobileMenuOpen ? (
-                  <X className="w-5 h-5 text-black dark:text-white" />
+                  <X className="w-5 h-5 text-primary" />
                 ) : (
-                  <Menu className="w-5 h-5 text-black dark:text-white" />
+                  <Menu className="w-5 h-5 text-primary" />
                 )}
               </motion.button>
             </div>
@@ -197,7 +200,7 @@ export default function Navbar() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
-              className="fixed inset-0 z-40 bg-black/50 dark:bg-white/10 backdrop-blur-sm lg:hidden"
+              className="fixed inset-0 z-40 bg-overlay lg:hidden"
               onClick={toggleMobileMenu}
             />
 
@@ -206,22 +209,20 @@ export default function Navbar() {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", damping: 25, stiffness: 200 }}
-              className="fixed top-0 bottom-0 right-0 z-50 w-full bg-white border-l border-gray-200 sm:w-80 dark:bg-black dark:border-gray-800 lg:hidden"
+              className="fixed top-0 bottom-0 right-0 z-50 w-full border-l bg-primary border-primary sm:w-80 lg:hidden"
             >
-              <div className="flex items-center justify-between p-4 border-b border-gray-200 sm:p-6 dark:border-gray-800">
+              <div className="flex items-center justify-between p-4 border-b border-primary sm:p-6">
                 <div className="flex items-center gap-2">
-                  <Coffee className="w-6 h-6 text-black dark:text-white" />
-                  <span className="text-xl font-bold text-black dark:text-white">
-                    Gyan&apos;s
-                  </span>
+                  <Coffee className="w-6 h-6 text-primary" />
+                  <span className="text-xl font-bold text-primary">Gyan's</span>
                 </div>
                 <motion.button
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
                   onClick={toggleMobileMenu}
-                  className="p-2 transition-colors rounded-md hover:bg-gray-100 dark:hover:bg-gray-900"
+                  className="p-2 transition-colors rounded-md hover:bg-tertiary"
                 >
-                  <X className="w-5 h-5 text-black dark:text-white" />
+                  <X className="w-5 h-5 text-primary" />
                 </motion.button>
               </div>
 
@@ -236,75 +237,69 @@ export default function Navbar() {
                     onClick={() => handleNavigation(link.path)}
                     className={`w-full px-4 py-3 text-base font-medium text-left transition-colors rounded-md ${
                       isActive(link.path)
-                        ? "text-black dark:text-white bg-gray-200 dark:bg-gray-800"
-                        : "text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-900"
+                        ? "text-primary bg-tertiary font-medium"
+                        : "text-secondary hover:text-primary hover:bg-tertiary"
                     }`}
                   >
                     {link.name}
                   </motion.button>
                 ))}
 
-                <div className="pt-4 space-y-2 border-t border-gray-200 dark:border-gray-800 sm:hidden">
+                <div className="pt-4 space-y-2 border-t border-primary sm:hidden">
                   <motion.button
                     whileHover={{ x: 5 }}
                     onClick={() => handleNavigation("/music")}
-                    className="flex items-center w-full gap-3 px-4 py-3 text-base font-medium text-left text-gray-700 transition-colors rounded-md dark:text-gray-300 hover:text-black dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-900"
+                    className="flex items-center w-full gap-3 px-4 py-3 text-base font-medium text-left transition-colors rounded-md text-secondary hover:text-primary hover:bg-tertiary"
                   >
-                    <Music className="w-5 h-5" />
+                    <Music className="w-5 h-5 text-primary" />
                     Music
                   </motion.button>
                   <motion.button
                     whileHover={{ x: 5 }}
                     onClick={() => handleNavigation("/vlogs")}
-                    className="flex items-center w-full gap-3 px-4 py-3 text-base font-medium text-left text-gray-700 transition-colors rounded-md dark:text-gray-300 hover:text-black dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-900"
+                    className="flex items-center w-full gap-3 px-4 py-3 text-base font-medium text-left transition-colors rounded-md text-secondary hover:text-primary hover:bg-tertiary"
                   >
-                    <Video className="w-5 h-5" />
+                    <Video className="w-5 h-5 text-primary" />
                     Vlogs
                   </motion.button>
                   <motion.button
                     whileHover={{ x: 5 }}
-                    className="flex items-center w-full gap-3 px-4 py-3 text-base font-medium text-left text-gray-700 transition-colors rounded-md dark:text-gray-300 hover:text-black dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-900"
+                    className="flex items-center w-full gap-3 px-4 py-3 text-base font-medium text-left transition-colors rounded-md text-secondary hover:text-primary hover:bg-tertiary"
                   >
-                    <GitHub className="w-5 h-5" />
+                    <GitHub className="w-5 h-5 text-primary" />
                     GitHub
                   </motion.button>
                 </div>
               </div>
 
-              <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-200 sm:p-6 dark:border-gray-800">
+              <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-primary sm:p-6">
                 <div className="flex items-center justify-between">
-                  <span className="text-sm text-gray-600 dark:text-gray-400">
-                    Theme
-                  </span>
+                  <span className="text-sm text-muted">Theme</span>
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={toggleTheme}
-                    className="flex items-center gap-2 px-4 py-2 transition-colors bg-gray-100 rounded-md dark:bg-gray-900 hover:bg-gray-200 dark:hover:bg-gray-800"
+                    className="flex items-center gap-2 px-4 py-2 transition-colors rounded-md bg-tertiary hover:bg-badge"
                   >
                     {theme === "dark" ? (
                       <>
                         <Tooltip content="Switch to Light">
-                          <Sun className="w-4 h-4 cursor-pointer" />
+                          <Sun className="w-4 h-4 cursor-pointer text-primary" />
                         </Tooltip>
-                        <span className="text-sm font-medium">Light</span>
+                        <span className="text-sm font-medium text-primary">
+                          Light
+                        </span>
                       </>
                     ) : (
                       <>
                         <Tooltip content="Switch to Dark">
-                          <Moon className="w-4 h-4 cursor-pointer" />
+                          <Moon className="w-4 h-4 cursor-pointer text-primary" />
                         </Tooltip>
-                        <span className="text-sm font-medium">Dark</span>
+                        <span className="text-sm font-medium text-primary">
+                          Dark
+                        </span>
                       </>
                     )}
-                  </motion.button>
-                  <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    onClick={toggleTheme}
-                    className="flex items-center gap-2 px-4 py-2 transition-colors bg-gray-100 rounded-md dark:bg-gray-900 hover:bg-gray-200 dark:hover:bg-gray-800"
-                  >
-                    <Music className="w-4 h-4" />
                   </motion.button>
                 </div>
               </div>

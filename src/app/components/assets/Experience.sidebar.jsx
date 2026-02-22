@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { ChevronRight, ChevronLeft, Search, Filter, X } from "lucide-react";
+import { Filter, Search, X, ChevronLeft, ChevronRight } from "lucide-react";
 import { useRouter, usePathname } from "next/navigation";
 import { Briefcase } from "lucide-react";
 
@@ -62,37 +62,37 @@ export default function ExperienceSidebar() {
   return (
     <div className="flex sidebar-scrollbar">
       <div
-        className={`fixed lg:sticky left-0 top-0 h-screen bg-white dark:bg-slate-950 border-r border-gray-200 dark:border-gray-900 transition-all duration-300 ease-in-out z-40 ${
+        className={`fixed lg:sticky left-0 top-0 h-screen bg-primary border-r border-primary transition-all duration-300 ease-in-out z-40 ${
           isOpen ? "w-64 sm:w-72" : "w-0"
         } overflow-hidden`}
       >
         <div className="flex flex-col h-full">
-          <div className="p-3 space-y-2 border-b border-gray-200 sm:p-4 dark:border-slate-800 sm:space-y-3">
+          <div className="p-3 space-y-2 border-b border-primary sm:p-4 sm:space-y-3">
             <div className="flex items-center justify-between">
-              <span className="text-sm font-bold text-gray-900 sm:text-base dark:text-white">
+              <span className="text-sm font-bold text-primary sm:text-base">
                 Experience
               </span>
               <button
                 onClick={toggleSidebar}
-                className="p-1.5 transition-colors rounded-lg shrink-0 hover:bg-gray-100 dark:hover:bg-slate-800 lg:hidden"
+                className="p-1.5 transition-colors rounded-lg shrink-0 hover:bg-tertiary lg:hidden"
               >
-                <ChevronLeft className="w-4 h-4 text-gray-600 dark:text-slate-300" />
+                <ChevronLeft className="w-4 h-4 text-muted sm:w-5 sm:h-5" />
               </button>
             </div>
 
             <div className="relative">
-              <Search className="absolute w-3.5 h-3.5 text-gray-400 transform -translate-y-1/2 left-3 top-1/2 dark:text-slate-500 pointer-events-none" />
+              <Search className="absolute w-3.5 h-3.5 text-muted transform -translate-y-1/2 left-3 top-1/2 pointer-events-none" />
               <input
                 type="text"
                 placeholder="Search experience..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full py-2 pl-8 pr-8 text-xs text-gray-900 placeholder-gray-500 bg-gray-100 border border-gray-300 rounded-lg sm:text-sm dark:border-slate-700 focus:outline-none focus:ring-1 focus:ring-gray-800 dark:focus:ring-blue-400 dark:bg-slate-900 dark:text-white dark:placeholder-slate-400"
+                className="w-full py-2 pl-8 pr-8 text-xs transition-colors border rounded-lg text-primary placeholder-muted bg-tertiary border-primary sm:text-sm focus:outline-none focus:ring-2 focus:ring-strong"
               />
               {searchTerm && (
                 <button
                   onClick={() => setSearchTerm("")}
-                  className="absolute right-2.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-slate-300"
+                  className="absolute right-2.5 top-1/2 -translate-y-1/2 text-muted hover:text-primary"
                 >
                   <X className="w-3.5 h-3.5" />
                 </button>
@@ -102,19 +102,19 @@ export default function ExperienceSidebar() {
             <div className="relative">
               <button
                 onClick={() => setShowCategoryDropdown(!showCategoryDropdown)}
-                className="flex items-center justify-between w-full px-3 py-2 transition-colors bg-gray-100 border border-gray-300 rounded-lg dark:bg-slate-900 dark:border-slate-700 hover:bg-gray-200 dark:hover:bg-slate-800"
+                className="flex items-center justify-between w-full px-3 py-2 transition-colors border rounded-lg bg-tertiary border-primary hover:bg-badge"
               >
                 <div className="flex items-center gap-2">
-                  <Filter className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-600 dark:text-slate-300" />
-                  <span className="text-xs font-medium text-gray-900 truncate sm:text-sm dark:text-white">
+                  <Filter className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-muted" />
+                  <span className="text-xs font-medium truncate text-primary sm:text-sm">
                     {selectedCategory}
                   </span>
                 </div>
-                <ChevronDown className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-600 dark:text-slate-300 shrink-0" />
+                <ChevronDown className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-muted shrink-0" />
               </button>
 
               {showCategoryDropdown && (
-                <div className="absolute left-0 right-0 z-50 mt-1 overflow-hidden bg-white border border-gray-300 rounded-lg shadow-lg top-full dark:bg-slate-900 dark:border-slate-700">
+                <div className="absolute left-0 right-0 z-50 mt-1 overflow-hidden border rounded-lg shadow-lg bg-card border-primary top-full">
                   {categories.map((category) => (
                     <button
                       key={category}
@@ -124,8 +124,8 @@ export default function ExperienceSidebar() {
                       }}
                       className={`w-full text-left px-4 py-2 text-xs sm:text-sm font-medium transition-colors ${
                         selectedCategory === category
-                          ? "bg-black dark:bg-white text-white dark:text-black"
-                          : "text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-slate-800"
+                          ? "bg-inverse text-inverse"
+                          : "text-primary hover:bg-tertiary"
                       }`}
                     >
                       {category}
@@ -148,33 +148,29 @@ export default function ExperienceSidebar() {
                         onClick={() => handleCardClick(exp.id)}
                         className={`w-full text-left p-2.5 sm:p-3 rounded-lg transition-colors duration-200 group ${
                           isActive
-                            ? "bg-black dark:bg-white text-white dark:text-black"
-                            : "hover:bg-gray-100 dark:hover:bg-slate-800"
+                            ? "bg-inverse text-inverse"
+                            : "hover:bg-tertiary"
                         }`}
                       >
                         <div className="flex items-start gap-2.5 sm:gap-3 mb-1.5 sm:mb-2">
                           <Icon
                             className={`w-3.5 h-3.5 sm:w-4 sm:h-4 mt-0.5 shrink-0 ${
-                              isActive
-                                ? "text-white dark:text-black"
-                                : "text-gray-600 dark:text-slate-400"
+                              isActive ? "text-inverse" : "text-muted"
                             }`}
                           />
                           <div className="flex-1 min-w-0">
                             <h3
                               className={`font-semibold text-xs sm:text-sm transition-colors ${
                                 isActive
-                                  ? "text-white dark:text-black"
-                                  : "text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400"
+                                  ? "text-inverse"
+                                  : "text-primary group-hover:text-strong"
                               }`}
                             >
                               {exp.title}
                             </h3>
                             <p
                               className={`text-xs mt-0.5 truncate ${
-                                isActive
-                                  ? "text-gray-300 dark:text-gray-700"
-                                  : "text-gray-600 dark:text-slate-400"
+                                isActive ? "text-muted" : "text-muted"
                               }`}
                             >
                               {exp.company}
@@ -183,9 +179,7 @@ export default function ExperienceSidebar() {
                         </div>
                         <p
                           className={`text-xs line-clamp-2 ml-6 sm:ml-7 ${
-                            isActive
-                              ? "text-gray-300 dark:text-gray-700"
-                              : "text-gray-500 dark:text-slate-400"
+                            isActive ? "text-muted" : "text-muted"
                           }`}
                         >
                           {exp.excerpt}
@@ -193,20 +187,20 @@ export default function ExperienceSidebar() {
                         <span
                           className={`inline-block mt-1.5 sm:mt-2 ml-6 sm:ml-7 text-xs font-medium px-2 py-0.5 rounded ${
                             isActive
-                              ? "bg-white dark:bg-black text-black dark:text-white"
-                              : "bg-gray-100 dark:bg-slate-800 text-gray-700 dark:text-slate-300"
+                              ? "bg-primary text-inverse"
+                              : "bg-badge text-primary"
                           }`}
                         >
                           {exp.category}
                         </span>
                       </button>
-                      <hr className="mt-2 border-gray-200 sm:mt-3 dark:border-slate-800" />
+                      <hr className="mt-2 border-primary sm:mt-3" />
                     </div>
                   );
                 })
               ) : (
                 <div className="py-8 text-center">
-                  <p className="text-xs text-gray-500 sm:text-sm dark:text-slate-400">
+                  <p className="text-xs text-muted sm:text-sm">
                     No experience found
                   </p>
                 </div>
@@ -218,20 +212,20 @@ export default function ExperienceSidebar() {
 
       <button
         onClick={toggleSidebar}
-        className={`fixed left-0 z-50 p-1.5 sm:p-2 transition-all bg-white border border-gray-200 rounded-r-lg top-16 sm:top-20 dark:bg-slate-950 dark:border-slate-800 hover:bg-gray-50 dark:hover:bg-slate-900 ${
+        className={`fixed left-0 z-50 p-1.5 sm:p-2 transition-all bg-primary border border-primary rounded-r-lg top-16 sm:top-20 hover:bg-tertiary ${
           isOpen ? "translate-x-64 sm:translate-x-72" : "translate-x-0"
         }`}
       >
         {isOpen ? (
-          <ChevronLeft className="w-4 h-4 text-gray-600 sm:w-5 sm:h-5 dark:text-slate-300" />
+          <ChevronLeft className="w-4 h-4 text-muted sm:w-5 sm:h-5" />
         ) : (
-          <ChevronRight className="w-4 h-4 text-gray-600 sm:w-5 sm:h-5 dark:text-slate-300" />
+          <ChevronRight className="w-4 h-4 text-muted sm:w-5 sm:h-5" />
         )}
       </button>
 
       {isOpen && (
         <div
-          className="fixed inset-0 z-30 bg-black bg-opacity-50 dark:bg-opacity-70 lg:hidden"
+          className="fixed inset-0 z-30 bg-overlay lg:hidden"
           onClick={() => setIsOpen(false)}
         />
       )}

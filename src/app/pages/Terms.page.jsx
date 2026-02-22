@@ -21,7 +21,7 @@ export default function TermsAndConditions() {
       title: "1. Acceptance of Terms",
       icon: Scale,
       content: (
-        <div className="space-y-4 text-gray-700 dark:text-gray-300">
+        <div className="space-y-4 text-secondary">
           <p>
             These Terms and Conditions (&quot;Terms&quot;) constitute a legally
             binding agreement between you (&quot;you&quot;, &quot;user&quot;)
@@ -41,7 +41,7 @@ export default function TermsAndConditions() {
       title: "2. Use of the Site",
       icon: FileText,
       content: (
-        <div className="space-y-4 text-gray-700 dark:text-gray-300">
+        <div className="space-y-4 text-secondary">
           <p>
             You agree to use the Site only for lawful purposes and in accordance
             with these Terms. You must not:
@@ -69,7 +69,7 @@ export default function TermsAndConditions() {
       title: "3. Intellectual Property",
       icon: Shield,
       content: (
-        <div className="space-y-4 text-gray-700 dark:text-gray-300">
+        <div className="space-y-4 text-secondary">
           <p>
             All content on the Site, including text, graphics, logos, images,
             code, projects, and documentation (&quot;Content&quot;), is owned by
@@ -88,7 +88,7 @@ export default function TermsAndConditions() {
       title: "4. User Content & Conduct",
       icon: Users,
       content: (
-        <div className="space-y-4 text-gray-700 dark:text-gray-300">
+        <div className="space-y-4 text-secondary">
           <p>
             If you submit any content (e.g., through contact forms or messages),
             you grant us a non-exclusive, royalty-free, perpetual, irrevocable
@@ -107,7 +107,7 @@ export default function TermsAndConditions() {
       title: "5. Third-Party Links & Services",
       icon: ExternalLink,
       content: (
-        <div className="space-y-4 text-gray-700 dark:text-gray-300">
+        <div className="space-y-4 text-secondary">
           <p>
             The Site may contain links to third-party websites or services
             (e.g., GitHub, LinkedIn, project demos). We do not endorse or
@@ -125,7 +125,7 @@ export default function TermsAndConditions() {
       title: "6. Disclaimer of Warranties",
       icon: AlertTriangle,
       content: (
-        <div className="space-y-4 text-gray-700 dark:text-gray-300">
+        <div className="space-y-4 text-secondary">
           <p>
             The Site and all Content are provided &quot;as is&quot; and &quot;as
             available&quot; without warranties of any kind, express or implied,
@@ -143,7 +143,7 @@ export default function TermsAndConditions() {
       title: "7. Limitation of Liability",
       icon: AlertTriangle,
       content: (
-        <div className="space-y-4 text-gray-700 dark:text-gray-300">
+        <div className="space-y-4 text-secondary">
           <p>
             To the fullest extent permitted by law, we shall not be liable for
             any indirect, incidental, special, consequential, or punitive
@@ -158,7 +158,7 @@ export default function TermsAndConditions() {
       title: "8. Changes to Terms",
       icon: Clock,
       content: (
-        <div className="space-y-4 text-gray-700 dark:text-gray-300">
+        <div className="space-y-4 text-secondary">
           <p>
             We may update these Terms at any time. Changes will be posted on
             this page with an updated &quot;Last updated&quot; date. Your
@@ -173,7 +173,7 @@ export default function TermsAndConditions() {
       title: "9. Governing Law & Dispute Resolution",
       icon: Scale,
       content: (
-        <div className="space-y-4 text-gray-700 dark:text-gray-300">
+        <div className="space-y-4 text-secondary">
           <p>
             These Terms shall be governed by the laws of India, without regard
             to conflict of law principles. Any disputes arising from these Terms
@@ -186,7 +186,7 @@ export default function TermsAndConditions() {
     {
       title: "10. Contact Us",
       content: (
-        <div className="space-y-4 text-gray-700 dark:text-gray-300">
+        <div className="space-y-4 text-secondary">
           <p>
             If you have any questions about these Terms, please contact us at:
           </p>
@@ -194,7 +194,7 @@ export default function TermsAndConditions() {
             Email:{" "}
             <a
               href="mailto:gyanaprakashkhnadual@gmail.com"
-              className="hover:text-blue-600 dark:hover:text-white"
+              className="hover:text-primary"
             >
               gyanaprakashkhnadual@gmail.com
             </a>
@@ -205,7 +205,7 @@ export default function TermsAndConditions() {
   ];
 
   return (
-    <div className="min-h-screen text-black bg-white dark:bg-black dark:text-white">
+    <div className="min-h-screen text-primary bg-primary">
       {/* Header / Back */}
       <section className="px-4 pt-12 pb-8 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
@@ -214,7 +214,7 @@ export default function TermsAndConditions() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
             onClick={() => router.back()}
-            className="flex items-center gap-2 mb-8 text-gray-600 group hover:text-black dark:text-gray-400 dark:hover:text-white"
+            className="flex items-center gap-2 mb-8 text-muted group hover:text-primary"
           >
             <ArrowLeft className="w-5 h-5 transition-transform group-hover:-translate-x-1" />
             Back to Home
@@ -226,13 +226,13 @@ export default function TermsAndConditions() {
             transition={{ duration: 0.6 }}
             className="mb-16 text-center"
           >
-            <div className="inline-flex items-center justify-center w-16 h-16 mb-6 rounded-full bg-black/5 dark:bg-white/5">
-              <Scale className="w-8 h-8" />
+            <div className="inline-flex items-center justify-center w-16 h-16 mb-6 rounded-full bg-overlay">
+              <Scale className="w-8 h-8 text-primary" />
             </div>
-            <h1 className="mb-4 text-4xl font-bold sm:text-5xl">
+            <h1 className="mb-4 text-4xl font-bold sm:text-5xl text-primary">
               Terms and Conditions
             </h1>
-            <p className="text-lg text-gray-600 dark:text-gray-400">
+            <p className="text-lg text-muted">
               Governing your use of this website
             </p>
           </motion.div>
@@ -250,15 +250,15 @@ export default function TermsAndConditions() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-80px" }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="p-8 border border-gray-200 shadow-sm bg-gray-50 dark:bg-gray-950 dark:border-gray-800 rounded-xl"
+                className="p-8 shadow-sm border-primary bg-tertiary rounded-xl"
               >
                 <div className="flex items-center gap-4 mb-6">
                   {section.icon && (
-                    <div className="flex items-center justify-center w-12 h-12 rounded-lg bg-black/5 dark:bg-white/5">
-                      <section.icon className="w-6 h-6" />
+                    <div className="flex items-center justify-center w-12 h-12 rounded-lg bg-overlay">
+                      <section.icon className="w-6 h-6 text-primary" />
                     </div>
                   )}
-                  <h2 className="text-2xl font-bold">{section.title}</h2>
+                  <h2 className="text-2xl font-bold text-primary">{section.title}</h2>
                 </div>
 
                 {section.content}
@@ -272,7 +272,7 @@ export default function TermsAndConditions() {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.6 }}
-            className="mt-16 text-sm text-center text-gray-500 dark:text-gray-500"
+            className="mt-16 text-sm text-center text-muted"
           >
             <p>© 2026 Gyana Prakash Khandual. All rights reserved.</p>
           </motion.div>
