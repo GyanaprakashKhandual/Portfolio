@@ -2,6 +2,9 @@
 import { Geist, Geist_Mono } from 'next/font/google';
 import Providers from './components/assets/Provider';
 import './globals.css';
+import './css/Theme.css';
+import './css/Scrollbar.css';
+import './css/Util.css'
 
 import NextTopLoader from 'nextjs-toploader';
 

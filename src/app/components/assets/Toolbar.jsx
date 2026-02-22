@@ -66,11 +66,11 @@ const THEME_ICON_MAP = {
   Gem,
   Sword,
      Snowflake,
-    //  Crown,
-    //  Waves,
-    //  Heart,
-    //  Wrench,
-    //  Flower,
+  Crown,
+  Waves,
+   Heart,
+   Wrench,
+   Flower,
   // Trees, Flower2, etc. — add as you import them above
 };
 

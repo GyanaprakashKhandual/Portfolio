@@ -1,0 +1,74 @@
+.bg-primary {
+  background-color: var(--bg-primary);
+}
+.bg-secondary {
+  background-color: var(--bg-secondary);
+}
+.bg-tertiary {
+  background-color: var(--bg-tertiary);
+}
+.bg-inverse {
+  background-color: var(--bg-inverse);
+}
+.bg-card {
+  background-color: var(--bg-card);
+}
+.bg-badge {
+  background-color: var(--bg-badge);
+}
+.bg-avatar {
+  background-color: var(--bg-avatar);
+}
+
+.text-primary {
+  color: var(--text-primary);
+}
+.text-secondary {
+  color: var(--text-secondary);
+}
+.text-muted {
+  color: var(--text-muted);
+}
+.text-placeholder {
+  color: var(--text-placeholder);
+}
+.text-inverse {
+  color: var(--text-inverse);
+}
+.text-inverse-muted {
+  color: var(--text-inverse-muted);
+}
+
+.border-primary {
+  border-color: var(--border-primary);
+}
+.border-strong {
+  border-color: var(--border-strong);
+}
+.border-inverse {
+  border-color: var(--border-inverse);
+}
+
+.btn-primary {
+  background-color: var(--btn-primary-bg);
+  color: var(--btn-primary-text);
+  border-radius: var(--border-radius-sm);
+  transition: opacity var(--transition-base);
+}
+.btn-primary:hover {
+  opacity: var(--btn-primary-hover-opacity);
+}
+
+.btn-secondary {
+  background-color: var(--btn-secondary-bg);
+  color: var(--btn-secondary-text);
+  border: 1px solid var(--btn-secondary-border);
+  border-radius: var(--border-radius-sm);
+  transition:
+    background-color var(--transition-base),
+    color var(--transition-base);
+}
+.btn-secondary:hover {
+  background-color: var(--btn-secondary-hover-bg);
+  color: var(--btn-secondary-hover-text);
+}
