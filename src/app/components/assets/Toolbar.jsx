@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useState, useRef, useEffect, Suspense } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
@@ -33,6 +34,17 @@ import {
   PinOff,
   Edit,
   Check,
+  Layers, // ← Slate icon (new import only)
+  Flame,
+  Trees,
+  Gem,
+  Snowflake,
+  Crown,
+  Waves,
+  Heart,
+  Wrench,
+  Flower,
+  Sword,
 } from "lucide-react";
 import { Tooltip } from "../ui/Tooltip.ui";
 import TechStackModal from "../window/Tech.stack.modal";
@@ -41,6 +53,26 @@ import { useSelector } from "react-redux";
 import { selectActiveSlug } from "@/app/lib/feature/tab/tab.slice";
 import { useMdContent } from "@/app/context/Markdown.context";
 import { FaCoffee } from "react-icons/fa";
+
+// ─── Theme icon resolver ───────────────────────────────────────────────────────
+// Maps the icon string from THEMES registry → actual Lucide component.
+// Add new entries here whenever you add a new theme to the registry.
+const THEME_ICON_MAP = {
+  Sun,
+  Moon,
+  Layers,
+  Flame,
+  Trees,
+  Gem,
+  Sword,
+     Snowflake,
+    //  Crown,
+    //  Waves,
+    //  Heart,
+    //  Wrench,
+    //  Flower,
+  // Trees, Flower2, etc. — add as you import them above
+};
 
 const dropdownItems = [
   { label: "Hide Toolbar", key: "toolbar" },
@@ -69,7 +101,7 @@ const Toolbar = ({
   onToggleOutlineSidebar = () => {},
   onStickyChange = () => {},
 }) => {
-  const { theme, toggleTheme, mounted } = useTheme();
+  const { theme, toggleTheme, setThemeById, themes, mounted } = useTheme();
   const [activeTab, setActiveTab] = useState(defaultTab);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [settingsOpen, setSettingsOpen] = useState(false);
@@ -344,6 +376,40 @@ const Toolbar = ({
                       </span>
                     </button>
                   ))}
+
+                  {/* ── Theme Picker ── added below Sticky, no existing line touched ── */}
+                  {mounted && themes && themes.length > 0 && (
+                    <>
+                      <div className="my-1.5 mx-3 h-px bg-primary" />
+                      <p className="px-3.5 pb-1 pt-0.5 text-[10px] font-semibold uppercase tracking-widest text-muted">
+                        Theme
+                      </p>
+                      {themes.map(({ id, label, icon }) => {
+                        const IconComponent = THEME_ICON_MAP[icon] ?? Sun;
+                        const isActive = theme === id;
+                        return (
+                          <button
+                            key={id}
+                            onClick={() => setThemeById(id)}
+                            className="flex items-center justify-between gap-2.5 rounded-md
+                                       mx-2 px-3 py-2.5 text-xs sm:text-sm text-left
+                                       w-[calc(100%-1rem)]
+                                       text-secondary
+                                       hover:bg-tertiary hover:text-primary
+                                       transition-colors duration-100 cursor-pointer select-none"
+                          >
+                            <span className="flex items-center gap-2.5">
+                              <IconComponent className="w-3.5 h-3.5 text-muted shrink-0" />
+                              {label}
+                            </span>
+                            {isActive && (
+                              <Check className="w-3.5 h-3.5 text-primary shrink-0" />
+                            )}
+                          </button>
+                        );
+                      })}
+                    </>
+                  )}
                 </motion.div>
               )}
             </AnimatePresence>
@@ -375,7 +441,7 @@ const Toolbar = ({
                   animate={{ opacity: 1, scale: 1, y: 0 }}
                   exit={{ opacity: 0, scale: 0.95, y: -4 }}
                   transition={{ duration: 0.12, ease: "easeOut" }}
-                  className="absolute right-0 z-50 py-1.5 mt-1 origin-top-right
+                  className="max-h-48 absolute right-0 z-50 py-1.5 mt-1 origin-top-right
                              bg-card
                              border border-primary
                              rounded-lg shadow-lg shadow-black/10

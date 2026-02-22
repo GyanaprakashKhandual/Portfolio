@@ -144,7 +144,7 @@ export default function OutlineSidebar({ content, scrollContainerId = "main-scro
           >
             <span className="flex items-center gap-2">
               {activeId === id && (
-                <span className="w-0.5 h-3.5 rounded-full bg-primary shrink-0" />
+                <span className="w-0.5 h-3.5 rounded-full bg-inverse shrink-0" />
               )}
               <span className={`truncate ${activeId === id ? "" : "pl-2.5"}`}>
                 {text}
